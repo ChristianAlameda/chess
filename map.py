@@ -1,6 +1,8 @@
 import pygame
 import os
-board = pygame.transform.scale2x(pygame.image.load(os.path.join("chessBoard.png")))
+
+test = 'this is a test'
+board = pygame.image.load(os.path.join("chessBoard.png"))
 
 b_bishop = pygame.image.load(os.path.join("black","BBishop.png"))
 b_knight = pygame.image.load(os.path.join("black","BKnight.png"))
