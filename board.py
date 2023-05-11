@@ -20,11 +20,10 @@ class Board:
             #we will start the actual board at 225,
             #pygame.draw.rect(surf, color, (x, y, w, h), outlineThickness)
             pygame.draw.rect(background,color, pygame.Rect(225,175,650,650), outlineThickness, border_radius=1)# (225,175) | (650,650)
+            self.touch()
             pygame.display.update()
     def touch(self):
-        if pygame.event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_presses = pygame.mouse.get_pressed()
-            print(pygame.mous.get_post())
-        
+        print(pygame.mouse.get_pos())
+            
 
             
