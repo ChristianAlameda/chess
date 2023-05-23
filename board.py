@@ -24,17 +24,27 @@ class Board:
         #pygame.draw.rect(background,color, pygame.Rect(225,175,x1,x1), outlineThickness, border_radius=1)# (225,175) | (650,650)
         
         
-        a = ['a','b','c','d','e','f','g','h']
+        a = ['A','B','C','D','E','F','G','H']
         b = ['1','2','3','4','5','6','7','8']
-        x213 = {
-            
-        }
+        x213 = {}
+        blackOrWhite = 0
         for i in range(0,8):
             for j in range(0,8):
-                position_name = a[i]+b[j]
+                
+                
                 position = pygame.draw.rect(background,color, pygame.Rect(225+j*x1,175+i*x1,x1,x1), outlineThickness, border_radius=1)
-                x213.update({position_name:position})
-        #print(x213)
+                
+                colorSquare = blackOrWhite
+                if blackOrWhite % 2 == 0:
+                    colorSquare = 'W'
+                else:
+                    colorSquare = 'B'
+                position_name = a[j]+b[i]
+                
+                    
+                x213.update({position_name:{"position":position, "On":False, "Color":colorSquare, "Piece":'B'}})
+                blackOrWhite = blackOrWhite + 1
+        print(x213)
                 
         pygame.display.update()
     
@@ -48,13 +58,20 @@ class Board:
             #{'a1': <rect(225, 175, 81, 81)>, 
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    for i in x213.values():
-                        if i.collidepoint(pygame.mouse.get_pos()):
+                    for i in x213:
+                        if x213[i]["position"].collidepoint(pygame.mouse.get_pos()):
                             print(i)
+                '''
                 if event.type == pygame.MOUSEBUTTONUP:
                     for i in x213.values():
                         if i.collidepoint(pygame.mouse.get_pos()):
                             print(i)
+                '''
+                if event.type == pygame.MOUSEBUTTONUP:
+                    for i in x213:
+                        if x213[i]["position"].collidepoint(pygame.mouse.get_pos()):
+                            print(i)
+                
             pygame.display.update()
     def partition(self):
         '''
@@ -90,13 +107,9 @@ class Board:
         pygame.display.update()
         
         '''
-        
-    def touch(self):
-        print(pygame.mouse.get_pos())
 def main():
     x = Board()
     x.create_board()
-    x.partition()
 if __name__ == "__main__":
     main()
 

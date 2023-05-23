@@ -1,8 +1,8 @@
 We are goin to make a Chess game that two players could potentially play
 Things the Game should have
 1. A board
-1.1 A picture of a board that I can calculate the pixels and then divide into 64 squares
-1.2 
+1.1 A picture of a board that I can calculate the pixels and then divide into 64 squares +
+1.2 +
 
 0,0 W; 0,1 B; 0,2 W; 0,3 B;
 1,0 B; 1,1 W; 1,2 B; 1,3 W; 
