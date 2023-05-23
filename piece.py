@@ -1,4 +1,4 @@
-import map
+import mapping
 
 class Piece:
     def __init__(self):
