@@ -3,14 +3,7 @@ import mapping
 class Board:
     def init(self):
         self.board = mapping.board
-        
     def create_board(self):
-        # sets the height and width of the board with (x,y)
-        x = 1000
-        y = 1000
-        background = pygame.display.set_mode((x, y))
-        image = mapping.board
-        
         color = (255,0,0)
         outlineThickness = 1
         x1 = 81.4
@@ -19,15 +12,16 @@ class Board:
         background = pygame.display.set_mode((x, y))
         image = mapping.board
         background.blit(image, (150, 100))
+        a = ['A','B','C','D','E','F','G','H']
+        b = ['8','7','6','5','4','3','2','1']
+        x213 = {}
+        squares = []
         #pygame.draw.rect(surface, color, (x, y, w, h), outlineThickness)
         #pygame.Rect(left, top, width, height) -> Rect
         #pygame.draw.rect(background,color, pygame.Rect(225,175,x1,x1), outlineThickness, border_radius=1)# (225,175) | (650,650)
         
         
-        a = ['A','B','C','D','E','F','G','H']
-        #b = ['1','2','3','4','5','6','7','8']
-        b = ['8','7','6','5','4','3','2','1']
-        x213 = {}
+        
         blackOrWhite = 0
         for i in range(0,8):
             for j in range(0,8):
@@ -41,14 +35,15 @@ class Board:
                 else:
                     colorSquare = 'B'
                 position_name = a[j]+b[i]
+                position_xy = [[j],[i]] # 0,0 0,1 0,2 0,3 0,4 0,5
                 
-                    
-                x213.update({position_name:{"position":position, "On":False, "Color":colorSquare, "Piece":'B'}})
+                squares.append(position_xy)
+                
+                x213.update({position_name:{"position":position, "On":False, "Color":colorSquare, "Piece":'B', "position_xy":position_xy}})
                 blackOrWhite = blackOrWhite + 1
-        print(x213)
-                
+        return x213, squares
         pygame.display.update()
-    
+        '''
         while True:
             for i in pygame.event.get():
                 if i.type == pygame.QUIT:
@@ -61,56 +56,22 @@ class Board:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     for i in x213:
                         if x213[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            print(i)
-                '''
-                if event.type == pygame.MOUSEBUTTONUP:
-                    for i in x213.values():
-                        if i.collidepoint(pygame.mouse.get_pos()):
-                            print(i)
-                '''
+                            print('MD: ' +i)
                 if event.type == pygame.MOUSEBUTTONUP:
                     for i in x213:
                         if x213[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            print(i)
+                            print('MU: '+i)
                 
             pygame.display.update()
-    def partition(self):
-        '''
-        color = (255,0,0)
-        outlineThickness = 1
-        x1 = 81.4
-        x = 1000
-        y = 1000
-        background = pygame.display.set_mode((x, y))
-        image = mapping.board
-        background.blit(image, (150, 100))
-        #pygame.draw.rect(surface, color, (x, y, w, h), outlineThickness)
-        #pygame.Rect(left, top, width, height) -> Rect
-        #pygame.draw.rect(background,color, pygame.Rect(225,175,x1,x1), outlineThickness, border_radius=1)# (225,175) | (650,650)
         
-        
-        a = ['a','b','c','d','e','f','g','h']
-        b = ['1','2','3','4','5','6','7','8']
-        x213 = {
-            
-        }
-        for i in range(0,8):
-            for j in range(0,8):
-                x324 = a[i]+b[j]
-                position = pygame.draw.rect(background,color, pygame.Rect(225+j*x1,175+i*x1,x1,x1), outlineThickness, border_radius=1)
-                x213.update({'x324':position})
-                # assign each rectangle to a letter and number
-                # example a1, b4, c8
-                #c.append(a[i]+b[j])
-                
-        print(x213)
-                
-        pygame.display.update()
         
         '''
+        
+        
+        
 def main():
     x = Board()
-    x.create_board()
+    print(x.create_board())
 if __name__ == "__main__":
     main()
 
