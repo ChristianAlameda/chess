@@ -4,46 +4,55 @@ from board import Board
 board = Board()
 position = board.create_board()
 coordinate = position[1]
+#[[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [0, 1], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [7, 1], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [0, 4], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4], [0, 5], [1, 5], [2, 5], [3, 5], [4, 5], [5, 5], [6, 5], [7, 5], [0, 6], [1, 6], [2, 6], [3, 6], [4, 6], [5, 6], [6, 6], [7, 6], [0, 7], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7]]
+#
+
+
 '''
 BLACK PIECES
 '''
+
 b_pieces = [b_rook, b_knight, b_bishop, b_queen, b_king]
-b_rook = [0][0]
-b_knight = [1][0]
-b_bishop = [2][0]
-b_queen = [3][0]
-b_king = [4][0]
-b_bishop = [5][0]
-b_knight = [6][0]
-b_rook = [7][0]
-b_pawn = [0][1]
-b_pawn = [1][1]
-b_pawn = [2][1]
-b_pawn = [3][1]
-b_pawn = [4][1]
-b_pawn = [5][1]
-b_pawn = [6][1]
-b_pawn = [7][1]
+b_rook = coordinate[0]
+b_knight = coordinate[1]
+b_bishop = coordinate[2]
+b_queen = coordinate[3]
+b_king = coordinate[4]
+b_bishop = coordinate[5]
+b_knight = coordinate[6]
+b_rook = coordinate[7]
+b_pawn = coordinate[8]
+b_pawn = coordinate[9]
+b_pawn = coordinate[10]
+b_pawn = coordinate[11]
+b_pawn = coordinate[12]
+b_pawn = coordinate[13]
+b_pawn = coordinate[14]
+b_pawn = coordinate[15]
 '''
 WHITE PIECES
 '''
+
+
 w_pieces = [w_rook, w_knight, w_bishop, w_queen, w_king]
-w_rook = [0][7]
-w_knight = [1][7]
-w_bishop = [2][7]
-w_queen = [3][7]
-w_king = [4][7]
-w_bishop = [5][7]
-w_knight = [6][7]
-w_rook =[7][7]
-w_pawn = [0][6]
-w_pawn = [1][6]
-w_pawn = [2][6]
-w_pawn = [3][6]
-w_pawn = [4][6]
-w_pawn = [5][6]
-w_pawn = [6][6]
-w_pawn = [7][6]
+w_pawn = coordinate[48]
+w_pawn = coordinate[49]
+w_pawn = coordinate[50]
+w_pawn = coordinate[51]
+w_pawn = coordinate[52]
+w_pawn = coordinate[53]
+w_pawn = coordinate[54]
+w_pawn = coordinate[55]
+w_rook = coordinate[56]
+w_knight = coordinate[57]
+w_bishop = coordinate[58]
+w_queen = coordinate[59]
+w_king = coordinate[60]
+w_bishop = coordinate[61]
+w_knight = coordinate[62]
+w_rook = coordinate[63]
+
+
 class Piece:
     def __init__(self):
         pass
@@ -62,6 +71,8 @@ class Piece:
                 if checkColor() == ownColor:
                     noCapture()
         '''
+        
+        
     def stop(self):
         print('cant move there silly')
     def can_move(self):
@@ -121,21 +132,21 @@ class black_knight(Piece):
                 self.stop()
         for i in w_pieces or not w_pieces: #square empty means there is no piece on that square
             if i == b_knight[x+2][y+1]:#1
-                can_move()
+                self.can_move()
             elif i == b_knight[x+2][y-1]:#2
-                can_move()
+                self.can_move()
             elif i == b_knight[x-2][y+1]:#3
-                can_move()
+                self.can_move()
             elif i == b_knight[x-2][y-1]:#4
-                can_move()
+                self.can_move()
             elif i == b_knight[x+1][y+2]:#5
-                can_move()
+                self.can_move()
             elif i == b_knight[x+1][y-2]:#6
-                can_move()
+                self.can_move()
             elif i == b_knight[x-1][y+2]:#7
-                can_move()
+                self.can_move()
             elif i == b_knight[x-1][y-2]:#8
-                can_move()
+                self.can_move()
         # make it so a knight can't jump off the board
         
         if b_knight[x+2][y+1] != onBoard:#1
@@ -266,13 +277,7 @@ class black_king(black_pawn):
     def check_illegal_move(self):
         pass
     
-'''
-fasdfads
 
-adfadfa
-
-asdfadsf
-'''
 class white_pawn(Piece):
     def black_move(self):
         pass
@@ -309,5 +314,10 @@ class white_king(Piece):
     def check_illegal_move(self):
         pass
 
-if __name__=="__main__":
-    Piece()
+
+def main():
+    print(coordinate[1][0])
+    #coordinate[1] = [1.0]
+    #coordinate[1][0] = 1
+if __name__ == "__main__":
+    main()

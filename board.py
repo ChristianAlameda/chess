@@ -35,7 +35,7 @@ class Board:
                 else:
                     colorSquare = 'B'
                 position_name = a[j]+b[i]
-                position_xy = [[j],[i]] # 0,0 0,1 0,2 0,3 0,4 0,5
+                position_xy = [j,i] # 0,0 0,1 0,2 0,3 0,4 0,5
                 
                 squares.append(position_xy)
                 
