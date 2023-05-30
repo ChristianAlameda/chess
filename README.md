@@ -15,6 +15,9 @@ Things the Game should have
 
 
 2. Pieces
+Each piece should have a set of moves that they can do 
+and only those moves can be played. When piece is pressed
+it will show the possible squares that piece can reach
 2.1 Pons
 2.2 Knights
 2.3 Bishops

@@ -39,16 +39,15 @@ class Board:
                 
                 squares.append(position_xy)
                 
-                x213.update({position_name:{"position":position, "On":False, "Color":colorSquare, "Piece":'B', "position_xy":position_xy}})
+                x213.update({position_name:{"position":position, "color":colorSquare, "piece":None, "position_xy":position_xy}})
                 blackOrWhite = blackOrWhite + 1
+        #print(x213)
         return x213, squares
-        pygame.display.update()
         '''
+        pygame.display.update()
+        
         while True:
-            for i in pygame.event.get():
-                if i.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
+            
             background.blit(image, (150, 100))
             
             #{'a1': <rect(225, 175, 81, 81)>, 
@@ -61,18 +60,22 @@ class Board:
                     for i in x213:
                         if x213[i]["position"].collidepoint(pygame.mouse.get_pos()):
                             print('MU: '+i)
-                
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
             pygame.display.update()
         
         
         '''
         
         
+            
+            
         
-def main():
-    x = Board()
-    print(x.create_board())
-if __name__ == "__main__":
-    main()
+        
+        
+        
+        
+
 
             
