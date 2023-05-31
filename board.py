@@ -39,7 +39,7 @@ class Board:
                 
                 squares.append(position_xy)
                 
-                x213.update({position_name:{"position":position, "color":colorSquare, "piece":None, "position_xy":position_xy}})
+                x213.update({position_name:{"position":position, "color":colorSquare, "owner":None ,"piece":None, "position_xy":position_xy}})
                 blackOrWhite = blackOrWhite + 1
         #print(x213)
         return x213, squares
