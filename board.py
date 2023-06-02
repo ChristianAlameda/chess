@@ -26,20 +26,19 @@ class Board:
         for i in range(0,8):
             for j in range(0,8):
                 
-                
-                position = pygame.draw.rect(background,color, pygame.Rect(225+j*x1,175+i*x1,x1,x1), outlineThickness, border_radius=1)
-                
-                colorSquare = blackOrWhite
-                if blackOrWhite % 2 == 0:
-                    colorSquare = 'W'
-                else:
-                    colorSquare = 'B'
                 position_name = a[j]+b[i]
+                position = pygame.draw.rect(background,color, pygame.Rect(225+j*x1,175+i*x1,x1,x1), outlineThickness, border_radius=1)
                 position_xy = [j,i] # 0,0 0,1 0,2 0,3 0,4 0,5
+                color_square = blackOrWhite
+                if blackOrWhite % 2 == 0:
+                    color_square = 'W'
+                else:
+                    color_square = 'B'
+                
                 
                 squares.append(position_xy)
                 
-                x213.update({position_name:{"position":position, "color":colorSquare, "owner":None ,"piece":None, "position_xy":position_xy}})
+                x213.update({position_name:{"position":position, "color_square":color_square, "owner":None ,"piece":None,"picture":None, "position_xy":position_xy}})
                 blackOrWhite = blackOrWhite + 1
         #print(x213)
         return x213, squares
