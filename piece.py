@@ -136,78 +136,108 @@ class Piece:
     def move(self):
         # get off of the square they start on unless they are blocked
         pass
-    def capture(self):
-        #can only capture the opposite color
-        '''
-        for piece in black_pieces:
-            if piece == capturable():
-                if checkColor() == ownColor:
-                    noCapture()
-        for piece in white_pieces:
-            if piece == capturable():
-                if checkColor() == ownColor:
-                    noCapture()
-        '''
-        
     def onBoard(self, new: str):
         # when pressed A8 C6
         if new in position[0]:
             return True
         else: return False
-            
-                
-                
-        
-        
-            
     def stop(self):
         print('cant move there silly')
     def can_move(self):
         print('you may move there sire/madam')
+        
+
 class black_pawn(Piece):
     # Spaghetti Code For Now
     def move(self):
         #Normal movement
         #if touched 
         s = True
+        s2 = True
         sw = True
         se = True
         #white or black piece standing in front
         #of pawn
         #x is square pressed
-        result = list(map(sum,zip(position[0][x]['postion_xy'],[0,1])))
+        result = list(map(sum,zip(position[0][x]['postion_xy'],[0,1])))   #south x1
         new = [change[result[0]] + str(result[1])]
-        #forward
-        if (position[0][new]['piece'] is None) and (self.onBoard() is True) and (s is True): # x is what square is pressed on
+        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[1,1])))  #south west
+        new1 = [change[result1[0]] + str(result1[1])]
+        result2 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,1]))) #south east
+        new2 = [change[result2[0]] + str(result2[1])]
+        result3 = list(map(sum,zip(position[0][x]['postion_xy'],[0,2])))  #south x2
+        new3 = [change[result3[0]] + str(result3[1])]
+        
+        #forward 1
+        if (position[0][new]['piece'] is None) and self.onBoard(new) and s: # x is what square is pressed on
             # x is what square is pressed on
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
+            position[0][x]['picture'] = None
             position[0][new]['piece'] = black_pawn()
             position[0][new]['owner'] = 'black'
-        elif not ((position[0][new]['piece'] is None) and (self.onBoard() is True) and (s is True)):
+            position[0][new]['picture'] = b_pawn
+        elif not ((position[0][new]['piece'] is None) and self.onBoard(new) and s):
             s = False
-        #capturing sw
-        result = list(map(sum,zip(position[0][x]['postion_xy'],[1,1])))
-        new = [change[result[0]] + str(result[1])]
-        #capturing se
-        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[0,1])))
-        new1 = [change[result[0]] + str(result1[1])]
-        if position[0][new]['piece'] is 'white' and sw == True:
+        #forward 2
+        
+        if (position[0][new]['piece'] == None) and (position[0][new3]['piece'] == None) and self.onBoard(new3) and s2:
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
-            position[0][new]['piece'] = black_pawn()
-            position[0][new]['owner'] = 'black'
-        elif not (position[0][new]['piece'] is 'white' and sw == True):
+            position[0][x]['picture'] = None
+            position[0][new3]['piece'] = black_pawn()
+            position[0][new3]['owner'] = 'black'
+            position[0][new3]['picture'] = b_pawn
+        elif not ((position[0][new3]['piece'] is 'white') and self.onBoard(new3) and s2):
             sw = False
-        if position[0][new1]['piece'] is 'white' and se == True:
+        #capturing sw
+        
+        #capturing se
+        
+        if position[0][new1]['owner'] is 'white' and self.onBoard(new1) and sw:
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
-            position[0][new]['piece'] = black_pawn()
-            position[0][new]['owner'] = 'black'
-        elif not (position[0][new1]['piece'] is 'white' and se == True):
+            position[0][x]['picture'] = None
+            position[0][new1]['piece'] = black_pawn()
+            position[0][new1]['owner'] = 'black'
+            position[0][new1]['picture'] = b_pawn
+        elif not (position[0][new1]['piece'] is 'white'and self.onBoard(new1) and sw):
+            sw = False
+        if (position[0][new2]['owner'] is 'white') and se:
+            position[0][x]['piece'] = None
+            position[0][x]['owner'] = None
+            position[0][x]['picture'] = None
+            position[0][new2]['piece'] = black_pawn()
+            position[0][new2]['owner'] = 'black'
+            position[0][new2]['picture'] = b_pawn
+        elif not (position[0][new2]['piece'] is 'white' and se):
             se = False
-    def get_to_end(self):
-        black_pawn() == black_queen()
+        if position[0][new]['position_xy'] == ([0,0] or [0,1] or [0,2] or [0,3] or [0,4] or [0,5] or [0,6] or [0,7]):
+            print('what piece would you like to change to?')
+            piece_selection = int(input("[1] - Queen\n[2] - Bishop\n[3] - Knight\n: "))
+            if piece_selection == 1:
+                position[0][x]['piece'] = None
+                position[0][x]['owner'] = None
+                position[0][x]['picture'] = None
+                position[0][new]['piece'] = black_queen() # it is not new but one of the values above 00 01 02 etc... 
+                position[0][new]['owner'] = 'black'
+                position[0][new]['picture'] = b_pawn
+                
+            elif piece_selection == 2:
+                position[0][x]['piece'] = None
+                position[0][x]['owner'] = None
+                position[0][x]['picture'] = None
+                position[0][new]['piece'] = black_bishop()
+                position[0][new]['owner'] = 'black'
+                position[0][new]['picture'] = b_bishop
+                
+            elif piece_selection == 3:
+                position[0][x]['piece'] = None
+                position[0][x]['owner'] = None
+                position[0][x]['picture'] = None
+                position[0][new]['piece'] = black_knight()
+                position[0][new]['owner'] = 'black'
+                position[0][new]['picture'] = b_knight
 class black_knight(Piece):
     def move(self):
         # x is whatever get's passed to us through the board pressing
@@ -241,64 +271,80 @@ class black_knight(Piece):
         if (position[0][new]['owner'] == 'white' or position[0][new]['owner'] == None) and self.onBoard() and a:#1
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
+            position[0][x]['picture'] = None
             position[0][new]['piece'] = black_knight()
             position[0][new]['owner'] = 'black'
+            position[0][new]['picture'] = b_knight
         elif not ((position[0][new]['owner'] == 'white' or position[0][new]['owner'] == None) and self.onBoard() and a):
             self.stop()
             a = False
         if (position[0][new1]['owner'] == 'white' or position[0][new1]['owner'] == None) and self.onBoard() and b:#2
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
+            position[0][x]['picture'] = None
             position[0][new1]['piece'] = black_knight()
             position[0][new1]['owner'] = 'black'
+            position[0][new1]['picture'] = b_knight
         elif not ((position[0][new1]['owner'] == 'white' or position[0][new1]['owner'] == None) and self.onBoard() and b):
             self.stop()
             a = False
         if (position[0][new2]['owner'] == 'white' or position[0][new2]['owner'] == None) and self.onBoard() and b:#3
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
+            position[0][x]['picture'] = None
             position[0][new2]['piece'] = black_knight()
             position[0][new2]['owner'] = 'black'
+            position[0][new2]['picture'] = b_knight
         elif not ((position[0][new2]['owner'] == 'white' or position[0][new2]['owner'] == None) and self.onBoard() and c):
             self.stop()
             a = False
         if (position[0][new3]['owner'] == 'white' or position[0][new3]['owner'] == None) and self.onBoard() and d:#4
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
+            position[0][x]['picture'] = None
             position[0][new3]['piece'] = black_knight()
             position[0][new3]['owner'] = 'black'
+            position[0][new3]['picture'] = b_knight
         elif not ((position[0][new3]['owner'] == 'white' or position[0][new3]['owner'] == None) and self.onBoard() and d):
             self.stop()
             a = False
         if (position[0][new4]['owner'] == 'white' or position[0][new4]['owner'] == None) and self.onBoard() and e:#5
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
+            position[0][x]['picture'] = None
             position[0][new4]['piece'] = black_knight()
             position[0][new4]['owner'] = 'black'
+            position[0][new4]['picture'] = b_knight
         elif not ((position[0][new4]['owner'] == 'white' or position[0][new4]['owner'] == None) and self.onBoard() and e):
             self.stop()
             a = False
         if (position[0][new5]['owner'] == 'white' or position[0][new5]['owner'] == None) and self.onBoard() and f:#6
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
+            position[0][x]['picture'] = None
             position[0][new5]['piece'] = black_knight()
             position[0][new5]['owner'] = 'black'
+            position[0][new5]['picture'] = b_knight
         elif not ((position[0][new5]['owner'] == 'white' or position[0][new5]['owner'] == None) and self.onBoard() and f):
             self.stop()
             a = False
         if (position[0][new6]['owner'] == 'white' or position[0][new6]['owner'] == None) and self.onBoard() and g:#7
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
+            position[0][x]['picture'] = None
             position[0][new6]['piece'] = black_knight()
             position[0][new6]['owner'] = 'black'
+            position[0][new6]['picture'] = b_knight
         elif not ((position[0][new6]['owner'] == 'white' or position[0][new6]['owner'] == None) and self.onBoard() and g):
             self.stop()
             a = False
         if (position[0][new7]['owner'] == 'white' or position[0][new7]['owner'] == None) and self.onBoard() and h:#8
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
+            position[0][x]['picture'] = None
             position[0][new7]['piece'] = black_knight()
             position[0][new7]['owner'] = 'black'
+            position[0][new7]['picture'] = b_knight
         elif not ((position[0][new7]['owner'] == 'white' or position[0][new7]['owner'] == None) and self.onBoard() and h):
             self.stop()
             a = False

@@ -23,12 +23,49 @@ it will show the possible squares that piece can reach
 2.3 Bishops
 2.4 Queen
 2.5 King
-3. The pieces should be organized on the board in their designated areas
-4. Pieces should be given instructions as to what they could do on any given turn
-4.1 A pon can move two squares up on their first move
-4.2. After their first move they can only move one square up
-5. Collision detection
-5.1 If there is a piece in front of the pon then the pon cannot move to the square in front of it
-5.2 Pieces can't replace their own pieces
-5.3 Pieces can't go through other pieces within their move
+
+4. Game Starts
+    1. State start = 0 // white is even // black is odd
+    2. Logic to tell if odd or even to determine who's turn it is. 
+    3. Each player should have 2 clicks that will be calculated
+        1. White(For Example) First Click: 
+            1. See what is on the square that was presssed first (Black or White Owner)
+            2. If Black: 
+                1. tell it to pick a white piecel don't add square pressed to list
+            3. If None: 
+                1. tell it to picka  white piece; don't add square pressed to list
+            4. If White: 
+                1. Call the moves function with the corresponding piece that was pressed and see what squares are legal
+                2. Color all of those squares in the list an opaque green
+        2. White: Second Click:
+            1. See if the square that was clicked second is in our list of legal moves that we created with First Click
+            2. If not:
+                1. Don't select that move to be put into our list. 
+                2. Do not register that that move has been played. 
+                3. Allow player to retry the second move
+            3. If so:
+                1. add that second square to the list of moves made 
+                2. remove what was on the square for First Click and add the piece that was on the square square from First Click to square for Second Click
+                3. start = start + 1
+        3. After the first sequence, black will have a turn // First Click:
+            1. See what is on the square that was presssed first (Black or White Owner)
+            2. If White: 
+                1. tell it to pick a white piecel don't add square pressed to list
+            3. If None: 
+                1. tell it to picka  white piece; don't add square pressed to list
+            4. If Black: 
+                1. Call the moves function with the corresponding piece that was pressed and see what squares are legal
+                2. Color all of those squares in the list an opaque green
+        4. See if the square that was clicked second is in our list of legal moves that we created with First Click
+            1. add that second square to the list of moves made 
+            2. If not:
+                1. Don't select that move to be put into our list. 
+                2. Do not register that that move has been played. 
+                3. Allow player to retry the second move
+            3. If so:
+                1. add that second square to the list of moves made 
+                2. remove what was on the square for First Click and add the piece that was on the square square from First Click to square for Second Click
+                3. start = start + 1
+
+
 
