@@ -44,7 +44,7 @@ Things the Game should have
                 1. add that second square to the list of moves made 
                 2. remove what was on the square for First Click and add the piece that was on the square square from First Click to square for Second Click
                 3. start = start + 1
-        3. After the first sequence, black will have a turn // First Click:
+        3. Black: First Click:
             1. See what is on the square that was presssed first (Black or White Owner)
             2. If White: 
                 1. tell it to pick a white piecel don't add square pressed to list
@@ -53,8 +53,8 @@ Things the Game should have
             4. If Black: 
                 1. Call the moves function with the corresponding piece that was pressed and see what squares are legal
                 2. Color all of those squares in the list an opaque green
-        4. See if the square that was clicked second is in our list of legal moves that we created with First Click
-            1. add that second square to the list of moves made 
+        4. Black: Second Click: 
+            1. See if the square that was clicked second is in our list of legal moves that we created with First Click
             2. If not:
                 1. Don't select that move to be put into our list. 
                 2. Do not register that that move has been played. 
