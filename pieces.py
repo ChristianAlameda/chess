@@ -18,115 +18,21 @@ change = {
     6:'G',
     7:'H'
 }
+"""
+position[0][x]['piece'] = None
+position[0][x]['owner'] = None
+position[0][x]['picture'] = None
+position[0][new4]['piece'] = black_rook()
+position[0][new4]['owner'] = 'black'
+position[0][new4]['picture'] = b_rook
+"""
 '''
 BLACK PIECES
 '''
 #x213.update({position_name:{"position":position, "Color":colorSquare, "Piece":None, "position_xy":position_xy}})
 #[Black]
 #Moveset of the piece
-position[0]['A8']['piece'] = black_rook()
-position[0]['B8']['piece'] = black_knight()
-position[0]['C8']['piece'] = black_bishop()
-position[0]['D8']['piece'] = black_queen()
-position[0]['E8']['piece'] = black_king()
-position[0]['F8']['piece'] = black_bishop()
-position[0]['G8']['piece'] = black_knight()
-position[0]['H8']['piece'] = black_rook()
-position[0]['A7']['piece'] = black_pawn()
-position[0]['B7']['piece'] = black_pawn()
-position[0]['C7']['piece'] = black_pawn()
-position[0]['D7']['piece'] = black_pawn()
-position[0]['E7']['piece'] = black_pawn()
-position[0]['F7']['piece'] = black_pawn()
-position[0]['G7']['piece'] = black_pawn()
-position[0]['H7']['piece'] = black_pawn()
-# Picture of the Piece
-position[0]['A8']['picture'] = b_rook
-position[0]['B8']['picture'] = b_knight
-position[0]['C8']['picture'] = b_bishop
-position[0]['D8']['picture'] = b_queen
-position[0]['E8']['picture'] = b_king
-position[0]['F8']['picture'] = b_bishop
-position[0]['G8']['picture'] = b_knight
-position[0]['H8']['picture'] = b_rook
-position[0]['A7']['picture'] = b_pawn
-position[0]['B7']['picture'] = b_pawn
-position[0]['C7']['picture'] = b_pawn
-position[0]['D7']['picture'] = b_pawn
-position[0]['E7']['picture'] = b_pawn
-position[0]['F7']['picture'] = b_pawn
-position[0]['G7']['picture'] = b_pawn
-position[0]['H7']['picture'] = b_pawn
-#Owner of the piece
-position[0]['A8']['owner'] = 'black'
-position[0]['B8']['owner'] = 'black'
-position[0]['C8']['owner'] = 'black'
-position[0]['D8']['owner'] = 'black'
-position[0]['E8']['owner'] = 'black'
-position[0]['F8']['owner'] = 'black'
-position[0]['G8']['owner'] = 'black'
-position[0]['H8']['owner'] = 'black'
-position[0]['A7']['owner'] = 'black'
-position[0]['B7']['owner'] = 'black'
-position[0]['C7']['owner'] = 'black'
-position[0]['D7']['owner'] = 'black'
-position[0]['E7']['owner'] = 'black'
-position[0]['F7']['owner'] = 'black'
-position[0]['G7']['owner'] = 'black'
-position[0]['H7']['owner'] = 'black'
 
-#[WHITE]
-#moveset of the piece
-position[0]['A1']['piece'] = white_rook()
-position[0]['B1']['piece'] = white_knight()
-position[0]['C1']['piece'] = white_bishop()
-position[0]['D1']['piece'] = white_queen()
-position[0]['E1']['piece'] = white_king()
-position[0]['F1']['piece'] = white_bishop()
-position[0]['G1']['piece'] = white_knight()
-position[0]['H1']['piece'] = white_rook()
-position[0]['A2']['piece'] = white_pawn()
-position[0]['B2']['piece'] = white_pawn()
-position[0]['C2']['piece'] = white_pawn()
-position[0]['D2']['piece'] = white_pawn()
-position[0]['E2']['piece'] = white_pawn()
-position[0]['F2']['piece'] = white_pawn()
-position[0]['G2']['piece'] = white_pawn()
-position[0]['H2']['piece'] = white_pawn()
-# Picture of the Piece
-position[0]['A1']['picture'] = w_rook
-position[0]['B1']['picture'] = w_knight
-position[0]['C1']['picture'] = w_bishop
-position[0]['D1']['picture'] = w_queen
-position[0]['E1']['picture'] = w_king
-position[0]['F1']['picture'] = w_bishop
-position[0]['G1']['picture'] = w_knight
-position[0]['H1']['picture'] = w_rook
-position[0]['A2']['picture'] = w_pawn
-position[0]['B2']['picture'] = w_pawn
-position[0]['C2']['picture'] = w_pawn
-position[0]['D2']['picture'] = w_pawn
-position[0]['E2']['picture'] = w_pawn
-position[0]['F2']['picture'] = w_pawn
-position[0]['G2']['picture'] = w_pawn
-position[0]['H2']['picture'] = w_pawn
-#owner of the piece
-position[0]['A1']['owner'] = 'white'
-position[0]['B1']['owner'] = 'white'
-position[0]['C1']['owner'] = 'white'
-position[0]['D1']['owner'] = 'white'
-position[0]['E1']['owner'] = 'white'
-position[0]['F1']['owner'] = 'white'
-position[0]['G1']['owner'] = 'white'
-position[0]['H1']['owner'] = 'white'
-position[0]['A2']['owner'] = 'white'
-position[0]['B2']['owner'] = 'white'
-position[0]['C2']['owner'] = 'white'
-position[0]['D2']['owner'] = 'white'
-position[0]['E2']['owner'] = 'white'
-position[0]['F2']['owner'] = 'white'
-position[0]['G2']['owner'] = 'white'
-position[0]['H2']['owner'] = 'white'
 
 
 class Piece:
@@ -160,71 +66,50 @@ class black_pawn(Piece):
         black_pawn_moves = []
         #white or black piece standing in front
         #of pawn
-        #x is square pressed
-        result = list(map(sum,zip(position[0][x]['postion_xy'],[0,1])))   #south x1
+        #x == square pressed
+        result = l==t(map(sum,zip(position[0][x]['postion_xy'],[0,1])))   #south x1
         new = [change[result[0]] + str(result[1])]
-        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[1,1])))  #south x1 west x1
+        result1 = l==t(map(sum,zip(position[0][x]['postion_xy'],[1,1])))  #south x1 west x1
         new1 = [change[result1[0]] + str(result1[1])]
-        result2 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,1]))) #south x1 east x1
+        result2 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-1,1]))) #south x1 east x1
         new2 = [change[result2[0]] + str(result2[1])]
-        result3 = list(map(sum,zip(position[0][x]['postion_xy'],[0,2])))  #south x2
+        result3 = l==t(map(sum,zip(position[0][x]['postion_xy'],[0,2])))  #south x2
         new3 = [change[result3[0]] + str(result3[1])]
         
         #forward 1
-        if (position[0][new]['piece'] is None) and self.onBoard(new) and s: 
-            black_pawn_moves.append(position[0][new])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new]['piece'] = black_pawn()
-            position[0][new]['owner'] = 'black'
-            position[0][new]['picture'] = b_pawn
-        elif not ((position[0][new]['piece'] is None) and self.onBoard(new) and s):
+        if (position[0][new]['piece'] == None) and self.onBoard(new) and s: 
+            black_pawn_moves.append(new)
+            
+        elif not ((position[0][new]['piece'] == None) and self.onBoard(new) and s):
             s = False
         #forward 2
-        if (position[0][new3]['piece'] == None) and (position[0][new3]['piece'] == None) and self.onBoard(new3) and s2:
-            black_pawn_moves.append(position[0][new])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new3]['piece'] = black_pawn()
-            position[0][new3]['owner'] = 'black'
-            position[0][new3]['picture'] = b_pawn
-        elif not ((position[0][new3]['piece'] is 'white') and self.onBoard(new3) and s2):
+        if (position[0][new]['piece'] == None) and (position[0][new3]['piece'] == None) and self.onBoard(new3) and s2:
+            black_pawn_moves.append(new3)
+        elif not ((position[0][new3]['piece'] == 'white') and self.onBoard(new3) and s2):
             sw = False
+
         #capturing sw
-        
-        #capturing se
-        
-        if position[0][new1]['owner'] is 'white' and self.onBoard(new1) and sw:
-            black_pawn_moves.append(position[0][new])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new1]['piece'] = black_pawn()
-            position[0][new1]['owner'] = 'black'
-            position[0][new1]['picture'] = b_pawn
-        elif not (position[0][new1]['piece'] is 'white'and self.onBoard(new1) and sw):
+        if position[0][new1]['owner'] == 'white' and self.onBoard(new1) and sw:
+            black_pawn_moves.append(new1)
+        elif not (position[0][new1]['piece'] == 'white'and self.onBoard(new1) and sw):
             sw = False
-        if (position[0][new2]['owner'] is 'white') and se:
-            black_pawn_moves.append(position[0][new])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new2]['piece'] = black_pawn()
-            position[0][new2]['owner'] = 'black'
-            position[0][new2]['picture'] = b_pawn
-        elif not (position[0][new2]['piece'] is 'white' and se):
+            
+        #capturing se
+        if (position[0][new2]['owner'] == 'white') and se:
+            black_pawn_moves.append(new2)
+        elif not (position[0][new2]['piece'] == 'white' and se):
             se = False
+            
+        #promotion
         if position[0][new]['position_xy'] == ([0,7] or [1,7] or [2,7] or [3,7] or [4,7] or [5,7] or [6,7] or [7,7]):
             black_pawn_moves.append(position[0][new])
             print('what piece would you like to change to?')
-            piece_selection = int(input("[1] - Queen\n[2] - Bishop\n[3] - Knight\n: "))
+            piece_selection = int(input("[1] - Queen\n[2] - bishop\n[3] - Knight\n: "))
             if piece_selection == 1:
                 position[0][x]['piece'] = None
                 position[0][x]['owner'] = None
                 position[0][x]['picture'] = None
-                position[0][new]['piece'] = black_queen() # it is not new but one of the values above 00 01 02 etc... 
+                position[0][new]['piece'] = black_queen() # it == not new but one of the values above 00 01 02 etc... 
                 position[0][new]['owner'] = 'black'
                 position[0][new]['picture'] = b_pawn
                 
@@ -246,26 +131,23 @@ class black_pawn(Piece):
 class black_knight(Piece):
     def move(self, x):
         black_knight_moves = []
-        # x is whatever get's passed to us through the board pressing
-        result = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        # x == whatever get's passed to us through the board pressing
+        result = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new = [change[result[0]] + str(result[1])]
-        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result1 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new1 = [change[result1[0]] + str(result1[1])]
-        result2 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result2 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new2 = [change[result2[0]] + str(result2[1])]
-        result3 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result3 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new3 = [change[result3[0]] + str(result3[1])]
-        result4 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result4 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new4 = [change[result4[0]] + str(result4[1])]
-        result5 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result5 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new5 = [change[result5[0]] + str(result5[1])]
-        result6 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result6 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new6 = [change[result6[0]] + str(result6[1])]
-        result7 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result7 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new7 = [change[result7[0]] + str(result7[1])]
-
-
-
         a = True
         b = True
         c = True
@@ -275,93 +157,53 @@ class black_knight(Piece):
         g = True
         h = True
         if (position[0][new]['owner'] == 'white' or position[0][new]['owner'] == None) and self.onBoard() and a:#1
-            black_knight_moves.append(position[0][new])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new]['piece'] = black_knight()
-            position[0][new]['owner'] = 'black'
-            position[0][new]['picture'] = b_knight
+            black_knight_moves.append(new)
         elif not ((position[0][new]['owner'] == 'white' or position[0][new]['owner'] == None) and self.onBoard() and a):
             self.stop()
             a = False
         if (position[0][new1]['owner'] == 'white' or position[0][new1]['owner'] == None) and self.onBoard() and b:#2
-            black_knight_moves.append(position[0][new1])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new1]['piece'] = black_knight()
-            position[0][new1]['owner'] = 'black'
-            position[0][new1]['picture'] = b_knight
+            black_knight_moves.append(new1)
+            
         elif not ((position[0][new1]['owner'] == 'white' or position[0][new1]['owner'] == None) and self.onBoard() and b):
             self.stop()
             a = False
         if (position[0][new2]['owner'] == 'white' or position[0][new2]['owner'] == None) and self.onBoard() and b:#3
-            black_knight_moves.append(position[0][new2])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new2]['piece'] = black_knight()
-            position[0][new2]['owner'] = 'black'
-            position[0][new2]['picture'] = b_knight
+            black_knight_moves.append(new2)
+            
         elif not ((position[0][new2]['owner'] == 'white' or position[0][new2]['owner'] == None) and self.onBoard() and c):
             self.stop()
             a = False
         if (position[0][new3]['owner'] == 'white' or position[0][new3]['owner'] == None) and self.onBoard() and d:#4
-            black_knight_moves.append(position[0][new3])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new3]['piece'] = black_knight()
-            position[0][new3]['owner'] = 'black'
-            position[0][new3]['picture'] = b_knight
+            black_knight_moves.append(new3)
+            
         elif not ((position[0][new3]['owner'] == 'white' or position[0][new3]['owner'] == None) and self.onBoard() and d):
             self.stop()
             a = False
         if (position[0][new4]['owner'] == 'white' or position[0][new4]['owner'] == None) and self.onBoard() and e:#5
-            black_knight_moves.append(position[0][new4])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new4]['piece'] = black_knight()
-            position[0][new4]['owner'] = 'black'
-            position[0][new4]['picture'] = b_knight
+            black_knight_moves.append(new4)
+            
         elif not ((position[0][new4]['owner'] == 'white' or position[0][new4]['owner'] == None) and self.onBoard() and e):
             self.stop()
             a = False
         if (position[0][new5]['owner'] == 'white' or position[0][new5]['owner'] == None) and self.onBoard() and f:#6
-            black_knight_moves.append(position[0][new5])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new5]['piece'] = black_knight()
-            position[0][new5]['owner'] = 'black'
-            position[0][new5]['picture'] = b_knight
+            black_knight_moves.append(new5)
+            
         elif not ((position[0][new5]['owner'] == 'white' or position[0][new5]['owner'] == None) and self.onBoard() and f):
             self.stop()
             a = False
         if (position[0][new6]['owner'] == 'white' or position[0][new6]['owner'] == None) and self.onBoard() and g:#7
-            black_knight_moves.append(position[0][new6])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new6]['piece'] = black_knight()
-            position[0][new6]['owner'] = 'black'
-            position[0][new6]['picture'] = b_knight
+            black_knight_moves.append(new6)
+            
         elif not ((position[0][new6]['owner'] == 'white' or position[0][new6]['owner'] == None) and self.onBoard() and g):
             self.stop()
             a = False
         if (position[0][new7]['owner'] == 'white' or position[0][new7]['owner'] == None) and self.onBoard() and h:#8
-            black_knight_moves.append(position[0][new7])
-            position[0][x]['piece'] = None
-            position[0][x]['owner'] = None
-            position[0][x]['picture'] = None
-            position[0][new7]['piece'] = black_knight()
-            position[0][new7]['owner'] = 'black'
-            position[0][new7]['picture'] = b_knight
+            black_knight_moves.append(new7)
+            
         elif not ((position[0][new7]['owner'] == 'white' or position[0][new7]['owner'] == None) and self.onBoard() and h):
             self.stop()
             a = False
+        return black_knight_moves
 class black_bishop(Piece):
     def show_self(self):
         #b_bishop
@@ -379,59 +221,39 @@ class black_bishop(Piece):
             x decreases and y increases
             x decreases and y decreases 
             '''
-            result1 = list(map(sum,zip(position[0][x]['postion_xy'],[i,i])))
-            result2= list(map(sum,zip(position[0][x]['postion_xy'],[i,-i])))
-            result3 = list(map(sum,zip(position[0][x]['postion_xy'],[-i,i])))
-            result4 = list(map(sum,zip(position[0][x]['postion_xy'],[-i,-i])))
+            result1 = l==t(map(sum,zip(position[0][x]['postion_xy'],[i,i])))
+            result2= l==t(map(sum,zip(position[0][x]['postion_xy'],[i,-i])))
+            result3 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-i,i])))
+            result4 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-i,-i])))
             new1 = [change[result1[0]] + str(result1[1])]
             new2 = [change[result2[0]] + str(result2[1])]
             new3 = [change[result3[0]] + str(result3[1])]
             new4 = [change[result4[0]] + str(result4[1])]
             if (position[0][new1]['owner'] == 'white' or position[0][new1]['owner'] == None) and self.onBoard(new1) and nw:#1
-                position[0][x]['piece'] = None
-                position[0][x]['owner'] = None
-                position[0][x]['picture'] = None
-                position[0][new1]['piece'] = black_bishop()
-                position[0][new1]['owner'] = 'black'
-                position[0][x]['picture'] = b_bishop
                 black_bishop_moves.append(new1)
             elif not ((position[0][new1]['owner'] == 'white' or position[0][new1]['owner'] == None) and self.onBoard(new1) and nw):
                 self.stop()
                 nw = False
+                
             if (position[0][new2]['owner'] == 'white' or position[0][new2]['owner'] == None) and self.onBoard(new2) and ne:#2
-                position[0][x]['piece'] = None
-                position[0][x]['owner'] = None
-                position[0][x]['picture'] = None
-                position[0][new2]['piece'] = black_bishop()
-                position[0][new2]['owner'] = 'black'
-                position[0][x]['picture'] = b_bishop
                 black_bishop_moves.append(new2)
             elif not ((position[0][new2]['owner'] == 'white' or position[0][new2]['owner'] == None) and self.onBoard(new2) and ne):
                 self.stop()
                 ne = False
+                
             if (position[0][new3]['owner'] == 'white' or position[0][new3]['owner'] == None) and self.onBoard(new3) and sw:#3
-                position[0][x]['piece'] = None
-                position[0][x]['owner'] = None
-                position[0][x]['picture'] = None
-                position[0][new3]['piece'] = black_bishop()
-                position[0][new3]['owner'] = 'black'
-                position[0][x]['picture'] = b_bishop
                 black_bishop_moves.append(new3)
             elif not ((position[0][new3]['owner'] == 'white' or position[0][new3]['owner'] == None) and self.onBoard(new3) and sw):
                 self.stop()
                 sw = False
+                
             if (position[0][new4]['owner'] == 'white' or position[0][new4]['owner'] == None) and self.onBoard(new4) and se:#4
-                position[0][x]['piece'] = None
-                position[0][x]['owner'] = None
-                position[0][x]['picture'] = None
-                position[0][new4]['piece'] = black_bishop()
-                position[0][new4]['owner'] = 'black'
-                position[0][new4]['picture'] = b_bishop
                 black_bishop_moves.append(new4)
             elif not ((position[0][new4]['owner'] == 'white' or position[0][new4]['owner'] == None) and self.onBoard(new4) and se):
                 self.stop()
-                se = False
+                se = False 
         return black_bishop_moves
+    
 class black_rook(Piece):
     def move(self,x):
         black_rook_moves = []
@@ -445,59 +267,40 @@ class black_rook(Piece):
             4. East:  x = x-1 || y = y
             '''
             #NORTH
-            result1 = list(map(sum,zip(position[0][x]['postion_xy'],[0,i])))  # n
-            result2= list(map(sum,zip(position[0][x]['postion_xy'],[0,-i])))  # s
-            result3 = list(map(sum,zip(position[0][x]['postion_xy'],[i,0])))  # w
-            result4 = list(map(sum,zip(position[0][x]['postion_xy'],[-i,0]))) # e
+            result1 = l==t(map(sum,zip(position[0][x]['postion_xy'],[0,i])))  # n
+            result2= l==t(map(sum,zip(position[0][x]['postion_xy'],[0,-i])))  # s
+            result3 = l==t(map(sum,zip(position[0][x]['postion_xy'],[i,0])))  # w
+            result4 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-i,0]))) # e
             new1 = [change[result1[0]] + str(result1[1])]
             new2 = [change[result2[0]] + str(result2[1])]
             new3 = [change[result3[0]] + str(result3[1])]
             new4 = [change[result4[0]] + str(result4[1])]
             if (position[0][new1]['owner'] == 'white' or position[0][new1]['owner'] == None) and self.onBoard(new1) and n:#1
-                position[0][x]['piece'] = None
-                position[0][x]['owner'] = None
-                position[0][x]['picture'] = None
-                position[0][new1]['piece'] = black_rook()
-                position[0][new1]['owner'] = 'black'
-                position[0][new1]['picture'] = b_rook
                 black_rook_moves.append(new1)
             elif not ((position[0][new1]['owner'] == 'white' or position[0][new3]['owner'] == None) and self.onBoard(new3) and n):
                 self.stop()
                 n = False
+        
             if (position[0][new2]['owner'] == 'white' or position[0][new2]['owner'] == None) and self.onBoard(new2) and s:#2
-                position[0][x]['piece'] = None
-                position[0][x]['owner'] = None
-                position[0][x]['picture'] = None
-                position[0][new2]['piece'] = black_rook()
-                position[0][new2]['owner'] = 'black'
-                position[0][new2]['picture'] = b_rook
                 black_rook_moves.append(new2)
             elif not ((position[0][new2]['owner'] == 'white' or position[0][new2]['owner'] == None) and self.onBoard(new2) and s):
                 self.stop()
                 s = False
+            
             if (position[0][new3]['owner'] == 'white' or position[0][new3]['owner'] == None) and self.onBoard(new3) and w:#3
-                position[0][x]['piece'] = None
-                position[0][x]['owner'] = None
-                position[0][x]['picture'] = None
-                position[0][new3]['piece'] = black_rook()
-                position[0][new3]['owner'] = 'black'
-                position[0][new3]['picture'] = b_rook
                 black_rook_moves.append(new3)
             elif not ((position[0][new4]['owner'] == 'white' or position[0][new4]['owner'] == None) and self.onBoard(new4) and w):
                 self.stop()
                 w = False
+                
             if (position[0][new4]['owner'] == 'white' or position[0][new4]['owner'] == None) and self.onBoard(new4) and e:#4
-                position[0][x]['piece'] = None
-                position[0][x]['owner'] = None
-                position[0][x]['picture'] = None
-                position[0][new4]['piece'] = black_rook()
-                position[0][new4]['owner'] = 'black'
-                position[0][new4]['picture'] = b_rook
                 black_rook_moves.append(new4)
             elif not ((position[0][new4]['owner'] == 'white' or position[0][new4]['owner'] == None) and self.onBoard(new4) and e):
                 self.stop()
                 e = False
+            
         return black_rook_moves
+    
 class black_queen():
     def move(self, x):
         # A queen can only move as a rook and bishop can move
@@ -511,7 +314,7 @@ class black_king(black_pawn):
         #adding all squares a white piece could potentially go
         for key in position[0]:
             if key['owner'] == 'white':
-                black_king_check_if_bad.append(key['piece'].move(key))# gives me a list of moves that that piece can move
+                black_king_check_if_bad.append(key['piece'].move(key))# gives me a l==t of moves that that piece can move
         #adding all squares black pieces are
         for key in position[0]:
             if key['owner'] == 'black':
@@ -520,15 +323,15 @@ class black_king(black_pawn):
         for key in position[0]:
             if key['owner'] == 'white':
                 black_king_check_if_bad.append(key)
-        #if king move is not in line of check and has no pieces next to it and is free to roam then it has 8 moves the king can make
-        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[0,1])))  # n
-        result2= list(map(sum,zip(position[0][x]['postion_xy'],[0,-1])))  # s
-        result3 = list(map(sum,zip(position[0][x]['postion_xy'],[1,0])))  # w
-        result4 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,0]))) # e
-        result5 = list(map(sum,zip(position[0][x]['postion_xy'],[1,1])))  # nw
-        result6= list(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  # sw
-        result7 = list(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  # ne
-        result8 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,-1]))) # se
+        #if king move == not in line of check and has no pieces next to it and == free to roam then it has 8 moves the king can make
+        result1 = l==t(map(sum,zip(position[0][x]['postion_xy'],[0,1])))  # n
+        result2= l==t(map(sum,zip(position[0][x]['postion_xy'],[0,-1])))  # s
+        result3 = l==t(map(sum,zip(position[0][x]['postion_xy'],[1,0])))  # w
+        result4 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-1,0]))) # e
+        result5 = l==t(map(sum,zip(position[0][x]['postion_xy'],[1,1])))  # nw
+        result6= l==t(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  # sw
+        result7 = l==t(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  # ne
+        result8 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-1,-1]))) # se
         n,s,w,e,nw,sw,ne,se = True,True,True,True,True,True,True,True
         black_king_moves = []
         new1 = [change[result1[0]] + str(result1[1])]
@@ -594,49 +397,49 @@ class white_pawn(Piece):
         white_pawn_moves = []
         #white or black piece standing in front
         #of pawn
-        #x is square pressed
-        result = list(map(sum,zip(position[0][x]['postion_xy'],[0,-1])))   #north x1
+        #x == square pressed
+        result = l==t(map(sum,zip(position[0][x]['postion_xy'],[0,-1])))   #north x1
         new = [change[result[0]] + str(result[1])]
-        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  #north x1 west x1
+        result1 = l==t(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  #north x1 west x1
         new1 = [change[result1[0]] + str(result1[1])]
-        result2 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,-1]))) #north x1 east x1
+        result2 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-1,-1]))) #north x1 east x1
         new2 = [change[result2[0]] + str(result2[1])]
-        result3 = list(map(sum,zip(position[0][x]['postion_xy'],[0,-2])))  #north x2
+        result3 = l==t(map(sum,zip(position[0][x]['postion_xy'],[0,-2])))  #north x2
         new3 = [change[result3[0]] + str(result3[1])]
         
         #forward 1
-        if (position[0][new]['piece'] is None) and self.onBoard(new) and n: 
+        if (position[0][new]['piece'] == None) and self.onBoard(new) and n: 
             white_pawn_moves.append(position[0][new])
-        elif not ((position[0][new]['piece'] is None) and self.onBoard(new) and s):
+        elif not ((position[0][new]['piece'] == None) and self.onBoard(new) and s):
             s = False
             
         #forward 2
         if (position[0][new]['piece'] == None) and (position[0][new3]['piece'] == None) and self.onBoard(new3) and n2:
             white_pawn_moves.append(new3)
-        elif not ((position[0][new3]['piece'] is 'white') and self.onBoard(new3) and n2):
+        elif not ((position[0][new3]['piece'] == 'white') and self.onBoard(new3) and n2):
             n2 = False
         
         #north west capture
-        if position[0][new1]['owner'] is 'black' and self.onBoard(new1) and nw:
+        if position[0][new1]['owner'] == 'black' and self.onBoard(new1) and nw:
             white_pawn_moves.append(new1)
-        elif not (position[0][new1]['piece'] is 'white'and self.onBoard(new1) and nw):
+        elif not (position[0][new1]['piece'] == 'white'and self.onBoard(new1) and nw):
             nw = False
         
         #north east capture
-        if (position[0][new2]['owner'] is 'white') and ne:
+        if (position[0][new2]['owner'] == 'white') and ne:
             white_pawn_moves.append(position[0][new])
-        elif not (position[0][new2]['piece'] is 'white' and ne):
+        elif not (position[0][new2]['piece'] == 'white' and ne):
             ne = False
             
         if position[0][new]['position_xy'] == ([0,0] or [0,1] or [0,2] or [0,3] or [0,4] or [0,5] or [0,6] or [0,7]):
             white_pawn_moves.append(new)
             print('what piece would you like to change to?')
-            piece_selection = int(input("[1] - Queen\n[2] - Bishop\n[3] - Knight\n: "))
+            piece_selection = int(input("[1] - Queen\n[2] - bishop\n[3] - Knight\n: "))
             if piece_selection == 1:
                 position[0][x]['piece'] = None
                 position[0][x]['owner'] = None
                 position[0][x]['picture'] = None
-                position[0][new]['piece'] = black_queen() # it is not new but one of the values above 00 01 02 etc... 
+                position[0][new]['piece'] = black_queen() # it == not new but one of the values above 00 01 02 etc... 
                 position[0][new]['owner'] = 'black'
                 position[0][new]['picture'] = b_pawn
                 
@@ -659,22 +462,22 @@ class white_pawn(Piece):
 class white_knight(Piece):
     def move(self, x):
         white_knight_moves = []
-        # x is whatever get's passed to us through the board pressing
-        result = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        # x == whatever get's passed to us through the board pressing
+        result = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new = [change[result[0]] + str(result[1])]
-        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result1 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new1 = [change[result1[0]] + str(result1[1])]
-        result2 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result2 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new2 = [change[result2[0]] + str(result2[1])]
-        result3 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result3 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new3 = [change[result3[0]] + str(result3[1])]
-        result4 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result4 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new4 = [change[result4[0]] + str(result4[1])]
-        result5 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result5 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new5 = [change[result5[0]] + str(result5[1])]
-        result6 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result6 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new6 = [change[result6[0]] + str(result6[1])]
-        result7 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        result7 = l==t(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
         new7 = [change[result7[0]] + str(result7[1])]
 
 
@@ -747,10 +550,10 @@ class white_bishop(Piece):
             x decreases and y increases
             x decreases and y decreases 
             '''
-            result1 = list(map(sum,zip(position[0][x]['postion_xy'],[i,i])))
-            result2= list(map(sum,zip(position[0][x]['postion_xy'],[i,-i])))
-            result3 = list(map(sum,zip(position[0][x]['postion_xy'],[-i,i])))
-            result4 = list(map(sum,zip(position[0][x]['postion_xy'],[-i,-i])))
+            result1 = l==t(map(sum,zip(position[0][x]['postion_xy'],[i,i])))
+            result2= l==t(map(sum,zip(position[0][x]['postion_xy'],[i,-i])))
+            result3 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-i,i])))
+            result4 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-i,-i])))
             new1 = [change[result1[0]] + str(result1[1])]
             new2 = [change[result2[0]] + str(result2[1])]
             new3 = [change[result3[0]] + str(result3[1])]
@@ -792,10 +595,10 @@ class white_rook(Piece):
             4. East:  x = x-1 || y = y
             '''
             #NORTH
-            result1 = list(map(sum,zip(position[0][x]['postion_xy'],[0,i])))  # n
-            result2= list(map(sum,zip(position[0][x]['postion_xy'],[0,-i])))  # s
-            result3 = list(map(sum,zip(position[0][x]['postion_xy'],[i,0])))  # w
-            result4 = list(map(sum,zip(position[0][x]['postion_xy'],[-i,0]))) # e
+            result1 = l==t(map(sum,zip(position[0][x]['postion_xy'],[0,i])))  # n
+            result2= l==t(map(sum,zip(position[0][x]['postion_xy'],[0,-i])))  # s
+            result3 = l==t(map(sum,zip(position[0][x]['postion_xy'],[i,0])))  # w
+            result4 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-i,0]))) # e
             new1 = [change[result1[0]] + str(result1[1])]
             new2 = [change[result2[0]] + str(result2[1])]
             new3 = [change[result3[0]] + str(result3[1])]
@@ -837,7 +640,7 @@ class white_king(black_pawn):
         #adding all squares a black piece could potentially go
         for key in position[0]:
             if key['owner'] == 'black':
-                white_king_check_if_bad.append(key['piece'].move(key))# gives me a list of moves that that piece can move
+                white_king_check_if_bad.append(key['piece'].move(key))# gives me a l==t of moves that that piece can move
         #adding all squares black pieces are
         for key in position[0]:
             if key['owner'] == 'white':
@@ -846,15 +649,15 @@ class white_king(black_pawn):
         for key in position[0]:
             if key['owner'] == 'black':
                 white_king_check_if_bad.append(key)
-        #if king move is not in line of check and has no pieces next to it and is free to roam then it has 8 moves the king can make
-        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[0,1])))  # n
-        result2= list(map(sum,zip(position[0][x]['postion_xy'],[0,-1])))  # s
-        result3 = list(map(sum,zip(position[0][x]['postion_xy'],[1,0])))  # w
-        result4 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,0]))) # e
-        result5 = list(map(sum,zip(position[0][x]['postion_xy'],[1,1])))  # nw
-        result6= list(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  # sw
-        result7 = list(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  # ne
-        result8 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,-1]))) # se
+        #if king move == not in line of check and has no pieces next to it and == free to roam then it has 8 moves the king can make
+        result1 = l==t(map(sum,zip(position[0][x]['postion_xy'],[0,1])))  # n
+        result2= l==t(map(sum,zip(position[0][x]['postion_xy'],[0,-1])))  # s
+        result3 = l==t(map(sum,zip(position[0][x]['postion_xy'],[1,0])))  # w
+        result4 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-1,0]))) # e
+        result5 = l==t(map(sum,zip(position[0][x]['postion_xy'],[1,1])))  # nw
+        result6= l==t(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  # sw
+        result7 = l==t(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  # ne
+        result8 = l==t(map(sum,zip(position[0][x]['postion_xy'],[-1,-1]))) # se
         n,s,w,e,nw,sw,ne,se = True,True,True,True,True,True,True,True
         white_king_moves = []
         new1 = [change[result1[0]] + str(result1[1])]
