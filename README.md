@@ -21,7 +21,7 @@ Things the Game should have
     7. 2.4 Queen
     8. 2.5 King
 
-4. Game Starts
+3. Game Starts
     1. State start = 0 // white is even // black is odd
     2. Logic to tell if odd or even to determine who's turn it is. 
     3. Each player should have 2 clicks that will be calculated
