@@ -18,7 +18,6 @@ change = {
     6:'G',
     7:'H'
 }
-
 '''
 BLACK PIECES
 '''
@@ -148,13 +147,15 @@ class Piece:
         
 
 class black_pawn(Piece):
-    # Spaghetti Code For Now
     def move(self, x):
-        #Normal movement
-        #if touched 
+        #Movement
+        # s = south 1 time
         s = True
+        # s2 = south 2 times
         s2 = True
+        # sw = south west 1,-1
         sw = True
+        # se = south east -1,-1
         se = True
         black_pawn_moves = []
         #white or black piece standing in front
@@ -162,16 +163,15 @@ class black_pawn(Piece):
         #x is square pressed
         result = list(map(sum,zip(position[0][x]['postion_xy'],[0,1])))   #south x1
         new = [change[result[0]] + str(result[1])]
-        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[1,1])))  #south west
+        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[1,1])))  #south x1 west x1
         new1 = [change[result1[0]] + str(result1[1])]
-        result2 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,1]))) #south east
+        result2 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,1]))) #south x1 east x1
         new2 = [change[result2[0]] + str(result2[1])]
         result3 = list(map(sum,zip(position[0][x]['postion_xy'],[0,2])))  #south x2
         new3 = [change[result3[0]] + str(result3[1])]
         
         #forward 1
-        if (position[0][new]['piece'] is None) and self.onBoard(new) and s: # x is what square is pressed on
-            # x is what square is pressed on
+        if (position[0][new]['piece'] is None) and self.onBoard(new) and s: 
             black_pawn_moves.append(position[0][new])
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
@@ -182,8 +182,7 @@ class black_pawn(Piece):
         elif not ((position[0][new]['piece'] is None) and self.onBoard(new) and s):
             s = False
         #forward 2
-        
-        if (position[0][new]['piece'] == None) and (position[0][new3]['piece'] == None) and self.onBoard(new3) and s2:
+        if (position[0][new3]['piece'] == None) and (position[0][new3]['piece'] == None) and self.onBoard(new3) and s2:
             black_pawn_moves.append(position[0][new])
             position[0][x]['piece'] = None
             position[0][x]['owner'] = None
@@ -217,7 +216,7 @@ class black_pawn(Piece):
             position[0][new2]['picture'] = b_pawn
         elif not (position[0][new2]['piece'] is 'white' and se):
             se = False
-        if position[0][new]['position_xy'] == ([0,0] or [0,1] or [0,2] or [0,3] or [0,4] or [0,5] or [0,6] or [0,7]):
+        if position[0][new]['position_xy'] == ([0,7] or [1,7] or [2,7] or [3,7] or [4,7] or [5,7] or [6,7] or [7,7]):
             black_pawn_moves.append(position[0][new])
             print('what piece would you like to change to?')
             piece_selection = int(input("[1] - Queen\n[2] - Bishop\n[3] - Knight\n: "))
@@ -508,19 +507,19 @@ class black_queen():
         
 class black_king(black_pawn):
     def move(self,x):
-        black_king_future_check = []
+        black_king_check_if_bad = []
         #adding all squares a white piece could potentially go
         for key in position[0]:
             if key['owner'] == 'white':
-                black_king_future_check.append(key['piece'].move(key))# gives me a list of moves that that piece can move
+                black_king_check_if_bad.append(key['piece'].move(key))# gives me a list of moves that that piece can move
         #adding all squares black pieces are
         for key in position[0]:
             if key['owner'] == 'black':
-                black_king_future_check.append(key['piece'].move(key))
+                black_king_check_if_bad.append(key['piece'].move(key))
         #Collecting position of all pieces on the board
         for key in position[0]:
             if key['owner'] == 'white':
-                black_king_future_check.append(key)
+                black_king_check_if_bad.append(key)
         #if king move is not in line of check and has no pieces next to it and is free to roam then it has 8 moves the king can make
         result1 = list(map(sum,zip(position[0][x]['postion_xy'],[0,1])))  # n
         result2= list(map(sum,zip(position[0][x]['postion_xy'],[0,-1])))  # s
@@ -541,94 +540,368 @@ class black_king(black_pawn):
         new7 = [change[result7[0]] + str(result7[1])]
         new8 = [change[result8[0]] + str(result8[1])]
 
-        if position[0][new1] not in black_king_future_check and self.onBoard(new1) and n:#1
+        if position[0][new1] not in black_king_check_if_bad and self.onBoard(new1) and n:#1
             black_king_moves.append(new1)
-        elif not (position[0][new1] not in black_king_future_check and self.onBoard(new1) and n):
+        elif not (position[0][new1] not in black_king_check_if_bad and self.onBoard(new1) and n):
             n = False
             
-        if position[0][new2] not in black_king_future_check and self.onBoard(new2) and s:#2
+        if position[0][new2] not in black_king_check_if_bad and self.onBoard(new2) and s:#2
             black_king_moves.append(new2)
-        elif not (position[0][new2] not in black_king_future_check and self.onBoard(new2) and s):
+        elif not (position[0][new2] not in black_king_check_if_bad and self.onBoard(new2) and s):
             s = False
             
-        if position[0][new3] not in black_king_future_check and self.onBoard(new3) and w:#3
+        if position[0][new3] not in black_king_check_if_bad and self.onBoard(new3) and w:#3
             black_king_moves.append(new3)
-        elif not (position[0][new3] not in black_king_future_check and self.onBoard(new3) and w):
+        elif not (position[0][new3] not in black_king_check_if_bad and self.onBoard(new3) and w):
             w = False
         
-        if position[0][new4] not in black_king_future_check and self.onBoard(new4) and e:#4
+        if position[0][new4] not in black_king_check_if_bad and self.onBoard(new4) and e:#4
             black_king_moves.append(new4)
-        elif not (position[0][new4] not in black_king_future_check and self.onBoard(new4) and e):
+        elif not (position[0][new4] not in black_king_check_if_bad and self.onBoard(new4) and e):
             e = False
         
-        if position[0][new5] not in black_king_future_check and self.onBoard(new5) and nw:#5
+        if position[0][new5] not in black_king_check_if_bad and self.onBoard(new5) and nw:#5
             black_king_moves.append(new5)
-        elif not (position[0][new5] not in black_king_future_check and self.onBoard(new5) and nw):
+        elif not (position[0][new5] not in black_king_check_if_bad and self.onBoard(new5) and nw):
             nw = False
             
-        if position[0][new6] not in black_king_future_check and self.onBoard(new6) and sw:#6
+        if position[0][new6] not in black_king_check_if_bad and self.onBoard(new6) and sw:#6
             black_king_moves.append(new6)
-        elif not (position[0][new6] not in black_king_future_check and self.onBoard(new6) and sw):
+        elif not (position[0][new6] not in black_king_check_if_bad and self.onBoard(new6) and sw):
             sw = False
             
-        if position[0][new7] not in black_king_future_check and self.onBoard(new7) and ne:#7
+        if position[0][new7] not in black_king_check_if_bad and self.onBoard(new7) and ne:#7
             black_king_moves.append(new7)
-        elif not (position[0][new7] not in black_king_future_check and self.onBoard(new7) and ne):
+        elif not (position[0][new7] not in black_king_check_if_bad and self.onBoard(new7) and ne):
             ne = False
             
-        if position[0][new8] not in black_king_future_check and self.onBoard(new8) and se:#8
+        if position[0][new8] not in black_king_check_if_bad and self.onBoard(new8) and se:#8
             black_king_moves.append(new8)
-        elif not (position[0][new8] not in black_king_future_check and self.onBoard(new8) and se):
+        elif not (position[0][new8] not in black_king_check_if_bad and self.onBoard(new8) and se):
             se = False
 
 class white_pawn(Piece):
-    def move(self):
-        pass
-    def capture(self):
-        pass
-    def check_illegal_move(self):
-        pass
+    def move(self, x):
+        #Movement
+        # n = north 1 time
+        n = True
+        # n2 = north 2 times
+        n2 = True
+        # nw = north west 
+        nw = True
+        # ne = north east 
+        ne = True
+        white_pawn_moves = []
+        #white or black piece standing in front
+        #of pawn
+        #x is square pressed
+        result = list(map(sum,zip(position[0][x]['postion_xy'],[0,-1])))   #north x1
+        new = [change[result[0]] + str(result[1])]
+        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  #north x1 west x1
+        new1 = [change[result1[0]] + str(result1[1])]
+        result2 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,-1]))) #north x1 east x1
+        new2 = [change[result2[0]] + str(result2[1])]
+        result3 = list(map(sum,zip(position[0][x]['postion_xy'],[0,-2])))  #north x2
+        new3 = [change[result3[0]] + str(result3[1])]
+        
+        #forward 1
+        if (position[0][new]['piece'] is None) and self.onBoard(new) and n: 
+            white_pawn_moves.append(position[0][new])
+        elif not ((position[0][new]['piece'] is None) and self.onBoard(new) and s):
+            s = False
+            
+        #forward 2
+        if (position[0][new]['piece'] == None) and (position[0][new3]['piece'] == None) and self.onBoard(new3) and n2:
+            white_pawn_moves.append(new3)
+        elif not ((position[0][new3]['piece'] is 'white') and self.onBoard(new3) and n2):
+            n2 = False
+        
+        #north west capture
+        if position[0][new1]['owner'] is 'black' and self.onBoard(new1) and nw:
+            white_pawn_moves.append(new1)
+        elif not (position[0][new1]['piece'] is 'white'and self.onBoard(new1) and nw):
+            nw = False
+        
+        #north east capture
+        if (position[0][new2]['owner'] is 'white') and ne:
+            white_pawn_moves.append(position[0][new])
+        elif not (position[0][new2]['piece'] is 'white' and ne):
+            ne = False
+            
+        if position[0][new]['position_xy'] == ([0,0] or [0,1] or [0,2] or [0,3] or [0,4] or [0,5] or [0,6] or [0,7]):
+            white_pawn_moves.append(new)
+            print('what piece would you like to change to?')
+            piece_selection = int(input("[1] - Queen\n[2] - Bishop\n[3] - Knight\n: "))
+            if piece_selection == 1:
+                position[0][x]['piece'] = None
+                position[0][x]['owner'] = None
+                position[0][x]['picture'] = None
+                position[0][new]['piece'] = black_queen() # it is not new but one of the values above 00 01 02 etc... 
+                position[0][new]['owner'] = 'black'
+                position[0][new]['picture'] = b_pawn
+                
+            elif piece_selection == 2:
+                position[0][x]['piece'] = None
+                position[0][x]['owner'] = None
+                position[0][x]['picture'] = None
+                position[0][new]['piece'] = black_bishop()
+                position[0][new]['owner'] = 'black'
+                position[0][new]['picture'] = b_bishop
+                
+            elif piece_selection == 3:
+                position[0][x]['piece'] = None
+                position[0][x]['owner'] = None
+                position[0][x]['picture'] = None
+                position[0][new]['piece'] = black_knight()
+                position[0][new]['owner'] = 'black'
+                position[0][new]['picture'] = b_knight
+    
 class white_knight(Piece):
-    def move(self):
-        pass
-    def capture(self):
-        pass
-    def check_illegal_move(self):
-        pass
+    def move(self, x):
+        white_knight_moves = []
+        # x is whatever get's passed to us through the board pressing
+        result = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        new = [change[result[0]] + str(result[1])]
+        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        new1 = [change[result1[0]] + str(result1[1])]
+        result2 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        new2 = [change[result2[0]] + str(result2[1])]
+        result3 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        new3 = [change[result3[0]] + str(result3[1])]
+        result4 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        new4 = [change[result4[0]] + str(result4[1])]
+        result5 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        new5 = [change[result5[0]] + str(result5[1])]
+        result6 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        new6 = [change[result6[0]] + str(result6[1])]
+        result7 = list(map(sum,zip(position[0][x]['postion_xy'],[2,1])))
+        new7 = [change[result7[0]] + str(result7[1])]
+
+
+
+        a = True
+        b = True
+        c = True
+        d = True
+        e = True
+        f = True
+        g = True
+        h = True
+        if (position[0][new]['owner'] == 'black' or position[0][new]['owner'] == None) and self.onBoard(new) and a:#1
+            white_knight_moves.append(new)
+        elif not ((position[0][new]['owner'] == 'black' or position[0][new]['owner'] == None) and self.onBoard(new) and a):
+            self.stop()
+            a = False
+            
+        if (position[0][new1]['owner'] == 'black' or position[0][new1]['owner'] == None) and self.onBoard(new1) and b:#2
+            white_knight_moves.append(new1)
+        elif not ((position[0][new1]['owner'] == 'white' or position[0][new1]['owner'] == None) and self.onBoard(new1) and b):
+            self.stop()
+            b = False
+            
+        if (position[0][new2]['owner'] == 'black' or position[0][new2]['owner'] == None) and self.onBoard(new2) and c:#3
+            white_knight_moves.append(position[0][new2])
+        elif not ((position[0][new2]['owner'] == 'black' or position[0][new2]['owner'] == None) and self.onBoard(new2) and c):
+            self.stop()
+            a = False
+            
+        if (position[0][new3]['owner'] == 'black' or position[0][new3]['owner'] == None) and self.onBoard(new3) and d:#4
+            white_knight_moves.append(new3)
+        elif not ((position[0][new3]['owner'] == 'white' or position[0][new3]['owner'] == None) and self.onBoard(new3) and d):
+            self.stop()
+            a = False
+        
+        if (position[0][new4]['owner'] == 'black' or position[0][new4]['owner'] == None) and self.onBoard() and e:#5
+            white_knight_moves.append(position[0][new4])
+        elif not ((position[0][new4]['owner'] == 'black' or position[0][new4]['owner'] == None) and self.onBoard() and e):
+            self.stop()
+            a = False
+            
+        if (position[0][new5]['owner'] == 'black' or position[0][new5]['owner'] == None) and self.onBoard() and f:#6
+            white_knight_moves.append(position[0][new5])
+        elif not ((position[0][new5]['owner'] == 'black' or position[0][new5]['owner'] == None) and self.onBoard() and f):
+            self.stop()
+            a = False
+            
+        if (position[0][new6]['owner'] == 'black' or position[0][new6]['owner'] == None) and self.onBoard() and g:#7
+            white_knight_moves.append(position[0][new6])
+        elif not ((position[0][new6]['owner'] == 'black' or position[0][new6]['owner'] == None) and self.onBoard() and g):
+            self.stop()
+            a = False
+            
+        if (position[0][new7]['owner'] == 'black' or position[0][new7]['owner'] == None) and self.onBoard() and h:#8
+            white_knight_moves.append(position[0][new7])
+        elif not ((position[0][new7]['owner'] == 'black' or position[0][new7]['owner'] == None) and self.onBoard() and h):
+            self.stop()
+            a = False
 class white_bishop(Piece):
-    def move(self):
-        pass
-    def capture(self):
-        pass
-    def check_illegal_move(self):
-        pass
+    def move(self, x):
+        white_bishop_moves = []
+        nw,ne,sw,se = True,True,True,True
+        for i in range(1,7):  
+            '''
+            we will have 4 lines we are interested in y = -x, x || 
+            considering where:
+            x increases and y increases
+            x increases and y decreases
+            x decreases and y increases
+            x decreases and y decreases 
+            '''
+            result1 = list(map(sum,zip(position[0][x]['postion_xy'],[i,i])))
+            result2= list(map(sum,zip(position[0][x]['postion_xy'],[i,-i])))
+            result3 = list(map(sum,zip(position[0][x]['postion_xy'],[-i,i])))
+            result4 = list(map(sum,zip(position[0][x]['postion_xy'],[-i,-i])))
+            new1 = [change[result1[0]] + str(result1[1])]
+            new2 = [change[result2[0]] + str(result2[1])]
+            new3 = [change[result3[0]] + str(result3[1])]
+            new4 = [change[result4[0]] + str(result4[1])]
+            if (position[0][new1]['owner'] == 'black' or position[0][new1]['owner'] == None) and self.onBoard(new1) and nw:#1
+                white_bishop_moves.append(new1)
+            elif not ((position[0][new1]['owner'] == 'black' or position[0][new1]['owner'] == None) and self.onBoard(new1) and nw):
+                self.stop()
+                nw = False
+                
+            if (position[0][new2]['owner'] == 'black' or position[0][new2]['owner'] == None) and self.onBoard(new2) and ne:#2
+                white_bishop_moves.append(new2)
+            elif not ((position[0][new2]['owner'] == 'black' or position[0][new2]['owner'] == None) and self.onBoard(new2) and ne):
+                self.stop()
+                ne = False
+                
+            if (position[0][new3]['owner'] == 'black' or position[0][new3]['owner'] == None) and self.onBoard(new3) and sw:#3
+                white_bishop_moves.append(new3)
+            elif not ((position[0][new3]['owner'] == 'black' or position[0][new3]['owner'] == None) and self.onBoard(new3) and sw):
+                self.stop()
+                sw = False
+                
+            if (position[0][new4]['owner'] == 'black' or position[0][new4]['owner'] == None) and self.onBoard(new4) and se:#4
+                white_bishop_moves.append(new4)
+            elif not ((position[0][new4]['owner'] == 'black' or position[0][new4]['owner'] == None) and self.onBoard(new4) and se):
+                self.stop()
+                se = False
+        return white_bishop_moves
 class white_rook(Piece):
-    def move(self):
-        pass
-    def capture(self):
-        pass
-    def check_illegal_move(self):
-        pass
-class white_queen(Piece):
-    def move(self):
-        pass
-    def capture(self):
-        pass
-    def check_illegal_move(self):
-        pass
-class white_king(Piece):
-    def move(self):
-        pass
-    def capture(self):
-        pass
-    def check_illegal_move(self):
-        pass
+    def move(self,x):
+        white_rook_moves = []
+        n,s,w,e = True,True,True,True
+        for i in range(1,7):
+            '''
+            Need to know 4 directions
+            1. North: x = x   || y = y+1
+            2. South: x = x   || y = y-1
+            3. West:  x = x+1 || y = y
+            4. East:  x = x-1 || y = y
+            '''
+            #NORTH
+            result1 = list(map(sum,zip(position[0][x]['postion_xy'],[0,i])))  # n
+            result2= list(map(sum,zip(position[0][x]['postion_xy'],[0,-i])))  # s
+            result3 = list(map(sum,zip(position[0][x]['postion_xy'],[i,0])))  # w
+            result4 = list(map(sum,zip(position[0][x]['postion_xy'],[-i,0]))) # e
+            new1 = [change[result1[0]] + str(result1[1])]
+            new2 = [change[result2[0]] + str(result2[1])]
+            new3 = [change[result3[0]] + str(result3[1])]
+            new4 = [change[result4[0]] + str(result4[1])]
+            if (position[0][new1]['owner'] == 'black' or position[0][new1]['owner'] == None) and self.onBoard(new1) and n:#1
+                white_rook_moves.append(new1)
+            elif not ((position[0][new1]['owner'] == 'black' or position[0][new3]['owner'] == None) and self.onBoard(new3) and n):
+                self.stop()
+                n = False
+                
+            if (position[0][new2]['owner'] == 'black' or position[0][new2]['owner'] == None) and self.onBoard(new2) and s:#2
+                white_rook_moves.append(new2)
+            elif not ((position[0][new2]['owner'] == 'black' or position[0][new2]['owner'] == None) and self.onBoard(new2) and s):
+                self.stop()
+                s = False
+                
+            if (position[0][new3]['owner'] == 'black' or position[0][new3]['owner'] == None) and self.onBoard(new3) and w:#3
+                white_rook_moves.append(new3)
+            elif not ((position[0][new4]['owner'] == 'black' or position[0][new4]['owner'] == None) and self.onBoard(new4) and w):
+                self.stop()
+                w = False
+                
+            if (position[0][new4]['owner'] == 'black' or position[0][new4]['owner'] == None) and self.onBoard(new4) and e:#4
+                white_rook_moves.append(new4)
+            elif not ((position[0][new4]['owner'] == 'black' or position[0][new4]['owner'] == None) and self.onBoard(new4) and e):
+                self.stop()
+                e = False
+        return white_rook_moves
+class white_queen():
+    def move(self, x):
+        # A queen can only move as a rook and bishop can move
+        white_queen_moves = []
+        white_queen_moves.append(white_rook.move(x) + white_bishop.move(x))
+        return white_queen_moves
+        
+class white_king(black_pawn):
+    def move(self,x):
+        white_king_check_if_bad = []
+        #adding all squares a black piece could potentially go
+        for key in position[0]:
+            if key['owner'] == 'black':
+                white_king_check_if_bad.append(key['piece'].move(key))# gives me a list of moves that that piece can move
+        #adding all squares black pieces are
+        for key in position[0]:
+            if key['owner'] == 'white':
+                white_king_check_if_bad.append(key['piece'].move(key))
+        #Collecting position of all pieces on the board
+        for key in position[0]:
+            if key['owner'] == 'black':
+                white_king_check_if_bad.append(key)
+        #if king move is not in line of check and has no pieces next to it and is free to roam then it has 8 moves the king can make
+        result1 = list(map(sum,zip(position[0][x]['postion_xy'],[0,1])))  # n
+        result2= list(map(sum,zip(position[0][x]['postion_xy'],[0,-1])))  # s
+        result3 = list(map(sum,zip(position[0][x]['postion_xy'],[1,0])))  # w
+        result4 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,0]))) # e
+        result5 = list(map(sum,zip(position[0][x]['postion_xy'],[1,1])))  # nw
+        result6= list(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  # sw
+        result7 = list(map(sum,zip(position[0][x]['postion_xy'],[1,-1])))  # ne
+        result8 = list(map(sum,zip(position[0][x]['postion_xy'],[-1,-1]))) # se
+        n,s,w,e,nw,sw,ne,se = True,True,True,True,True,True,True,True
+        white_king_moves = []
+        new1 = [change[result1[0]] + str(result1[1])]
+        new2 = [change[result2[0]] + str(result2[1])]
+        new3 = [change[result3[0]] + str(result3[1])]
+        new4 = [change[result4[0]] + str(result4[1])]
+        new5 = [change[result5[0]] + str(result5[1])]
+        new6 = [change[result6[0]] + str(result6[1])]
+        new7 = [change[result7[0]] + str(result7[1])]
+        new8 = [change[result8[0]] + str(result8[1])]
 
-
-def main():
-    print(position[0]['F4']['position_xy'])
-    #position[0]['A7']['position_xy'] == [1,0]
-    #coordinate[1] = [1.0]
-    #coordinate[1][0] = 1
-if __name__ == "__main__":
-    main()
+        if position[0][new1] not in white_king_check_if_bad and self.onBoard(new1) and n:#1
+            white_king_moves.append(new1)
+        elif not (position[0][new1] not in white_king_check_if_bad and self.onBoard(new1) and n):
+            n = False
+            
+        if position[0][new2] not in white_king_check_if_bad and self.onBoard(new2) and s:#2
+            white_king_moves.append(new2)
+        elif not (position[0][new2] not in white_king_check_if_bad and self.onBoard(new2) and s):
+            s = False
+            
+        if position[0][new3] not in white_king_check_if_bad and self.onBoard(new3) and w:#3
+            white_king_moves.append(new3)
+        elif not (position[0][new3] not in white_king_check_if_bad and self.onBoard(new3) and w):
+            w = False
+        
+        if position[0][new4] not in white_king_check_if_bad and self.onBoard(new4) and e:#4
+            white_king_moves.append(new4)
+        elif not (position[0][new4] not in white_king_check_if_bad and self.onBoard(new4) and e):
+            e = False
+        
+        if position[0][new5] not in white_king_check_if_bad and self.onBoard(new5) and nw:#5
+            white_king_moves.append(new5)
+        elif not (position[0][new5] not in white_king_check_if_bad and self.onBoard(new5) and nw):
+            nw = False
+            
+        if position[0][new6] not in white_king_check_if_bad and self.onBoard(new6) and sw:#6
+            white_king_moves.append(new6)
+        elif not (position[0][new6] not in white_king_check_if_bad and self.onBoard(new6) and sw):
+            sw = False
+            
+        if position[0][new7] not in white_king_check_if_bad and self.onBoard(new7) and ne:#7
+            white_king_moves.append(new7)
+        elif not (position[0][new7] not in white_king_check_if_bad and self.onBoard(new7) and ne):
+            ne = False
+            
+        if position[0][new8] not in white_king_check_if_bad and self.onBoard(new8) and se:#8
+            white_king_moves.append(new8)
+        elif not (position[0][new8] not in white_king_check_if_bad and self.onBoard(new8) and se):
+            se = False
