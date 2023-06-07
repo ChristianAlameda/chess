@@ -1,0 +1,29 @@
+        '''
+        click1_not_clicked = True
+        click2_not_clicked = True
+        move_selections = [] 
+        while True:
+        
+            background.blit(image, (150, 100))
+            
+            #{'a1': <rect(225, 175, 81, 81)>, 
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN and click1_not_clicked:
+                    for i in self.field:
+                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
+                            print('MD: ' +i)
+                            click1_not_clicked = False
+                            move_selections.append(self.field[i])
+                if event.type == pygame.MOUSEBUTTONDOWN and click2_not_clicked:
+                    for i in self.field:
+                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
+                            print('MU: '+i)
+                            click2_not_clicked = False
+                            move_selections.append(self.field[i])
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+            pygame.display.update()
+        
+        
+        '''

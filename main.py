@@ -1,3 +1,10 @@
 from board import Board
-game = Board()
-game.create_board()
+import board
+import pieces
+import mapping
+def main():
+    newboard = Board()
+    newboard.create_board()
+    newboard.start_game()
+if __name__ == "__main__":
+    main()

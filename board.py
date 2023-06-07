@@ -7,7 +7,12 @@ from pieces import white_bishop, white_knight, white_queen, white_king, white_ro
 import time
 class Board:
     def init(self):
-        pass
+        self.field = {}
+        self.make_board()
+        
+    def get_field(self):
+        return self.field
+
     def create_board(self):
         color = (0,0,0)
         outlineThickness = 1
@@ -19,7 +24,6 @@ class Board:
         background.blit(image, (150, 100))
         a = ['A','B','C','D','E','F','G','H']
         b = ['8','7','6','5','4','3','2','1']
-        x213 = {}
         squares = []
         #Creating 64 squares and classifying what they should be called as well as giving them a coordinate (x,y)
         #pygame.draw.rect(surface, color, (x, y, w, h), outlineThickness)
@@ -37,186 +41,156 @@ class Board:
                     color_square = 'W'
                 else:
                     color_square = 'B'
-                
-                
                 squares.append(position_xy)
-                
-                x213.update({position_name:{"position":position, "color_square":color_square, "owner":None ,"piece":None,"picture":None, "position_xy":position_xy}})
+                self.field.update({position_name:{"position":position, "color_square":color_square, "owner":None ,"piece":None,"picture":None, "position_xy":position_xy}})
                 blackOrWhite = blackOrWhite + 1
-        return x213, squares # x213 is a dictionary of dictionaries {{key:{value1,value2}}} # squares is a list of lists for coordinates [[0,0],[0,1],[0,2]]
-        
-        
-        '''
-        click1_not_clicked = True
-        click2_not_clicked = True
-        move_selections = [] 
-        while True:
-        
-            background.blit(image, (150, 100))
-            
-            #{'a1': <rect(225, 175, 81, 81)>, 
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN and click1_not_clicked:
-                    for i in x213:
-                        if x213[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            print('MD: ' +i)
-                            click1_not_clicked = False
-                            move_selections.append(x213[i])
-                if event.type == pygame.MOUSEBUTTONDOWN and click2_not_clicked:
-                    for i in x213:
-                        if x213[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            print('MU: '+i)
-                            click2_not_clicked = False
-                            move_selections.append(x213[i])
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-            pygame.display.update()
-        
-        
-        '''
-        
-    def start_game(self):
+        return self.field, squares # self.field is a dictionary of dictionaries {{key:{value1,value2}}} # squares is a list of lists for coordinates [[0,0],[0,1],[0,2]]
+
+    def make_board(self):
         #initializing board
         x = 1000
         y = 1000
         background = pygame.display.set_mode((x, y))
         image = mapping.board
         background.blit(image, (150, 100))
-        
-        # Grabbing the pieces on which squares
-        create_board = self.create_board()[0]
+        pygame.display.update()
+    
+    def initialize_game(self):
         #[BLACK]
         #Setting up pieces
-        create_board['A8']['piece']   = black_rook()
-        create_board['B8']['piece']   = black_knight()
-        create_board['C8']['piece']   = black_bishop()
-        create_board['D8']['piece']   = black_queen()
-        create_board['E8']['piece']   = black_king()
-        create_board['F8']['piece']   = black_bishop()
-        create_board['G8']['piece']   = black_knight()
-        create_board['H8']['piece']   = black_rook()
-        create_board['A7']['piece']   = black_pawn()
-        create_board['B7']['piece']   = black_pawn()
-        create_board['C7']['piece']   = black_pawn()
-        create_board['D7']['piece']   = black_pawn()
-        create_board['E7']['piece']   = black_pawn()
-        create_board['F7']['piece']   = black_pawn()
-        create_board['G7']['piece']   = black_pawn()
-        create_board['H7']['piece']   = black_pawn()
+        self.field['A8']['piece']   = black_rook()
+        self.field['B8']['piece']   = black_knight()
+        self.field['C8']['piece']   = black_bishop()
+        self.field['D8']['piece']   = black_queen()
+        self.field['E8']['piece']   = black_king()
+        self.field['F8']['piece']   = black_bishop()
+        self.field['G8']['piece']   = black_knight()
+        self.field['H8']['piece']   = black_rook()
+        self.field['A7']['piece']   = black_pawn()
+        self.field['B7']['piece']   = black_pawn()
+        self.field['C7']['piece']   = black_pawn()
+        self.field['D7']['piece']   = black_pawn()
+        self.field['E7']['piece']   = black_pawn()
+        self.field['F7']['piece']   = black_pawn()
+        self.field['G7']['piece']   = black_pawn()
+        self.field['H7']['piece']   = black_pawn()
         #setting pictures to correspond with the pieces squares
-        create_board['A8']['picture'] = b_rook
-        create_board['B8']['picture'] = b_knight
-        create_board['C8']['picture'] = b_bishop
-        create_board['D8']['picture'] = b_queen
-        create_board['E8']['picture'] = b_king
-        create_board['F8']['picture'] = b_bishop
-        create_board['G8']['picture'] = b_knight
-        create_board['H8']['picture'] = b_rook
-        create_board['A7']['picture'] = b_pawn
-        create_board['B7']['picture'] = b_pawn
-        create_board['C7']['picture'] = b_pawn
-        create_board['D7']['picture'] = b_pawn
-        create_board['E7']['picture'] = b_pawn
-        create_board['F7']['picture'] = b_pawn
-        create_board['G7']['picture'] = b_pawn
-        create_board['H7']['picture'] = b_pawn
+        self.field['A8']['picture'] = b_rook
+        self.field['B8']['picture'] = b_knight
+        self.field['C8']['picture'] = b_bishop
+        self.field['D8']['picture'] = b_queen
+        self.field['E8']['picture'] = b_king
+        self.field['F8']['picture'] = b_bishop
+        self.field['G8']['picture'] = b_knight
+        self.field['H8']['picture'] = b_rook
+        self.field['A7']['picture'] = b_pawn
+        self.field['B7']['picture'] = b_pawn
+        self.field['C7']['picture'] = b_pawn
+        self.field['D7']['picture'] = b_pawn
+        self.field['E7']['picture'] = b_pawn
+        self.field['F7']['picture'] = b_pawn
+        self.field['G7']['picture'] = b_pawn
+        self.field['H7']['picture'] = b_pawn
         #setting pieces up so they know which owner they have
-        create_board['A8']['owner']   = 'black'
-        create_board['B8']['owner']   = 'black'
-        create_board['C8']['owner']   = 'black'
-        create_board['D8']['owner']   = 'black'
-        create_board['E8']['owner']   = 'black'
-        create_board['F8']['owner']   = 'black'
-        create_board['G8']['owner']   = 'black'
-        create_board['H8']['owner']   = 'black'
-        create_board['A7']['owner']   = 'black'
-        create_board['B7']['owner']   = 'black'
-        create_board['C7']['owner']   = 'black'
-        create_board['D7']['owner']   = 'black'
-        create_board['E7']['owner']   = 'black'
-        create_board['F7']['owner']   = 'black'
-        create_board['G7']['owner']   = 'black'
-        create_board['H7']['owner']   = 'black'
+        self.field['A8']['owner']   = 'black'
+        self.field['B8']['owner']   = 'black'
+        self.field['C8']['owner']   = 'black'
+        self.field['D8']['owner']   = 'black'
+        self.field['E8']['owner']   = 'black'
+        self.field['F8']['owner']   = 'black'
+        self.field['G8']['owner']   = 'black'
+        self.field['H8']['owner']   = 'black'
+        self.field['A7']['owner']   = 'black'
+        self.field['B7']['owner']   = 'black'
+        self.field['C7']['owner']   = 'black'
+        self.field['D7']['owner']   = 'black'
+        self.field['E7']['owner']   = 'black'
+        self.field['F7']['owner']   = 'black'
+        self.field['G7']['owner']   = 'black'
+        self.field['H7']['owner']   = 'black'
         #[WHITE]
         #Setting up pieces
-        create_board['A1']['piece']   = white_rook()
-        create_board['B1']['piece']   = white_knight()
-        create_board['C1']['piece']   = white_bishop()
-        create_board['D1']['piece']   = white_queen()
-        create_board['E1']['piece']   = white_king()
-        create_board['F1']['piece']   = white_bishop()
-        create_board['G1']['piece']   = white_knight()
-        create_board['H1']['piece']   = white_rook()
-        create_board['A2']['piece']   = white_pawn()
-        create_board['B2']['piece']   = white_pawn()
-        create_board['C2']['piece']   = white_pawn()
-        create_board['D2']['piece']   = white_pawn()
-        create_board['E2']['piece']   = white_pawn()
-        create_board['F2']['piece']   = white_pawn()
-        create_board['G2']['piece']   = white_pawn()
-        create_board['H2']['piece']   = white_pawn()
+        self.field['A1']['piece']   = white_rook()
+        self.field['B1']['piece']   = white_knight()
+        self.field['C1']['piece']   = white_bishop()
+        self.field['D1']['piece']   = white_queen()
+        self.field['E1']['piece']   = white_king()
+        self.field['F1']['piece']   = white_bishop()
+        self.field['G1']['piece']   = white_knight()
+        self.field['H1']['piece']   = white_rook()
+        self.field['A2']['piece']   = white_pawn()
+        self.field['B2']['piece']   = white_pawn()
+        self.field['C2']['piece']   = white_pawn()
+        self.field['D2']['piece']   = white_pawn()
+        self.field['E2']['piece']   = white_pawn()
+        self.field['F2']['piece']   = white_pawn()
+        self.field['G2']['piece']   = white_pawn()
+        self.field['H2']['piece']   = white_pawn()
         #setting pictures to correspond with the pieces squares
-        create_board['A1']['picture'] = w_rook
-        create_board['B1']['picture'] = w_knight
-        create_board['C1']['picture'] = w_bishop
-        create_board['D1']['picture'] = w_queen
-        create_board['E1']['picture'] = w_king
-        create_board['F1']['picture'] = w_bishop
-        create_board['G1']['picture'] = w_knight
-        create_board['H1']['picture'] = w_rook
-        create_board['A2']['picture'] = w_pawn
-        create_board['B2']['picture'] = w_pawn
-        create_board['C2']['picture'] = w_pawn
-        create_board['D2']['picture'] = w_pawn
-        create_board['E2']['picture'] = w_pawn
-        create_board['F2']['picture'] = w_pawn
-        create_board['G2']['picture'] = w_pawn
-        create_board['H2']['picture'] = w_pawn
+        self.field['A1']['picture'] = w_rook
+        self.field['B1']['picture'] = w_knight
+        self.field['C1']['picture'] = w_bishop
+        self.field['D1']['picture'] = w_queen
+        self.field['E1']['picture'] = w_king
+        self.field['F1']['picture'] = w_bishop
+        self.field['G1']['picture'] = w_knight
+        self.field['H1']['picture'] = w_rook
+        self.field['A2']['picture'] = w_pawn
+        self.field['B2']['picture'] = w_pawn
+        self.field['C2']['picture'] = w_pawn
+        self.field['D2']['picture'] = w_pawn
+        self.field['E2']['picture'] = w_pawn
+        self.field['F2']['picture'] = w_pawn
+        self.field['G2']['picture'] = w_pawn
+        self.field['H2']['picture'] = w_pawn
         #setting pieces up so they know which owner they have
-        create_board['A1']['owner']   = 'white'
-        create_board['B1']['owner']   = 'white'
-        create_board['C1']['owner']   = 'white'
-        create_board['D1']['owner']   = 'white'
-        create_board['E1']['owner']   = 'white'
-        create_board['F1']['owner']   = 'white'
-        create_board['G1']['owner']   = 'white'
-        create_board['H1']['owner']   = 'white'
-        create_board['A2']['owner']   = 'white'
-        create_board['B2']['owner']   = 'white'
-        create_board['C2']['owner']   = 'white'
-        create_board['D2']['owner']   = 'white'
-        create_board['E2']['owner']   = 'white'
-        create_board['F2']['owner']   = 'white'
-        create_board['G2']['owner']   = 'white'
-        create_board['H2']['owner']   = 'white'
-        pygame.display.update()
+        self.field['A1']['owner']   = 'white'
+        self.field['B1']['owner']   = 'white'
+        self.field['C1']['owner']   = 'white'
+        self.field['D1']['owner']   = 'white'
+        self.field['E1']['owner']   = 'white'
+        self.field['F1']['owner']   = 'white'
+        self.field['G1']['owner']   = 'white'
+        self.field['H1']['owner']   = 'white'
+        self.field['A2']['owner']   = 'white'
+        self.field['B2']['owner']   = 'white'
+        self.field['C2']['owner']   = 'white'
+        self.field['D2']['owner']   = 'white'
+        self.field['E2']['owner']   = 'white'
+        self.field['F2']['owner']   = 'white'
+        self.field['G2']['owner']   = 'white'
+        self.field['H2']['owner']   = 'white'
+        
+    def start_game(self):
+        self.make_board()
+        self.initialize_game()
+        
         not_gameover = True
-        move_selections = [] 
+         
         owners_turn = 0 
         color = 'W'
         #start the game
         while not_gameover:
             clicked = 0
-            if owners_turn % 2 == 0:
-                color = 'W'
-            else:
-                color = 'B'
+            self.black_or_white(clicked)
+            
             if color == 'W':
                 click1_not_clicked = True
                 click2_not_clicked = True
+                move_selections = []
                 while click1_not_clicked or click2_not_clicked:
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
-                            for i in create_board:
-                                if create_board[i]["position"].collidepoint(pygame.mouse.get_pos()) and create_board[i]["owner"] == 'white' and clicked == 0:
+                            for i in self.field:
+                                if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white' and clicked == 0:
                                     print('M1: ' +i)
+                                    move_selections.append(i)
                                     click1_not_clicked = False
                                     move_selections.append(color, i)
                                     clicked = clicked + 1
                         if event.type == pygame.MOUSEBUTTONUP:
-                            for i in create_board:
-                                if create_board[i]["position"].collidepoint(pygame.mouse.get_pos()) and create_board[i]["owner"] == 'white' and clicked == 1:
+                            for i in self.field:
+                                if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white' and clicked == 1:
                                     print('M2: ' +i)
                                     click1_not_clicked = False
                                     move_selections.append(color, i)
@@ -229,15 +203,15 @@ class Board:
                 while click1_not_clicked or click2_not_clicked:
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
-                            for i in create_board:
-                                if create_board[i]["position"].collidepoint(pygame.mouse.get_pos()) and create_board[i]["owner"] == 'black' and clicked == 0:
+                            for i in self.field:
+                                if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black' and clicked == 0:
                                     print('M1: ' +i)
                                     click1_not_clicked = False
                                     move_selections.append(color, i)
                                     clicked = clicked + 1
                         if event.type == pygame.MOUSEBUTTONUP:
-                            for i in create_board:
-                                if create_board[i]["position"].collidepoint(pygame.mouse.get_pos()) and create_board[i]["owner"] == 'black' and clicked == 1:
+                            for i in self.field:
+                                if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black' and clicked == 1:
                                     decision = int(input("Is this the square you intended?\n[0] - Yes\n[1] - Non\nInput Here: "))
                                     if decision == 0:
                                         print('M2: ' +i)
@@ -247,25 +221,78 @@ class Board:
                                     elif decision == 1:
                                         click_not_clicked = True
                 owners_turn = owners_turn + 1
-            
-            
-            
             pygame.display.update()
         
-        
-        
-        
-if __name__ == "__main__":
-    x = Board()
-    x.start_game()
+    def black_or_white(self,owners_turn):
+        color = ''
+        if owners_turn % 2 == 0:
+            color = 'W'
+        else:
+            color = 'B'
+        return color
     
-            
-            
-        
-        
-        
-        
-        
-
-
-            
+    def white1(self):
+        click1_not_clicked = True
+        while click1_not_clicked:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    for i in self.field:
+                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black':
+                            self.white1()
+                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
+                            self.white1()
+                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
+                            return self.field[i]["piece"].move(i), i #black_queen.move(i) will return list of moves
+                            #after this function make the squares that are in the list the piece can go to a different color
+                            # have the list given to white2
+                            
+    def white2(self):
+        click2_not_clicked = True
+        while click2_not_clicked:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONUP:
+                    for i in self.field:
+                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
+                            if self.field[i] in self.white1()[0]: 
+                                #replace the old square with none and transfer class, picture, and owner to new square
+                                self.field[i]["picture"] = self.field[self.white1()[1]]["picture"] 
+                                self.field[i]["piece"] = self.field[self.white1()[1]]["piece"]
+                                self.field[i]["owner"] = self.field[self.white1()[1]]["owner"]
+                                self.field[self.white1()[1]]["picture"] = None
+                                self.field[self.white1()[1]]["piece"] = None
+                                self.field[self.white1()[1]]["owner"] = None
+                            else:
+                                self.white2()
+                                
+    def black1(self):
+        click1_not_clicked = True
+        while click1_not_clicked:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    for i in self.field:
+                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
+                            self.white1()
+                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
+                            self.white1()
+                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black':
+                            return self.field[i]["piece"].move(i, self.get_field()), i #black_queen.move(i) will return list of moves
+                            #after this function make the squares that are in the list the piece can go to a different color
+                            # have the list given to white2
+                            
+    def black2(self):
+        click2_not_clicked = True
+        while click2_not_clicked:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONUP:
+                    for i in self.field:
+                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
+                            if self.field[i] in self.white1()[0]: 
+                                #replace the old square with none and transfer class, picture, and owner to new square
+                                self.field[i]["picture"] = self.field[self.white1()[1]]["picture"] 
+                                self.field[i]["piece"] = self.field[self.white1()[1]]["piece"]
+                                self.field[i]["owner"] = self.field[self.white1()[1]]["owner"]
+                                self.field[self.white1()[1]]["picture"] = None
+                                self.field[self.white1()[1]]["piece"] = None
+                                self.field[self.white1()[1]]["owner"] = None
+                            else:
+                                self.white2()
