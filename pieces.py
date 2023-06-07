@@ -72,13 +72,13 @@ class black_pawn(Piece):
         #white or black piece standing in front
         #of pawn
         #x == square pressed
-        result = list(map(sum,zip(board[x]['postion_xy'],[0,1])))   #south x1
+        result = list(map(sum,zip(board[x]['position_xy'],[0,1])))   #south x1
         new = [change[result[0]] + str(result[1])]
-        result1 = list(map(sum,zip(board[x]['postion_xy'],[1,1])))  #south x1 west x1
+        result1 = list(map(sum,zip(board[x]['position_xy'],[1,1])))  #south x1 west x1
         new1 = [change[result1[0]] + str(result1[1])]
-        result2 = list(map(sum,zip(board[x]['postion_xy'],[-1,1]))) #south x1 east x1
+        result2 = list(map(sum,zip(board[x]['position_xy'],[-1,1]))) #south x1 east x1
         new2 = [change[result2[0]] + str(result2[1])]
-        result3 = list(map(sum,zip(board[x]['postion_xy'],[0,2])))  #south x2
+        result3 = list(map(sum,zip(board[x]['position_xy'],[0,2])))  #south x2
         new3 = [change[result3[0]] + str(result3[1])]
         
         #forward 1
@@ -137,21 +137,21 @@ class black_knight(Piece):
     def move(self, x, board):
         black_knight_moves = []
         # x == whatever get's passed to us through the board pressing
-        result = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new = [change[result[0]] + str(result[1])]
-        result1 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result1 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new1 = [change[result1[0]] + str(result1[1])]
-        result2 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result2 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new2 = [change[result2[0]] + str(result2[1])]
-        result3 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result3 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new3 = [change[result3[0]] + str(result3[1])]
-        result4 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result4 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new4 = [change[result4[0]] + str(result4[1])]
-        result5 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result5 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new5 = [change[result5[0]] + str(result5[1])]
-        result6 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result6 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new6 = [change[result6[0]] + str(result6[1])]
-        result7 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result7 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new7 = [change[result7[0]] + str(result7[1])]
         a = True
         b = True
@@ -226,10 +226,10 @@ class black_bishop(Piece):
             x decreases and y increases
             x decreases and y decreases 
             '''
-            result1 = list(map(sum,zip(board[x]['postion_xy'],[i,i])))
-            result2= list(map(sum,zip(board[x]['postion_xy'],[i,-i])))
-            result3 = list(map(sum,zip(board[x]['postion_xy'],[-i,i])))
-            result4 = list(map(sum,zip(board[x]['postion_xy'],[-i,-i])))
+            result1 = list(map(sum,zip(board[x]['position_xy'],[i,i])))
+            result2= list(map(sum,zip(board[x]['position_xy'],[i,-i])))
+            result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
+            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
             new1 = [change[result1[0]] + str(result1[1])]
             new2 = [change[result2[0]] + str(result2[1])]
             new3 = [change[result3[0]] + str(result3[1])]
@@ -272,10 +272,10 @@ class black_rook(Piece):
             4. East:  x = x-1 || y = y
             '''
             #NORTH
-            result1 = list(map(sum,zip(board[x]['postion_xy'],[0,i])))  # n
-            result2= list(map(sum,zip(board[x]['postion_xy'],[0,-i])))  # s
-            result3 = list(map(sum,zip(board[x]['postion_xy'],[i,0])))  # w
-            result4 = list(map(sum,zip(board[x]['postion_xy'],[-i,0]))) # e
+            result1 = list(map(sum,zip(board[x]['position_xy'],[0,i])))  # n
+            result2= list(map(sum,zip(board[x]['position_xy'],[0,-i])))  # s
+            result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
+            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
             new1 = [change[result1[0]] + str(result1[1])]
             new2 = [change[result2[0]] + str(result2[1])]
             new3 = [change[result3[0]] + str(result3[1])]
@@ -329,14 +329,14 @@ class black_king(black_pawn):
             if key['owner'] == 'white':
                 black_king_check_if_bad.append(key)
         #if king move == not in line of check and has no pieces next to it and == free to roam then it has 8 moves the king can make
-        result1 = list(map(sum,zip(board[x]['postion_xy'],[0,1])))  # n
-        result2= list(map(sum,zip(board[x]['postion_xy'],[0,-1])))  # s
-        result3 = list(map(sum,zip(board[x]['postion_xy'],[1,0])))  # w
-        result4 = list(map(sum,zip(board[x]['postion_xy'],[-1,0]))) # e
-        result5 = list(map(sum,zip(board[x]['postion_xy'],[1,1])))  # nw
-        result6= list(map(sum,zip(board[x]['postion_xy'],[1,-1])))  # sw
-        result7 = list(map(sum,zip(board[x]['postion_xy'],[1,-1])))  # ne
-        result8 = list(map(sum,zip(board[x]['postion_xy'],[-1,-1]))) # se
+        result1 = list(map(sum,zip(board[x]['position_xy'],[0,1])))  # n
+        result2= list(map(sum,zip(board[x]['position_xy'],[0,-1])))  # s
+        result3 = list(map(sum,zip(board[x]['position_xy'],[1,0])))  # w
+        result4 = list(map(sum,zip(board[x]['position_xy'],[-1,0]))) # e
+        result5 = list(map(sum,zip(board[x]['position_xy'],[1,1])))  # nw
+        result6= list(map(sum,zip(board[x]['position_xy'],[1,-1])))  # sw
+        result7 = list(map(sum,zip(board[x]['position_xy'],[1,-1])))  # ne
+        result8 = list(map(sum,zip(board[x]['position_xy'],[-1,-1]))) # se
         n,s,w,e,nw,sw,ne,se = True,True,True,True,True,True,True,True
         black_king_moves = []
         new1 = [change[result1[0]] + str(result1[1])]
@@ -403,13 +403,13 @@ class white_pawn(Piece):
         #white or black piece standing in front
         #of pawn
         #x == square pressed
-        result = list(map(sum,zip(board[x]['postion_xy'],[0,-1])))   #north x1
+        result = list(map(sum,zip(board[x]['position_xy'],[0,-1])))   #north x1
         new = [change[result[0]] + str(result[1])]
-        result1 = list(map(sum,zip(board[x]['postion_xy'],[1,-1])))  #north x1 west x1
+        result1 = list(map(sum,zip(board[x]['position_xy'],[1,-1])))  #north x1 west x1
         new1 = [change[result1[0]] + str(result1[1])]
-        result2 = list(map(sum,zip(board[x]['postion_xy'],[-1,-1]))) #north x1 east x1
+        result2 = list(map(sum,zip(board[x]['position_xy'],[-1,-1]))) #north x1 east x1
         new2 = [change[result2[0]] + str(result2[1])]
-        result3 = list(map(sum,zip(board[x]['postion_xy'],[0,-2])))  #north x2
+        result3 = list(map(sum,zip(board[x]['position_xy'],[0,-2])))  #north x2
         new3 = [change[result3[0]] + str(result3[1])]
         
         #forward 1
@@ -468,21 +468,21 @@ class white_knight(Piece):
     def move(self, x, board):
         white_knight_moves = []
         # x == whatever get's passed to us through the board pressing
-        result = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new = [change[result[0]] + str(result[1])]
-        result1 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result1 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new1 = [change[result1[0]] + str(result1[1])]
-        result2 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result2 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new2 = [change[result2[0]] + str(result2[1])]
-        result3 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result3 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new3 = [change[result3[0]] + str(result3[1])]
-        result4 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result4 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new4 = [change[result4[0]] + str(result4[1])]
-        result5 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result5 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new5 = [change[result5[0]] + str(result5[1])]
-        result6 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result6 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new6 = [change[result6[0]] + str(result6[1])]
-        result7 = list(map(sum,zip(board[x]['postion_xy'],[2,1])))
+        result7 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         new7 = [change[result7[0]] + str(result7[1])]
 
 
@@ -555,10 +555,10 @@ class white_bishop(Piece):
             x decreases and y increases
             x decreases and y decreases 
             '''
-            result1 = list(map(sum,zip(board[x]['postion_xy'],[i,i])))
-            result2= list(map(sum,zip(board[x]['postion_xy'],[i,-i])))
-            result3 = list(map(sum,zip(board[x]['postion_xy'],[-i,i])))
-            result4 = list(map(sum,zip(board[x]['postion_xy'],[-i,-i])))
+            result1 = list(map(sum,zip(board[x]['position_xy'],[i,i])))
+            result2= list(map(sum,zip(board[x]['position_xy'],[i,-i])))
+            result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
+            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
             new1 = [change[result1[0]] + str(result1[1])]
             new2 = [change[result2[0]] + str(result2[1])]
             new3 = [change[result3[0]] + str(result3[1])]
@@ -600,10 +600,10 @@ class white_rook(Piece):
             4. East:  x = x-1 || y = y
             '''
             #NORTH
-            result1 = list(map(sum,zip(board[x]['postion_xy'],[0,i])))  # n
-            result2= list(map(sum,zip(board[x]['postion_xy'],[0,-i])))  # s
-            result3 = list(map(sum,zip(board[x]['postion_xy'],[i,0])))  # w
-            result4 = list(map(sum,zip(board[x]['postion_xy'],[-i,0]))) # e
+            result1 = list(map(sum,zip(board[x]['position_xy'],[0,i])))  # n
+            result2= list(map(sum,zip(board[x]['position_xy'],[0,-i])))  # s
+            result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
+            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
             new1 = [change[result1[0]] + str(result1[1])]
             new2 = [change[result2[0]] + str(result2[1])]
             new3 = [change[result3[0]] + str(result3[1])]
@@ -655,14 +655,14 @@ class white_king(black_pawn):
             if key['owner'] == 'black':
                 white_king_check_if_bad.append(key)
         #if king move == not in line of check and has no pieces next to it and == free to roam then it has 8 moves the king can make
-        result1 = list(map(sum,zip(board[x]['postion_xy'],[0,1])))  # n
-        result2= list(map(sum,zip(board[x]['postion_xy'],[0,-1])))  # s
-        result3 = list(map(sum,zip(board[x]['postion_xy'],[1,0])))  # w
-        result4 = list(map(sum,zip(board[x]['postion_xy'],[-1,0]))) # e
-        result5 = list(map(sum,zip(board[x]['postion_xy'],[1,1])))  # nw
-        result6= list(map(sum,zip(board[x]['postion_xy'],[1,-1])))  # sw
-        result7 = list(map(sum,zip(board[x]['postion_xy'],[1,-1])))  # ne
-        result8 = list(map(sum,zip(board[x]['postion_xy'],[-1,-1]))) # se
+        result1 = list(map(sum,zip(board[x]['position_xy'],[0,1])))  # n
+        result2= list(map(sum,zip(board[x]['position_xy'],[0,-1])))  # s
+        result3 = list(map(sum,zip(board[x]['position_xy'],[1,0])))  # w
+        result4 = list(map(sum,zip(board[x]['position_xy'],[-1,0]))) # e
+        result5 = list(map(sum,zip(board[x]['position_xy'],[1,1])))  # nw
+        result6= list(map(sum,zip(board[x]['position_xy'],[1,-1])))  # sw
+        result7 = list(map(sum,zip(board[x]['position_xy'],[1,-1])))  # ne
+        result8 = list(map(sum,zip(board[x]['position_xy'],[-1,-1]))) # se
         n,s,w,e,nw,sw,ne,se = True,True,True,True,True,True,True,True
         white_king_moves = []
         new1 = [change[result1[0]] + str(result1[1])]

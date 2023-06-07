@@ -6,7 +6,7 @@ from pieces import Piece, black_bishop, black_knight, black_queen, black_king, b
 from pieces import white_bishop, white_knight, white_queen, white_king, white_rook, white_pawn
 import time
 class Board:
-    def init(self):
+    def __init__(self):
         self.field = {}
         self.make_board()
         
@@ -160,69 +160,7 @@ class Board:
         self.field['F2']['owner']   = 'white'
         self.field['G2']['owner']   = 'white'
         self.field['H2']['owner']   = 'white'
-        
-    def start_game(self):
-        self.make_board()
-        self.initialize_game()
-        
-        not_gameover = True
-         
-        owners_turn = 0 
-        color = 'W'
-        #start the game
-        while not_gameover:
-            clicked = 0
-            self.black_or_white(clicked)
-            
-            if color == 'W':
-                click1_not_clicked = True
-                click2_not_clicked = True
-                move_selections = []
-                while click1_not_clicked or click2_not_clicked:
-                    for event in pygame.event.get():
-                        if event.type == pygame.MOUSEBUTTONDOWN:
-                            for i in self.field:
-                                if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white' and clicked == 0:
-                                    print('M1: ' +i)
-                                    move_selections.append(i)
-                                    click1_not_clicked = False
-                                    move_selections.append(color, i)
-                                    clicked = clicked + 1
-                        if event.type == pygame.MOUSEBUTTONUP:
-                            for i in self.field:
-                                if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white' and clicked == 1:
-                                    print('M2: ' +i)
-                                    click1_not_clicked = False
-                                    move_selections.append(color, i)
-                                    clicked = clicked + 1
-                    owners_turn = owners_turn + 1
-
-            elif color == 'B':
-                click1_not_clicked = True
-                click2_not_clicked = True
-                while click1_not_clicked or click2_not_clicked:
-                    for event in pygame.event.get():
-                        if event.type == pygame.MOUSEBUTTONDOWN:
-                            for i in self.field:
-                                if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black' and clicked == 0:
-                                    print('M1: ' +i)
-                                    click1_not_clicked = False
-                                    move_selections.append(color, i)
-                                    clicked = clicked + 1
-                        if event.type == pygame.MOUSEBUTTONUP:
-                            for i in self.field:
-                                if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black' and clicked == 1:
-                                    decision = int(input("Is this the square you intended?\n[0] - Yes\n[1] - Non\nInput Here: "))
-                                    if decision == 0:
-                                        print('M2: ' +i)
-                                        click2_not_clicked = False
-                                        move_selections.append(i)
-                                        clicked = clicked + 1
-                                    elif decision == 1:
-                                        click_not_clicked = True
-                owners_turn = owners_turn + 1
-            pygame.display.update()
-        
+    
     def black_or_white(self,owners_turn):
         color = ''
         if owners_turn % 2 == 0:
@@ -230,6 +168,25 @@ class Board:
         else:
             color = 'B'
         return color
+    
+    def start_game(self):
+        self.make_board()
+        self.initialize_game()
+        not_gameover = True
+        #start the game
+        while not_gameover:
+            clicked = 0
+            decider = self.black_or_white(clicked)
+            if decider == "W":
+                self.white1()
+                self.create_colors_for_white()
+                self.white2()
+            elif decider == "B":
+                self.black1()
+                self.create_colors_for_black()
+                self.white2()
+            else:
+                not_gameover = True
     
     def white1(self):
         click1_not_clicked = True
@@ -242,10 +199,14 @@ class Board:
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
                             self.white1()
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
-                            return self.field[i]["piece"].move(i), i #black_queen.move(i) will return list of moves
+                            return self.field[i]["piece"].move(i, self.get_field()), i #black_queen.move(i) will return list of moves
                             #after this function make the squares that are in the list the piece can go to a different color
                             # have the list given to white2
                             
+    def create_colors_for_white(self):
+        for i in self.white1()[0]:
+            pygame.draw.rect(self.field[i]['position'], [255, 0, 0], [50, 50, 90, 180], 1)
+          
     def white2(self):
         click2_not_clicked = True
         while click2_not_clicked:
@@ -278,7 +239,11 @@ class Board:
                             return self.field[i]["piece"].move(i, self.get_field()), i #black_queen.move(i) will return list of moves
                             #after this function make the squares that are in the list the piece can go to a different color
                             # have the list given to white2
-                            
+    
+    def create_colors_for_black(self):
+        for i in self.black1()[0]:
+            pygame.draw.rect(self.field[i]['position'], [255, 0, 0], [50, 50, 90, 180], 1)
+            
     def black2(self):
         click2_not_clicked = True
         while click2_not_clicked:
@@ -286,7 +251,7 @@ class Board:
                 if event.type == pygame.MOUSEBUTTONUP:
                     for i in self.field:
                         if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            if self.field[i] in self.white1()[0]: 
+                            if self.field[i] in self.black1()[0]: 
                                 #replace the old square with none and transfer class, picture, and owner to new square
                                 self.field[i]["picture"] = self.field[self.white1()[1]]["picture"] 
                                 self.field[i]["piece"] = self.field[self.white1()[1]]["piece"]
