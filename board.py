@@ -36,13 +36,14 @@ class Board:
                 position_name = a[j]+b[i]
                 position = pygame.draw.rect(background,color, pygame.Rect(225+j*x1,175+i*x1,x1,x1), outlineThickness, border_radius=1)
                 position_xy = [j,i] # 0,0 0,1 0,2 0,3 0,4 0,5
+                top_left_corner = (225+j*x1,175+i*x1)
                 color_square = blackOrWhite
                 if blackOrWhite % 2 == 0:
                     color_square = 'W'
                 else:
                     color_square = 'B'
                 squares.append(position_xy)
-                self.field.update({position_name:{"position":position, "color_square":color_square, "owner":None ,"piece":None,"picture":None, "position_xy":position_xy}})
+                self.field.update({position_name:{"position":position, "color_square":color_square, "owner":None ,"piece":None,"picture":None, "position_xy":position_xy, "top_left_corner":top_left_corner}})
                 blackOrWhite = blackOrWhite + 1
         return self.field, squares # self.field is a dictionary of dictionaries {{key:{value1,value2}}} # squares is a list of lists for coordinates [[0,0],[0,1],[0,2]]
 
@@ -55,6 +56,25 @@ class Board:
         background.blit(image, (150, 100))
         pygame.display.update()
     
+    def pieces_appear(self):
+        for i in self.field:
+            
+            #blit(source, dest, area=None, special_flags=0)
+            """
+            Draws a 'source Surface' onto this Surface. 
+            The draw can be positioned with the 'dest' argument. 
+            The 'dest' argument can either be a pair of coordinates 
+            representing the position of the 'upper left corner' of the blit or a Rect, 
+            where the upper left corner of the rectangle will be used as the position for the blit. 
+            The size of the destination rectangle does not effect the blit.
+            """
+            
+            size_of_background = (81.4,81.4)
+            image = self.field[i]['picture'] # BBishop.png
+            background = pygame.display.set_mode(size_of_background)
+            background.blit(image, self.field[i]['top_left_corner'])#self.field[i]['top_left_corner'] returns (x,y)
+        pygame.display.update()
+            
     def initialize_game(self):
         #[BLACK]
         #Setting up pieces
@@ -170,8 +190,10 @@ class Board:
         return color
     
     def start_game(self):
-        self.make_board()
+        self.create_board()
         self.initialize_game()
+        self.make_board()
+        self.pieces_appear()
         not_gameover = True
         #start the game
         while not_gameover:
