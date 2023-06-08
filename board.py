@@ -60,19 +60,6 @@ class Board:
             if self.field[i]['picture'] == None:
                 pass
             elif self.field[i]['picture'] == b_bishop or b_king or b_knight or b_pawn or b_queen or b_rook or w_bishop or w_king or w_knight or w_pawn or w_queen or w_rook:
-                """
-                size_of_background = (81.4,81.4)
-                image = self.field[i]['picture'] # BBishop.png
-                background = pygame.display.set_mode(size_of_background)
-                background.blit(image, self.field[i]['top_left_corner'])#self.field[i]['top_left_corner'] returns (x,y)
-                pygame.display.update()
-                """
-                """
-                
-                def draw(self, surface):
-                img = pygame.image.load(f"images/{self.color}_{self.type}.png")
-                surface.blit(img, (self.x*75+10, self.y*75+10))
-                """
                 background.blit(self.field[i]['picture'],self.field[i]['top_left_corner'])
                 
         pygame.display.flip()
@@ -252,6 +239,7 @@ class Board:
                                 self.field[self.white1()[1]]["picture"] = None
                                 self.field[self.white1()[1]]["piece"] = None
                                 self.field[self.white1()[1]]["owner"] = None
+                                self.make_board()
                             else:
                                 self.white2()
                                 
