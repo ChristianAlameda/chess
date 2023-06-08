@@ -63,13 +63,112 @@ class Board:
                 background.blit(self.field[i]['picture'],self.field[i]['top_left_corner'])
                 
         pygame.display.flip()
-        
-        
+                  
     
-    def pieces_appear(self):
-        pass
-                
-        
+    
+    def black_or_white(self,owners_turn):
+        color = ''
+        if owners_turn % 2 == 0:
+            color = 'W'
+        else:
+            color = 'B'
+        return color
+    
+    def start_game(self):
+        self.create_board()
+        self.initialize_game()
+        self.make_board()
+        #self.pieces_appear()
+        not_gameover = True
+        #start the game
+        while not_gameover:
+            clicked = 0
+            decider = self.black_or_white(clicked)
+            if decider == "W":
+                self.white1()
+                self.create_colors_for_white()
+                self.white2()
+            elif decider == "B":
+                self.black1()
+                self.create_colors_for_black()
+                self.white2()
+            else:
+                not_gameover = True
+    
+    def white1(self):
+        click1_not_clicked = True
+        while click1_not_clicked:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    for i in self.field:
+                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black':
+                            self.white1()
+                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
+                            self.white1()
+                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
+                            return self.field[i]["piece"].move(i, self.get_field()), i #black_queen.move(i) will return list of moves
+                            #after this function make the squares that are in the list the piece can go to a different color
+                            # have the list given to white2
+                            
+    def create_colors_for_white(self):
+        for i in self.white1()[0]:
+            pygame.draw.rect(self.field[i]['position'], [255, 0, 0], [50, 50, 90, 180], 1)
+          
+    def white2(self):
+        click2_not_clicked = True
+        while click2_not_clicked:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONUP:
+                    for i in self.field:
+                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
+                            if self.field[i] in self.white1()[0]: 
+                                #replace the old square with none and transfer class, picture, and owner to new square
+                                self.field[i]["picture"] = self.field[self.white1()[1]]["picture"] 
+                                self.field[i]["piece"] = self.field[self.white1()[1]]["piece"]
+                                self.field[i]["owner"] = self.field[self.white1()[1]]["owner"]
+                                self.field[self.white1()[1]]["picture"] = None
+                                self.field[self.white1()[1]]["piece"] = None
+                                self.field[self.white1()[1]]["owner"] = None
+                                self.make_board()
+                            else:
+                                self.white2()
+                                
+    def black1(self):
+        click1_not_clicked = True
+        while click1_not_clicked:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    for i in self.field:
+                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
+                            self.white1()
+                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
+                            self.white1()
+                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black':
+                            return self.field[i]["piece"].move(i, self.get_field()), i #black_queen.move(i) will return list of moves
+                            #after this function make the squares that are in the list the piece can go to a different color
+                            # have the list given to white2
+    
+    def create_colors_for_black(self):
+        for i in self.black1()[0]:
+            pygame.draw.rect(self.field[i]['position'], [255, 0, 0], [50, 50, 90, 180], 1)
+            
+    def black2(self):
+        click2_not_clicked = True
+        while click2_not_clicked:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONUP:
+                    for i in self.field:
+                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
+                            if self.field[i] in self.black1()[0]: 
+                                #replace the old square with none and transfer class, picture, and owner to new square
+                                self.field[i]["picture"] = self.field[self.white1()[1]]["picture"] 
+                                self.field[i]["piece"] = self.field[self.white1()[1]]["piece"]
+                                self.field[i]["owner"] = self.field[self.white1()[1]]["owner"]
+                                self.field[self.white1()[1]]["picture"] = None
+                                self.field[self.white1()[1]]["piece"] = None
+                                self.field[self.white1()[1]]["owner"] = None
+                            else:
+                                self.white2()
     def initialize_game(self):
         #[BLACK]
         #Setting up pieces
@@ -175,107 +274,3 @@ class Board:
         self.field['F2']['owner']   = 'white'
         self.field['G2']['owner']   = 'white'
         self.field['H2']['owner']   = 'white'
-    
-    def black_or_white(self,owners_turn):
-        color = ''
-        if owners_turn % 2 == 0:
-            color = 'W'
-        else:
-            color = 'B'
-        return color
-    
-    def start_game(self):
-        self.create_board()
-        self.initialize_game()
-        self.make_board()
-        #self.pieces_appear()
-        not_gameover = True
-        #start the game
-        while not_gameover:
-            clicked = 0
-            decider = self.black_or_white(clicked)
-            if decider == "W":
-                self.white1()
-                self.create_colors_for_white()
-                self.white2()
-            elif decider == "B":
-                self.black1()
-                self.create_colors_for_black()
-                self.white2()
-            else:
-                not_gameover = True
-    
-    def white1(self):
-        click1_not_clicked = True
-        while click1_not_clicked:
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    for i in self.field:
-                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black':
-                            self.white1()
-                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
-                            self.white1()
-                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
-                            return self.field[i]["piece"].move(i, self.get_field()), i #black_queen.move(i) will return list of moves
-                            #after this function make the squares that are in the list the piece can go to a different color
-                            # have the list given to white2
-                            
-    def create_colors_for_white(self):
-        for i in self.white1()[0]:
-            pygame.draw.rect(self.field[i]['position'], [255, 0, 0], [50, 50, 90, 180], 1)
-          
-    def white2(self):
-        click2_not_clicked = True
-        while click2_not_clicked:
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONUP:
-                    for i in self.field:
-                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            if self.field[i] in self.white1()[0]: 
-                                #replace the old square with none and transfer class, picture, and owner to new square
-                                self.field[i]["picture"] = self.field[self.white1()[1]]["picture"] 
-                                self.field[i]["piece"] = self.field[self.white1()[1]]["piece"]
-                                self.field[i]["owner"] = self.field[self.white1()[1]]["owner"]
-                                self.field[self.white1()[1]]["picture"] = None
-                                self.field[self.white1()[1]]["piece"] = None
-                                self.field[self.white1()[1]]["owner"] = None
-                                self.make_board()
-                            else:
-                                self.white2()
-                                
-    def black1(self):
-        click1_not_clicked = True
-        while click1_not_clicked:
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    for i in self.field:
-                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
-                            self.white1()
-                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
-                            self.white1()
-                        elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black':
-                            return self.field[i]["piece"].move(i, self.get_field()), i #black_queen.move(i) will return list of moves
-                            #after this function make the squares that are in the list the piece can go to a different color
-                            # have the list given to white2
-    
-    def create_colors_for_black(self):
-        for i in self.black1()[0]:
-            pygame.draw.rect(self.field[i]['position'], [255, 0, 0], [50, 50, 90, 180], 1)
-            
-    def black2(self):
-        click2_not_clicked = True
-        while click2_not_clicked:
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONUP:
-                    for i in self.field:
-                        if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            if self.field[i] in self.black1()[0]: 
-                                #replace the old square with none and transfer class, picture, and owner to new square
-                                self.field[i]["picture"] = self.field[self.white1()[1]]["picture"] 
-                                self.field[i]["piece"] = self.field[self.white1()[1]]["piece"]
-                                self.field[i]["owner"] = self.field[self.white1()[1]]["owner"]
-                                self.field[self.white1()[1]]["picture"] = None
-                                self.field[self.white1()[1]]["piece"] = None
-                                self.field[self.white1()[1]]["owner"] = None
-                            else:
-                                self.white2()
