@@ -43,7 +43,7 @@ class Piece:
         for i in range(0,8):
             for j in range(0,8):
                 self.all.append(a[j]+b[i]) 
-    def move(self):
+    def move(self, x, board):
         # get off of the square they start on unless they are blocked
         pass
     def onBoard(self, new: str):
@@ -84,9 +84,9 @@ class black_pawn(Piece):
         #forward 1
         if (board[new]['piece'] == None) and self.onBoard(new) and s: 
             black_pawn_moves.append(new)
-            
         elif not ((board[new]['piece'] == None) and self.onBoard(new) and s):
             s = False
+            
         #forward 2
         if (board[new]['piece'] == None) and (board[new3]['piece'] == None) and self.onBoard(new3) and s2:
             black_pawn_moves.append(new3)

@@ -10,7 +10,6 @@ b_king = pygame.image.load(os.path.join("black","BKing.png"))
 b_queen = pygame.image.load(os.path.join("black","BQueen.png"))
 b_rook = pygame.image.load(os.path.join("black","BRook.png"))
 
-
 w_bishop = pygame.image.load(os.path.join("white","WBishop.png"))
 w_knight = pygame.image.load(os.path.join("white","WKnight.png"))
 w_pawn = pygame.image.load(os.path.join("white","WPawn.png"))

@@ -48,33 +48,41 @@ class Board:
         return self.field, squares # self.field is a dictionary of dictionaries {{key:{value1,value2}}} # squares is a list of lists for coordinates [[0,0],[0,1],[0,2]]
 
     def make_board(self):
-        #initializing board
+        #initializing window
         x = 1000
         y = 1000
         background = pygame.display.set_mode((x, y))
+        #initialzing board image
+        #via block trnasfering: blit() with window
         image = mapping.board
         background.blit(image, (150, 100))
-        pygame.display.update()
+        for i in self.field:
+            if self.field[i]['picture'] == None:
+                pass
+            elif self.field[i]['picture'] == b_bishop or b_king or b_knight or b_pawn or b_queen or b_rook or w_bishop or w_king or w_knight or w_pawn or w_queen or w_rook:
+                """
+                size_of_background = (81.4,81.4)
+                image = self.field[i]['picture'] # BBishop.png
+                background = pygame.display.set_mode(size_of_background)
+                background.blit(image, self.field[i]['top_left_corner'])#self.field[i]['top_left_corner'] returns (x,y)
+                pygame.display.update()
+                """
+                """
+                
+                def draw(self, surface):
+                img = pygame.image.load(f"images/{self.color}_{self.type}.png")
+                surface.blit(img, (self.x*75+10, self.y*75+10))
+                """
+                background.blit(self.field[i]['picture'],self.field[i]['top_left_corner'])
+                
+        pygame.display.flip()
+        
+        
     
     def pieces_appear(self):
-        for i in self.field:
-            
-            #blit(source, dest, area=None, special_flags=0)
-            """
-            Draws a 'source Surface' onto this Surface. 
-            The draw can be positioned with the 'dest' argument. 
-            The 'dest' argument can either be a pair of coordinates 
-            representing the position of the 'upper left corner' of the blit or a Rect, 
-            where the upper left corner of the rectangle will be used as the position for the blit. 
-            The size of the destination rectangle does not effect the blit.
-            """
-            
-            size_of_background = (81.4,81.4)
-            image = self.field[i]['picture'] # BBishop.png
-            background = pygame.display.set_mode(size_of_background)
-            background.blit(image, self.field[i]['top_left_corner'])#self.field[i]['top_left_corner'] returns (x,y)
-        pygame.display.update()
-            
+        pass
+                
+        
     def initialize_game(self):
         #[BLACK]
         #Setting up pieces
@@ -193,7 +201,7 @@ class Board:
         self.create_board()
         self.initialize_game()
         self.make_board()
-        self.pieces_appear()
+        #self.pieces_appear()
         not_gameover = True
         #start the game
         while not_gameover:
