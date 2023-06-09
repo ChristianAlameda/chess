@@ -9,7 +9,10 @@ class Board:
     def __init__(self):
         self.field = {}
         self.make_board()
-        
+        self.white_moves = []
+        self.whites_press = 0
+        self.black_moves = []
+        self.blacks_press = 0
     def get_field(self):
         return self.field
 
@@ -61,11 +64,8 @@ class Board:
                 pass
             elif self.field[i]['picture'] == b_bishop or b_king or b_knight or b_pawn or b_queen or b_rook or w_bishop or w_king or w_knight or w_pawn or w_queen or w_rook:
                 background.blit(self.field[i]['picture'],self.field[i]['top_left_corner'])
-                
         pygame.display.flip()
                   
-    
-    
     def black_or_white(self,owners_turn):
         color = ''
         if owners_turn % 2 == 0:
@@ -86,11 +86,9 @@ class Board:
             decider = self.black_or_white(clicked)
             if decider == "W":
                 self.white1()
-                self.create_colors_for_white()
                 self.white2()
             elif decider == "B":
                 self.black1()
-                self.create_colors_for_black()
                 self.white2()
             else:
                 not_gameover = True
@@ -106,14 +104,78 @@ class Board:
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
                             self.white1()
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
-                            return self.field[i]["piece"].move(i, self.get_field()), i #black_queen.move(i) will return list of moves
-                            #after this function make the squares that are in the list the piece can go to a different color
-                            # have the list given to white2
+                            p = white_pawn()
+                            kn = white_knight()
+                            b = white_bishop()
+                            r = white_rook()
+                            q = white_queen()
+                            k = white_king()
+                            print(self.field[i]['piece'])#<pieces.white_pawn object at 0x0000020D82E8E620>
+                            #initializing window
+                            x = 1000
+                            y = 1000
+                            background = pygame.display.set_mode((x, y))
+                            #initialzing board image
+                            #via block trnasfering: blit() with window
+                            image = mapping.board
+                            background.blit(image, (150, 100))
+                            for i in self.field:
+                                if self.field[i]['picture'] == None:
+                                    pass
+                                elif self.field[i]['picture'] == b_bishop or b_king or b_knight or b_pawn or b_queen or b_rook or w_bishop or w_king or w_knight or w_pawn or w_queen or w_rook:
+                                    background.blit(self.field[i]['picture'],self.field[i]['top_left_corner'])
+                            pygame.display.flip()
+                            #print(str(self.field[i]['piece']()))#TypeError: 'white_pawn' object is not callable
                             
-    def create_colors_for_white(self):
-        for i in self.white1()[0]:
-            pygame.draw.rect(self.field[i]['position'], [255, 0, 0], [50, 50, 90, 180], 1)
-          
+                            #if isinstance(self.field[i]['piece'], white_pawn)
+                            if isinstance(self.field[i]['piece'], white_pawn):
+                                print(self.field[i]['piece'].move(i,self.get_field()))
+                                for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
+                                    print(j)
+                                    #position = pygame.draw.rect(background,color, pygame.Rect(225+j*x1,175+i*x1,x1,x1), outlineThickness, border_radius=1)
+                                    background.blit(self.field[j]['picture'], self.field[j]['top_left_corner'])
+                                    self.white_moves.append(i)
+                                    click1_not_clicked = False
+                                    
+                            elif isinstance(self.field[i]['piece'], white_knight):
+                                for j in self.field[i]['piece'].move(i,self.get_field()):
+                                    print(j)
+                                    background.blit(self.field[j]['picture'], self.field[j]['top_left_corner'])
+                                    self.white_moves.append(i)
+                            
+                            elif isinstance(self.field[i]['piece'], white_bishop):
+                                for j in self.field[i]['piece'].move(i,self.get_field()):
+                                    print(j)
+                                    background.blit(self.field[j]['picture'], self.field[j]['top_left_corner'])
+                                    self.white_moves.append(i)
+                                    
+                            elif isinstance(self.field[i]['piece'], white_rook):
+                                for j in self.field[i]['piece'].move(i,self.get_field()):
+                                    print(j)
+                                    background.blit(self.field[j]['picture'], self.field[j]['top_left_corner'])
+                                    self.white_moves.append(i)
+                            
+                            elif isinstance(self.field[i]['piece'], white_queen):
+                                for j in self.field[i]['piece'].move(i,self.get_field()):
+                                    print(j)
+                                    background.blit(self.field[j]['picture'], self.field[j]['top_left_corner'])
+                                    self.white_moves.append(i)
+                                    
+                            elif isinstance(self.field[i]['piece'], white_king):
+                                for j in self.field[i]['piece'].move(i,self.get_field()):
+                                    print(j)
+                                    background.blit(self.field[j]['picture'], self.field[j]['top_left_corner'])
+                                    self.white_moves.append(i)
+                            self.white_press = i
+                                    
+    def clear_white_and_black_moves(self):
+        self.white_moves = []
+        self.black_moves = []
+    
+    def clear_whitepress_and_blackpress(self):
+        self.white_press = 0
+        self.black_press = 0
+                                    
     def white2(self):
         click2_not_clicked = True
         while click2_not_clicked:
@@ -121,7 +183,7 @@ class Board:
                 if event.type == pygame.MOUSEBUTTONUP:
                     for i in self.field:
                         if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            if self.field[i] in self.white1()[0]: 
+                            if i in self.white_moves[0]: 
                                 #replace the old square with none and transfer class, picture, and owner to new square
                                 self.field[i]["picture"] = self.field[self.white1()[1]]["picture"] 
                                 self.field[i]["piece"] = self.field[self.white1()[1]]["piece"]
@@ -130,6 +192,8 @@ class Board:
                                 self.field[self.white1()[1]]["piece"] = None
                                 self.field[self.white1()[1]]["owner"] = None
                                 self.make_board()
+                                self.clear_white_and_black_moves()
+                                self.clear_whitepress_and_blackpress()
                             else:
                                 self.white2()
                                 
@@ -144,14 +208,38 @@ class Board:
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
                             self.white1()
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black':
-                            return self.field[i]["piece"].move(i, self.get_field()), i #black_queen.move(i) will return list of moves
-                            #after this function make the squares that are in the list the piece can go to a different color
-                            # have the list given to white2
-    
-    def create_colors_for_black(self):
-        for i in self.black1()[0]:
-            pygame.draw.rect(self.field[i]['position'], [255, 0, 0], [50, 50, 90, 180], 1)
-            
+                            if self.field[i]['piece']() == black_pawn():
+                                print(black_pawn().move(i,self.get_field()))
+                                for j in black_pawn().move(i,self.get_field()):
+                                    print(j)
+                                    
+                                    self.white_moves.append(i)
+                            elif self.field[i]['piece']() == black_knight():
+                                for j in black_knight().move(i,self.get_field()):
+                                    print(j)
+                                    
+                                    self.white_moves.append(i)
+                            elif self.field[i]['piece']() == black_bishop():
+                                for j in black_bishop().move(i,self.get_field()):
+                                    print(j)
+                                    
+                                    self.white_moves.append(i)
+                            elif self.field[i]['piece']() == black_rook():
+                                for j in black_rook().move(i,self.get_field()):
+                                    print(j)
+                                    
+                                    self.white_moves.append(i)
+                            elif self.field[i]['piece']() == black_queen():
+                                for j in black_queen().move(i,self.get_field()):
+                                    print(j)
+                                    
+                                    self.white_moves.append(i)
+                            elif self.field[i]['piece']() == black_king():
+                                for j in black_king().move(i,self.get_field()):
+                                    print(j)
+                                    
+                                    self.white_moves.append(j)
+                            self.white_press = i
     def black2(self):
         click2_not_clicked = True
         while click2_not_clicked:
@@ -167,6 +255,8 @@ class Board:
                                 self.field[self.white1()[1]]["picture"] = None
                                 self.field[self.white1()[1]]["piece"] = None
                                 self.field[self.white1()[1]]["owner"] = None
+                                self.clear_white_and_black_moves()
+                                self.clear_whitepress_and_blackpress()
                             else:
                                 self.white2()
     def initialize_game(self):

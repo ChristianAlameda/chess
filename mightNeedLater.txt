@@ -57,3 +57,18 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+class MyClass:
+    def my_function(self):
+        print("Hello, I am a function inside MyClass!")
+
+# Create a dictionary with a class as a value
+my_dict = {
+    'my_class': MyClass
+}
+
+# Access the class from the dictionary and create an instance
+my_instance = my_dict['my_class']()
+
+# Call a function inside the class
+my_instance.my_function()

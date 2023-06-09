@@ -141,7 +141,7 @@ class black_pawn(Piece):
                 board[new]['piece'] = black_knight()
                 board[new]['owner'] = 'black'
                 board[new]['picture'] = b_knight
-                
+            return black_pawn_moves 
 class black_knight(Piece):
     def move(self, x, board):
         black_knight_moves = []
@@ -505,7 +505,7 @@ class white_pawn(Piece):
         #forward 1
         if n:
             if (board[new]['piece'] == None): 
-                white_pawn_moves.append(board[new])
+                white_pawn_moves.append(new)
             else:
                 s = False
             
@@ -557,7 +557,8 @@ class white_pawn(Piece):
                 board[new]['piece'] = black_knight()
                 board[new]['owner'] = 'black'
                 board[new]['picture'] = b_knight
-    
+            
+        return white_pawn_moves
 class white_knight(Piece):
     def move(self, x, board):
         white_knight_moves = []
