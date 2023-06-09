@@ -1,6 +1,7 @@
+#CHESS
 We are goin to make a Chess game that two players could potentially play
 Things the Game should have
-1. A board
+1. ##A board
     1. A picture of a board that I can calculate the pixels and then divide into 64 squares +
     2. 0,0 W; 0,1 B; 0,2 W; 0,3 B;
     3. 1,0 B; 1,1 W; 1,2 B; 1,3 W; 
@@ -11,7 +12,7 @@ Things the Game should have
     8. 6,0 W; 6,1 B; 6,2 W; 6,3 B;
     9. 7,0 B; 7,1 W; 7,2 B; 7,3 W; 
 
-2. Pieces
+2. ##Pieces
     1. Each piece should have a set of moves that they can do 
     2. and only those moves can be played. When piece is pressed
     3. it will show the possible squares that piece can reach
@@ -21,7 +22,7 @@ Things the Game should have
     7. 2.4 Queen
     8. 2.5 King
 
-3. Game Starts
+3. ##Game Starts
     1. State start = 0 // white is even // black is odd
     2. Logic to tell if odd or even to determine who's turn it is. 
     3. Each player should have 2 clicks that will be calculated
