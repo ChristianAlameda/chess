@@ -1,4 +1,4 @@
-#CHESS
+##CHESS
 We are goin to make a Chess game that two players could potentially play
 Things the Game should have
 1. ##A board
