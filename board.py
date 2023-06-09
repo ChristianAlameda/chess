@@ -2,6 +2,7 @@ import pygame
 import mapping
 from mapping import b_bishop,b_king,b_knight,b_pawn,b_queen,b_rook
 from mapping import w_bishop,w_king,w_knight,w_pawn,w_queen,w_rook
+from mapping import blue_50, green_50, red_50
 from pieces import Piece, black_bishop, black_knight, black_queen, black_king, black_rook, black_pawn
 from pieces import white_bishop, white_knight, white_queen, white_king, white_rook, white_pawn
 import time
@@ -9,6 +10,7 @@ class Board:
     def __init__(self):
         self.field = {}
         self.make_board()
+        pygame.display.flip()
         self.white_moves = []
         self.whites_press = 0
         self.black_moves = []
@@ -64,7 +66,7 @@ class Board:
                 pass
             elif self.field[i]['picture'] == b_bishop or b_king or b_knight or b_pawn or b_queen or b_rook or w_bishop or w_king or w_knight or w_pawn or w_queen or w_rook:
                 background.blit(self.field[i]['picture'],self.field[i]['top_left_corner'])
-        pygame.display.flip()
+        #pygame.display.flip()
                   
     def black_or_white(self,owners_turn):
         color = ''
@@ -78,6 +80,7 @@ class Board:
         self.create_board()
         self.initialize_game()
         self.make_board()
+        pygame.display.flip()
         #self.pieces_appear()
         not_gameover = True
         #start the game
@@ -95,6 +98,7 @@ class Board:
     
     def white1(self):
         click1_not_clicked = True
+        self.make_board()
         while click1_not_clicked:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -119,24 +123,21 @@ class Board:
                             #via block trnasfering: blit() with window
                             image = mapping.board
                             background.blit(image, (150, 100))
-                            for i in self.field:
-                                if self.field[i]['picture'] == None:
-                                    pass
-                                elif self.field[i]['picture'] == b_bishop or b_king or b_knight or b_pawn or b_queen or b_rook or w_bishop or w_king or w_knight or w_pawn or w_queen or w_rook:
-                                    background.blit(self.field[i]['picture'],self.field[i]['top_left_corner'])
-                            pygame.display.flip()
+                            
                             #print(str(self.field[i]['piece']()))#TypeError: 'white_pawn' object is not callable
                             
                             #if isinstance(self.field[i]['piece'], white_pawn)
                             if isinstance(self.field[i]['piece'], white_pawn):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
-                                    print(j)
-                                    #position = pygame.draw.rect(background,color, pygame.Rect(225+j*x1,175+i*x1,x1,x1), outlineThickness, border_radius=1)
-                                    background.blit(self.field[j]['picture'], self.field[j]['top_left_corner'])
-                                    self.white_moves.append(i)
-                                    click1_not_clicked = False
+                                    background.blit(green_50, self.field[j]['top_left_corner'])
                                     
+                                    
+                                    self.white_moves.append(j)
+                                    click1_not_clicked = False
+                                
+                                    pygame.display.update(self.field[j]['position'])
+                                
                             elif isinstance(self.field[i]['piece'], white_knight):
                                 for j in self.field[i]['piece'].move(i,self.get_field()):
                                     print(j)
@@ -178,6 +179,7 @@ class Board:
                                     
     def white2(self):
         click2_not_clicked = True
+        self.make_board()
         while click2_not_clicked:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONUP:
@@ -192,6 +194,7 @@ class Board:
                                 self.field[self.white1()[1]]["piece"] = None
                                 self.field[self.white1()[1]]["owner"] = None
                                 self.make_board()
+                                pygame.display.flip()
                                 self.clear_white_and_black_moves()
                                 self.clear_whitepress_and_blackpress()
                             else:

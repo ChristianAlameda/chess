@@ -18,6 +18,16 @@ change = {
     6:'G',
     7:'H'
 }
+change1 = {
+    0:'8',
+    1:'7',
+    2:'6',
+    3:'5',
+    4:'4',
+    5:'3',
+    6:'2',
+    7:'1'
+}
 """
 board[x]['piece'] = None
 board[x]['owner'] = None
@@ -78,19 +88,19 @@ class black_pawn(Piece):
         #x == square pressed
         result = list(map(sum,zip(board[x]['position_xy'],[0,1])))   #south x1
         if self.is_legal(result):
-            new = change[result[0]] + str(result[1])
+            new = change[result[0]] + change1[result[1]]
         else: s = False
         result1 = list(map(sum,zip(board[x]['position_xy'],[1,1])))  #south x1 west x1
         if self.is_legal(result1):
-            new1 = change[result1[0]] + str(result1[1])
+            new1 = change[result1[0]] + change1[result1[1]]
         else: sw = False
         result2 = list(map(sum,zip(board[x]['position_xy'],[-1,1]))) #south x1 east x1
         if self.is_legal(result2):
-            new2 = change[result2[0]] + str(result2[1])
+            new2 = change[result2[0]] + change1[result2[1]]
         else: se = False
         result3 = list(map(sum,zip(board[x]['position_xy'],[0,2])))  #south x2
         if self.is_legal(result3):
-            new3 = change[result3[0]] + str(result3[1])
+            new3 = change[result3[0]] + change1[result3[1]]
         else: s2 = False
         
         #forward 1
@@ -156,43 +166,43 @@ class black_knight(Piece):
         # x == whatever get's passed to us through the board pressing
         result = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result):
-            new = change[result[0]] + str(result[1])
+            new = change[result[0]] + change1[result[1]]
         else: a = False
         
         result1 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result1):
-            new1 = change[result1[0]] + str(result1[1])
+            new1 = change[result1[0]] + change1[result1[1]]
         else: b = False
         
         result2 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result2):
-            new2 = change[result2[0]] + str(result2[1])
+            new2 = change[result2[0]] + change1[result2[1]]
         else: c = False
         
         result3 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result3):
-            new3 = change[result3[0]] + str(result3[1])
+            new3 = change[result3[0]] + change1[result2[1]]
         else: d = False
         
         result4 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result4):
-            new4 = change[result4[0]] + str(result4[1])
+            new4 = change[result4[0]] + change1[result4[1]]
         else: e = False
         
         result5 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result5):
-            new5 = change[result5[0]] + str(result5[1])
+            new5 = change[result5[0]] + change1[result5[1]]
         else: f = False
         
         result6 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         
         if self.is_legal(result6):
-            new6 = change[result6[0]] + str(result6[1])
+            new6 = change[result6[0]] + change1[result6[1]]
         else: g = False
         result7 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         
         if self.is_legal(result7):
-            new7 = change[result7[0]] + str(result7[1])
+            new7 = change[result7[0]] + change[result7[1]]
         else: h = False
         
         #BLACK KNIGHT MOVES
@@ -251,19 +261,19 @@ class black_bishop(Piece):
             result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
             if self.is_legal(result1):
-                new1 = change[result1[0]] + str(result1[1])
+                new1 = change[result1[0]] + change1[result1[1]]
             else: nw = False
             
             if self.is_legal(result2):
-                new2 = change[result2[0]] + str(result2[1])
+                new2 = change[result2[0]] + change1[result2[1]]
             else: ne = False
             
             if self.is_legal(result3):
-                new3 = change[result3[0]] + str(result3[1])
+                new3 = change[result3[0]] + change1[result3[1]]
             else: sw = False
             
             if self.is_legal(result4):
-                new4 = change[result4[0]] + str(result4[1])
+                new4 = change[result4[0]] + change1[result4[1]]
             else: se = False
             
             #BLACK BISHOP MOVES
@@ -310,19 +320,19 @@ class black_rook(Piece):
             result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
             if self.is_legal(result1):
-                new1 = change[result1[0]] + str(result1[1])
+                new1 = change[result1[0]] + change1[result1[1]]
             else: n = False
             
             if self.is_legal(result2):
-                new2 = change[result2[0]] + str(result2[1])
+                new2 = change[result2[0]] + change1[result2[1]]
             else: s = False
             
             if self.is_legal(result3):
-                new3 = change[result3[0]] + str(result3[1])
+                new3 = change[result3[0]] + change1[result3[1]]
             else: w = False
             
             if self.is_legal(result4):
-                new4 = change[result4[0]] + str(result4[1])
+                new4 = change[result4[0]] + change1[result4[1]]
             else: e = False
             
             #BLACK ROOK MOVES
@@ -386,35 +396,35 @@ class black_king(Piece):
         n,s,w,e,nw,sw,ne,se = True,True,True,True,True,True,True,True
         black_king_moves = []
         if self.is_legal(result1):
-            new1 = change[result1[0]] + str(result1[1])
+            new1 = change[result1[0]] + change1[result1[1]]
         else: n = False
         
         if self.is_legal(result2):
-            new2 = change[result2[0]] + str(result2[1])
+            new2 = change[result2[0]] + change1[result2[1]]
         else: s = False
         
         if self.is_legal(result3):
-            new3 = change[result3[0]] + str(result3[1])
+            new3 = change[result3[0]] + change1[result3[1]]
         else: w = False
         
         if self.is_legal(result4):
-            new4 = change[result4[0]] + str(result4[1])
+            new4 = change[result4[0]] + change1[result4[1]]
         else: e = False
         
         if self.is_legal(result5):
-            new5 = change[result5[0]] + str(result5[1])
+            new5 = change[result5[0]] + change1[result5[1]]
         else: nw = False
         
         if self.is_legal(result6):
-            new6 = change[result6[0]] + str(result6[1])
+            new6 = change[result6[0]] + change1[result6[1]]
         else: sw = False
         
         if self.is_legal(result7):
-            new7 = change[result7[0]] + str(result7[1])
+            new7 = change[result7[0]] + change[result7[1]]
         else: ne = False
         
         if self.is_legal(result8):
-            new8 = change[result8[0]] + str(result8[1])
+            new8 = change[result8[0]] + change1[result8[1]]
         else: se = False
         
         #BLACK KING MOVES
@@ -480,24 +490,24 @@ class white_pawn(Piece):
         #white or black piece standing in front
         #of pawn
         #x == square pressed
-        result = list(map(sum,zip(board[x]['position_xy'],[0,-1])))   #north x1
+        result = list(map(sum,zip(board[x]['position_xy'],[0,-1])))   # north x1 
         if self.is_legal(result):
-            new = change[result[0]] + str(result[1])
+            new = change[result[0]] + change1[result[1]]
         else: n = False
         
         result1 = list(map(sum,zip(board[x]['position_xy'],[1,-1])))  #north x1 west x1
         if self.is_legal(result1):
-            new1 = change[result1[0]] + str(result1[1])
+            new1 = change[result1[0]] + change1[result1[1]]
         else: nw = False
         
         result2 = list(map(sum,zip(board[x]['position_xy'],[-1,-1]))) #north x1 east x1
         if self.is_legal(result2):
-            new2 = change[result2[0]] + str(result2[1])
+            new2 = change[result2[0]] + change1[result2[1]]
         else: ne = False
         
         result3 = list(map(sum,zip(board[x]['position_xy'],[0,-2])))  #north x2
         if self.is_legal(result3):
-            new3 = change[result3[0]] + str(result3[1])
+            new3 = change[result3[0]] + change1[result3[1]]
         else: n2 = False
         
         #WHITE PAWN MOVES
@@ -573,35 +583,35 @@ class white_knight(Piece):
         # x == whatever get's passed to us through the board pressing
         result = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result):
-            new = change[result[0]] + str(result[1])
+            new = change[result[0]] + change1[result[1]]
         else: a = False
         result1 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result1):
-            new1 = change[result1[0]] + str(result1[1])
+            new1 = change[result1[0]] + change1[result1[1]]
         else: b = False
         result2 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result2):
-            new2 = change[result2[0]] + str(result2[1])
+            new2 = change[result2[0]] + change1[result2[1]]
         else: c = False
         result3 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result3):
-            new3 = change[result3[0]] + str(result3[1])
+            new3 = change[result3[0]] + change1[result3[1]]
         else: d = False
         result4 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result4):
-            new4 = change[result4[0]] + str(result4[1])
+            new4 = change[result4[0]] + change1[result4[1]]
         else: e = False
         result5 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result5):
-            new5 = change[result5[0]] + str(result5[1])
+            new5 = change[result5[0]] + change1[result5[1]]
         else: f = False
         result6 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result6):
-            new6 = change[result6[0]] + str(result6[1])
+            new6 = change[result6[0]] + change1[result6[1]]
         else: g = False
         result7 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
         if self.is_legal(result7):
-            new7 = change[result7[0]] + str(result7[1])
+            new7 = change[result7[0]] + change1[result7[1]]
         else: h = False
         
         # CHECK KNIGHT MOVES
@@ -671,19 +681,19 @@ class white_bishop(Piece):
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
             
             if self.is_legal(result1):
-                new1 = change[result1[0]] + str(result1[1])
+                new1 = change[result1[0]] + change1[result1[1]]
             else: nw = False
             
             if self.is_legal(result2):
-                new2 = change[result2[0]] + str(result2[1])
+                new2 = change[result2[0]] + change1[result2[1]]
             else: ne = False
             
             if self.is_legal(result3):
-                new3 = change[result3[0]] + str(result3[1])
+                new3 = change[result3[0]] + change1[result3[1]]
             else: sw = False
             
             if self.is_legal(result4):
-                new4 = change[result4[0]] + str(result4[1])
+                new4 = change[result4[0]] + change1[result4[1]]
             else: se = False
             
             #CHECKING BISHOP MOVES
@@ -730,19 +740,19 @@ class white_rook(Piece):
             result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
             if self.is_legal(result1):
-                new1 = change[result1[0]] + str(result1[1])
+                new1 = change[result1[0]] + change1[result1[1]]
             else: n = False
             
             if self.is_legal(result2):
-                new2 = change[result2[0]] + str(result2[1])
+                new2 = change[result2[0]] + change1[result2[1]]
             else: s = False
             
             if self.is_legal(result3):
-                new3 = change[result3[0]] + str(result3[1])
+                new3 = change[result3[0]] + change1[result3[1]]
             else: w = False
             
             if self.is_legal(result4):
-                new4 = change[result4[0]] + str(result4[1])
+                new4 = change[result4[0]] + change1[result4[1]]
             else: e = False   
            
             if n: 
@@ -804,35 +814,35 @@ class white_king(Piece):
         white_king_moves = []
         
         if self.is_legal(result1):
-            new1 = change[result1[0]] + str(result1[1])
+            new1 = change[result1[0]] + change1[result1[1]]
         else: n = False
         
         if self.is_legal(result2):
-            new2 = change[result2[0]] + str(result2[1])
+            new2 = change[result2[0]] + change1[result2[1]]
         else: s = False
         
         if self.is_legal(result3):
-            new3 = change[result3[0]] + str(result3[1])
+            new3 = change[result3[0]] + change1[result3[1]]
         else: w = False
         
         if self.is_legal(result4):
-            new4 = change[result4[0]] + str(result4[1])
+            new4 = change[result4[0]] + change1[result4[1]]
         else: e = False
         
         if self.is_legal(result5):
-            new5 = change[result5[0]] + str(result5[1])
+            new5 = change[result5[0]] + change1[result5[1]]
         else: nw = False
         
         if self.is_legal(result6):
-            new6 = change[result6[0]] + str(result6[1])
+            new6 = change[result6[0]] + change1[result6[1]]
         else: sw = False
         
         if self.is_legal(result7):
-            new7 = change[result7[0]] + str(result7[1])
+            new7 = change[result7[0]] + change1[result7[1]]
         else: ne = False
         
         if self.is_legal(result8):
-            new8 = change[result8[0]] + str(result8[1])
+            new8 = change[result8[0]] + change1[result8[1]]
         else: se = False
         
         #KING MOVES
