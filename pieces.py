@@ -151,7 +151,7 @@ class black_pawn(Piece):
                 board[new]['piece'] = black_knight()
                 board[new]['owner'] = 'black'
                 board[new]['picture'] = b_knight
-            return black_pawn_moves 
+        return black_pawn_moves 
 class black_knight(Piece):
     def move(self, x, board):
         black_knight_moves = []
@@ -169,37 +169,37 @@ class black_knight(Piece):
             new = change[result[0]] + change1[result[1]]
         else: a = False
         
-        result1 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
+        result1 = list(map(sum,zip(board[x]['position_xy'],[2,-1])))
         if self.is_legal(result1):
             new1 = change[result1[0]] + change1[result1[1]]
         else: b = False
         
-        result2 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
+        result2 = list(map(sum,zip(board[x]['position_xy'],[-2,1])))
         if self.is_legal(result2):
             new2 = change[result2[0]] + change1[result2[1]]
         else: c = False
         
-        result3 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
+        result3 = list(map(sum,zip(board[x]['position_xy'],[-2,-1])))
         if self.is_legal(result3):
             new3 = change[result3[0]] + change1[result2[1]]
         else: d = False
         
-        result4 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
+        result4 = list(map(sum,zip(board[x]['position_xy'],[1,2])))
         if self.is_legal(result4):
             new4 = change[result4[0]] + change1[result4[1]]
         else: e = False
         
-        result5 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
+        result5 = list(map(sum,zip(board[x]['position_xy'],[1,-2])))
         if self.is_legal(result5):
             new5 = change[result5[0]] + change1[result5[1]]
         else: f = False
         
-        result6 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
+        result6 = list(map(sum,zip(board[x]['position_xy'],[-1,2])))
         
         if self.is_legal(result6):
             new6 = change[result6[0]] + change1[result6[1]]
         else: g = False
-        result7 = list(map(sum,zip(board[x]['position_xy'],[2,1])))
+        result7 = list(map(sum,zip(board[x]['position_xy'],[-1,-2])))
         
         if self.is_legal(result7):
             new7 = change[result7[0]] + change[result7[1]]
@@ -474,7 +474,7 @@ class black_king(Piece):
                 black_king_moves.append(new8)
             else:
                 se = False
-
+        return black_king_moves
 class white_pawn(Piece):
     def move(self, x, board):
         #Movement

@@ -1,0 +1,9 @@
+Queen moves do not work
+
+If a piece has no moves then the user should be able to click on a piece that has moves
+
+Pieces are kept in the original position of the starting board and just stay there as if it was a picture
+
+Black knight and white knight dislike the H file
+
+Pawn can't go one forward
