@@ -99,7 +99,8 @@ class black_pawn(Piece):
             new2 = change[result2[0]] + change1[result2[1]]
         else: se = False
         result3 = list(map(sum,zip(board[x]['position_xy'],[0,2])))  #south x2
-        if self.is_legal(result3):
+        potential = [[0,1] , [1,1] , [2,1] , [3,1] , [4,1] , [5,1] , [6,1] , [7,1]]
+        if self.is_legal(result3) and (board[x]['position_xy'] in potential):
             new3 = change[result3[0]] + change1[result3[1]]
         else: s2 = False
         
@@ -112,7 +113,7 @@ class black_pawn(Piece):
         if s2:
             if (board[new]['piece'] == None) and (board[new3]['piece'] == None):
                 black_pawn_moves.append(new3)
-
+                
         #capturing sw
         if sw:
             if board[new1]['owner'] == 'white':
@@ -365,8 +366,9 @@ class black_rook(Piece):
 class black_queen(Piece):
     def move(self, x, board):
         # A queen can only move as a rook and bishop can move
-        black_queen_moves = []
-        black_queen_moves.append(black_rook.move(x) + black_bishop.move(x))
+        brook = black_rook()
+        bbishop = black_bishop()
+        black_queen_moves = brook.move(x,board) + bbishop.move(x,board)#[[],[]];;;
         return black_queen_moves
         
 class black_king(Piece):
@@ -374,15 +376,15 @@ class black_king(Piece):
         black_king_check_if_bad = []
         #adding all squares a white piece could potentially go
         for key in board:
-            if key['owner'] == 'white':
-                black_king_check_if_bad.append(key['piece'].move(key))# gives me a list of moves that that piece can move
+            if board[key]['owner'] == 'white':
+                black_king_check_if_bad.append(board[key]['piece'].move(key))# gives me a list of moves that that piece can move
         #adding all squares black pieces are
         for key in board:
-            if key['owner'] == 'black':
+            if board[key]['owner'] == 'black':
                 black_king_check_if_bad.append(key['piece'].move(key))
         #Collecting position of all pieces on the board
         for key in board:
-            if key['owner'] == 'white':
+            if board[key]['owner'] == 'white':
                 black_king_check_if_bad.append(key)
         #if king move == not in line of check and has no pieces next to it and == free to roam then it has 8 moves the king can make
         result1 = list(map(sum,zip(board[x]['position_xy'],[0,1])))  # n
@@ -506,9 +508,11 @@ class white_pawn(Piece):
         else: ne = False
         
         result3 = list(map(sum,zip(board[x]['position_xy'],[0,-2])))  #north x2
-        if self.is_legal(result3):
+        potential = [[0,6] , [1,6] , [2,6] , [3,6] , [4,6] , [5,6] , [6,6] , [7,6]]
+        if self.is_legal(result3) and (board[x]['position_xy'] in potential):
             new3 = change[result3[0]] + change1[result3[1]]
         else: n2 = False
+        
         
         #WHITE PAWN MOVES
         
@@ -517,14 +521,12 @@ class white_pawn(Piece):
             if (board[new]['piece'] == None): 
                 white_pawn_moves.append(new)
             else:
-                s = False
+                n = False
             
         #forward 2
         if n2:
             if (board[new]['piece'] == None) and (board[new3]['piece'] == None):
                 white_pawn_moves.append(new3)
-            else:
-                n2 = False
         
         #north west capture
         if nw:
@@ -780,26 +782,28 @@ class white_rook(Piece):
         return white_rook_moves
     
 class white_queen(Piece):
+    
     def move(self, x, board):
         # A queen can only move as a rook and bishop can move
-        white_queen_moves = []
-        white_queen_moves.append(white_rook.move(x,board) + white_bishop.move(x,board))
+        wrook = white_rook()
+        wbishop = white_bishop()
+        white_queen_moves = wrook.move(x,board) + wbishop.move(x,board)
         return white_queen_moves
         
 class white_king(Piece):
     def move(self, x, board):
         white_king_check_if_bad = []
         #adding all squares a black piece could potentially go
-        for key in board:
-            if key['owner'] == 'black':
-                white_king_check_if_bad.append(key['piece'].move(key))# gives me a list of moves that that piece can move
+        for key in board:#A8
+            if board[key]['owner'] == 'black':
+                white_king_check_if_bad.append(board[key]['piece'].move(key))# gives me a list of moves that that piece can move
         #adding all squares black pieces are
         for key in board:
-            if key['owner'] == 'white':
-                white_king_check_if_bad.append(key['piece'].move(key))
+            if board[key]['owner'] == 'white':
+                white_king_check_if_bad.append(board[key]['piece'].move(key))
         #Collecting position of all pieces on the board
         for key in board:
-            if key['owner'] == 'black':
+            if board[key]['owner'] == 'black':
                 white_king_check_if_bad.append(key)
         #if king move == not in line of check and has no pieces next to it and == free to roam then it has 8 moves the king can make
         result1 = list(map(sum,zip(board[x]['position_xy'],[0,1])))  # n

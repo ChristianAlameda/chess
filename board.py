@@ -16,11 +16,12 @@ class Board:
         y = 1000
         self.background = pygame.display.set_mode((x, y))
         self.image = mapping.board
-        self.picture_of_board = self.background.blit(self.image, (150, 100))
+        self.picture_of_board()
         self.white_moves = []
         self.white_press = ''
         self.black_moves = []
         self.black_press = ''
+        
     def get_field(self):
         return self.field
 
@@ -28,7 +29,7 @@ class Board:
         color = (0,0,0)
         outlineThickness = 1
         x1 = 81.4
-        self.picture_of_board
+        self.picture_of_board()
         a = ['A','B','C','D','E','F','G','H']
         b = ['8','7','6','5','4','3','2','1']
         squares = []
@@ -39,7 +40,6 @@ class Board:
         blackOrWhite = 0
         for i in range(0,8):
             for j in range(0,8):
-                
                 position_name = a[j]+b[i]
                 position = pygame.draw.rect(self.background,color, pygame.Rect(225+j*x1,175+i*x1,x1,x1), outlineThickness, border_radius=1)
                 position_xy = [j,i] # 0,0 0,1 0,2 0,3 0,4 0,5
@@ -52,12 +52,18 @@ class Board:
                     color_square = 'B'
                 squares.append(position_xy)
                 self.field.update({position_name:{"position":position, "color_square":color_square, "owner":None ,"piece":None,"picture":None, "position_xy":position_xy, "top_left_corner":top_left_corner, "middle":middle}})
+                
                 blackOrWhite = blackOrWhite + 1
         return self.field, squares # self.field is a dictionary of dictionaries {{key:{value1,value2}}} # squares is a list of lists for coordinates [[0,0],[0,1],[0,2]]
 
+    def picture_of_board(self):
+        self.background.blit(self.image, (150, 100))
+    
     def make_board(self):
         #via block trnasfering: blit() with window
-        self.picture_of_board
+        
+        self.picture_of_board()
+        #self.background.blit(self.picture_of_board,self.field[i]['top_left_corner'])
         for i in self.field:
             if self.field[i]['picture'] == None:
                 pass
@@ -87,13 +93,13 @@ class Board:
                 self.white1()
                 self.white2()
                 for i in self.field:
-                    print(i, self.field[i]['piece'])
+                    print(i, self.field[i]['position_xy'], self.field[i]['piece'])
                 clicked = clicked + 1
             elif decider == "B":
                 self.black1()
                 self.black2()
                 for i in self.field:
-                    print(i, self.field[i]['piece'])
+                    print(i, self.field[i]['position_xy'], self.field[i]['piece'])
                 clicked = clicked + 1
             else:
                 not_gameover = False
@@ -101,81 +107,76 @@ class Board:
     def white1(self):
         click1_not_clicked = True
         self.make_board()
+        self.clear_white_and_black_moves()
         print("It's white's first press")
         while click1_not_clicked:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    for i in self.field:
+                    for i in self.field:# c7 
                         if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black':
+                            print('oops you clicked on a black piece')
                             self.white1()
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
+                            print('oops you clicked on a None piece')
                             self.white1()
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
                             print(self.field[i]['piece'])#<pieces.white_pawn object at 0x0000020D82E8E620>
                             #via block trnasfering: blit() with window
-                            self.picture_of_board
-
+                            self.picture_of_board()
+                            self.white_press = i
                             #if isinstance(self.field[i]['piece'], white_pawn)
                             if isinstance(self.field[i]['piece'], white_pawn):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
                                     self.white_moves.append(j)
-                                    self.white_press = i
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
                                 
                             elif isinstance(self.field[i]['piece'], white_knight):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
                                     self.white_moves.append(j)
-                                    self.white_press = i
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
 
                             elif isinstance(self.field[i]['piece'], white_bishop):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
                                     self.white_moves.append(j)
-                                    self.white_press = i
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
                                     
                             elif isinstance(self.field[i]['piece'], white_rook):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
                                     self.white_moves.append(j)
-                                    self.white_press = i
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
                             
                             elif isinstance(self.field[i]['piece'], white_queen):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
                                     self.white_moves.append(j)
-                                    self.white_press = i
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
                                     
                             elif isinstance(self.field[i]['piece'], white_king):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
                                     self.white_moves.append(j)
-                                    self.white_press = i
-                                    pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
-                                    
+                                    pygame.display.update(self.field[j]['position']) # (), w, h
+                            
+                                
+                            click1_not_clicked = False
+    def boolean_checker(self):
+        user_input = input("Are you sure you wanted to pick that piece?\nEnter 't','true','yes' - True\nAnything else for False: ").lower()
+        boolean_yes = ['t', 'true', 'yes']
+        if user_input in boolean_yes:
+            return True
+        else:
+            return False                                
+        
     def clear_white_and_black_moves(self):
         self.white_moves = []
         self.black_moves = []
@@ -188,12 +189,13 @@ class Board:
         click2_not_clicked = True
         self.make_board()
         print("It is white's second press")
+        print(self.white_moves)
         while click2_not_clicked:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     for i in self.field:
                         if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            if i in self.white_moves: 
+                            if (i in self.white_moves): 
                                 #replace the old square with none and transfer class, picture, and owner to new square
                                 self.field[i]["picture"] = self.field[self.white_press]["picture"] 
                                 self.field[i]["piece"] = self.field[self.white_press]["piece"]
@@ -213,80 +215,79 @@ class Board:
     def black1(self):
         click1_not_clicked = True
         self.make_board()
+        self.clear_white_and_black_moves()
         print("It is black's first press")
         while click1_not_clicked:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     for i in self.field:
                         if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
+                            print('oops you clicked on a white piece')
                             self.black1()
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'None':
+                            print('oops you clicked on a None piece')
                             self.black1()
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black':
+                            self.black_press = i
                             print(self.field[i]['piece'])#<pieces.black_pawn object at 0x0000020D82E8E620>
                             #via block trnasfering: blit() with window
-                            self.picture_of_board
+                            self.picture_of_board()
 
                             #if isinstance(self.field[i]['piece'], black_pawn)
                             if isinstance(self.field[i]['piece'], black_pawn):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
+                                    
                                     self.black_moves.append(j)
-                                    self.black_press = i
+                                    
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
-                                
+                                    
                             elif isinstance(self.field[i]['piece'], black_knight):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
+                                    
                                     self.black_moves.append(j)
-                                    self.black_press = i
+                                    
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
-
+                                    
                             elif isinstance(self.field[i]['piece'], black_bishop):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
+                                    
                                     self.black_moves.append(j)
-                                    self.black_press = i
+                                    
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
                                     
                             elif isinstance(self.field[i]['piece'], black_rook):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
+                                    
                                     self.black_moves.append(j)
-                                    self.black_press = i
+                                    
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
-                            
+                                    
                             elif isinstance(self.field[i]['piece'], black_queen):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
+                                    
                                     self.black_moves.append(j)
-                                    self.black_press = i
+                                    
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
                                     
                             elif isinstance(self.field[i]['piece'], black_king):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.clear_white_and_black_moves()
+                                    
                                     self.black_moves.append(j)
-                                    self.black_press = i
+                                    
                                     pygame.display.update(self.field[j]['position'])
-                                    click1_not_clicked = False
+                            click1_not_clicked = False
                                     
     def black2(self):
         click2_not_clicked = True
