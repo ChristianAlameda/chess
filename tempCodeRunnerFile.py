@@ -1,2 +1,1 @@
-
-        if self.is_legal(result4):
+white_king

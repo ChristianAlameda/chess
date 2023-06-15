@@ -1,10 +1,3 @@
-from mapping import b_bishop,b_king,b_knight,b_pawn,b_queen,b_rook
-from mapping import w_bishop,w_king,w_knight,w_pawn,w_queen,w_rook
-#from board import Board
-#board = Board()
-#position = board.create_board()
-#coordinate = position[1]#squeares
-#[[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [0, 1], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [7, 1], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [0, 4], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4], [0, 5], [1, 5], [2, 5], [3, 5], [4, 5], [5, 5], [6, 5], [7, 5], [0, 6], [1, 6], [2, 6], [3, 6], [4, 6], [5, 6], [6, 6], [7, 6], [0, 7], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7]]
 
 #These are for after a calculation has done for a move we will swap out the first digit with the letter corresponding
 #Then add it to a string number
@@ -66,14 +59,6 @@ class Piece:
     def move2(self, x, board):
         pass
 
-    def onBoard(self, new: str):
-        # when pressed A8 C6
-        """
-        if new in self.all:
-            return True
-        else: return False
-        """
-    
     def pinned(self,x,board):#given square and board with it's pieces
         # remove piece from game and check if an opposing piece can attack the king
         
@@ -81,7 +66,7 @@ class Piece:
         if board[x]['owner'] == 'white':
             for key in board:
                 if isinstance(board[key]['piece'], white_king):
-                    king_line = sking.move(key,board)#[[n],[s],[w],[e],[],[],[]]
+                    king_line = sking.move(key,board)#[[n],[s],[w],[e],[nw],[ne],[sw],[se]]
                     #accounting for rook and queen moves | _
                     for index, value in enumerate(king_line[0]):
                         if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_rook):
@@ -93,7 +78,8 @@ class Piece:
                                     temp.append(king_line[0][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
+                                
                                 
                     for index, value in enumerate(king_line[1]):
                         if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_rook):
@@ -105,7 +91,7 @@ class Piece:
                                     temp.append(king_line[1][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
                     
                     for index, value in enumerate(king_line[2]):
                         if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_rook):
@@ -117,7 +103,7 @@ class Piece:
                                     temp.append(king_line[2][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
                                 
                     for index, value in enumerate(king_line[3]):
                         if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_rook):
@@ -129,7 +115,7 @@ class Piece:
                                     temp.append(king_line[3][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
                                 
                     for index, value in enumerate(king_line[4]):
                         if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_bishop):
@@ -141,7 +127,7 @@ class Piece:
                                     temp.append(king_line[4][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
 
                     for index, value in enumerate(king_line[5]):
                         if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_bishop):
@@ -153,7 +139,7 @@ class Piece:
                                     temp.append(king_line[5][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
 
                     for index, value in enumerate(king_line[6]):
                         if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_bishop):
@@ -165,7 +151,7 @@ class Piece:
                                     temp.append(king_line[6][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
                     
                     for index, value in enumerate(king_line[7]):
                         if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_bishop):
@@ -177,15 +163,15 @@ class Piece:
                                     temp.append(king_line[7][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
-        
+                                    return True, value
+                    return False
         
         
         
         #FOR Black
-        if board[x]['owner'] == 'white':
+        if board[x]['owner'] == 'black':
             for key in board:
-                if isinstance(board[key]['piece'], white_king):
+                if isinstance(board[key]['piece'], black_king):
                     king_line = sking.move(key,board)#[[n],[s],[w],[e],[],[],[]]
                     #accounting for rook and queen moves | _
                     for index, value in enumerate(king_line[0]):
@@ -198,7 +184,7 @@ class Piece:
                                     temp.append(king_line[0][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
                                 
                     for index, value in enumerate(king_line[1]):
                         if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_rook):
@@ -210,7 +196,7 @@ class Piece:
                                     temp.append(king_line[1][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
                     
                     for index, value in enumerate(king_line[2]):
                         if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_rook):
@@ -222,7 +208,7 @@ class Piece:
                                     temp.append(king_line[2][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
                                 
                     for index, value in enumerate(king_line[3]):
                         if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_rook):
@@ -234,7 +220,7 @@ class Piece:
                                     temp.append(king_line[3][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
                                 
                     for index, value in enumerate(king_line[4]):
                         if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_bishop):
@@ -246,7 +232,7 @@ class Piece:
                                     temp.append(king_line[4][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
 
                     for index, value in enumerate(king_line[5]):
                         if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_bishop):
@@ -258,7 +244,7 @@ class Piece:
                                     temp.append(king_line[5][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
 
                     for index, value in enumerate(king_line[6]):
                         if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_bishop):
@@ -270,7 +256,7 @@ class Piece:
                                     temp.append(king_line[6][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
+                                    return True, value
                     
                     for index, value in enumerate(king_line[7]):
                         if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_bishop):
@@ -282,25 +268,8 @@ class Piece:
                                     temp.append(king_line[7][i])
                             if curr == 1:
                                 if x in temp:
-                                    return True
-
-                    
-                
-                                    
-                                    
-                                
-                                    
-                                
-                    
-                            
-        elif board[x]['owner'] == 'black':
-            for key in board:
-                if isinstance(board[key]['piece'], black_king):
-                    king_lines = sking.move(key,board)
-                    break
-                    
-                    
-        
+                                    return True, value
+                    return False
     def is_legal(self, result):
         if result[0]>= 0 and result[0]<=7 and result[1]>= 0 and result[1]<=7:
             return True
@@ -455,6 +424,7 @@ class black_pawn(Piece):
                 black_pawn_moves.append(new2)
             
         #promotion
+        from mapping import b_pawn, b_bishop, b_knight
         if board[new]['position_xy'] == ([0,7] or [1,7] or [2,7] or [3,7] or [4,7] or [5,7] or [6,7] or [7,7]):
             black_pawn_moves.append(new)
             print('what piece would you like to change to?')
@@ -474,7 +444,7 @@ class black_pawn(Piece):
                 board[new]['piece'] = black_bishop()
                 board[new]['owner'] = 'black'
                 board[new]['picture'] = b_bishop
-                
+            
             elif piece_selection == 3:
                 board[x]['piece'] = None
                 board[x]['owner'] = None
@@ -482,6 +452,16 @@ class black_pawn(Piece):
                 board[new]['piece'] = black_knight()
                 board[new]['owner'] = 'black'
                 board[new]['picture'] = b_knight
+                
+        if self.pinned(x,board) == False:
+            pass
+        else:
+            for i in black_pawn_moves:
+                if self.pinned(x,board)[1] == i:
+                    black_pawn_moves = []
+                    only_move = black_pawn_moves.append(i)
+                    return only_move
+                
         return black_pawn_moves 
 class black_knight(Piece):
     def move(self, x, board):
@@ -568,6 +548,14 @@ class black_knight(Piece):
         if h:
             if (board[new7]['owner'] == 'white' or board[new7]['owner'] == None):#8
                 black_knight_moves.append(new7)
+        if self.pinned(x,board) == False:
+            pass
+        else:
+            for i in black_knight_moves:
+                if self.pinned(x,board)[1] == i:
+                    black_knight_moves = []
+                    only_move = black_knight_moves.append(i)
+                    return only_move
                 
         return black_knight_moves
 class black_bishop(Piece):
@@ -631,6 +619,15 @@ class black_bishop(Piece):
                     black_bishop_moves.append(new4)
                 else:
                     se = False 
+        if self.pinned(x,board) == False:
+            pass
+        else:
+            for i in black_bishop_moves:
+                if self.pinned(x,board)[1] == i:
+                    black_bishop_moves = []
+                    only_move = black_bishop_moves.append(i)
+                    return only_move
+                
         return black_bishop_moves
     
 class black_rook(Piece):
@@ -690,7 +687,15 @@ class black_rook(Piece):
                     black_rook_moves.append(new4)
                 else:
                     e = False
-            
+                    
+        if self.pinned(x,board) == False:
+            pass
+        else:
+            for i in black_rook_moves:
+                if self.pinned(x,board)[1] == i:
+                    black_rook_moves = []
+                    only_move = black_rook_moves.append(i)
+                    return only_move  
         return black_rook_moves
     
 class black_queen(Piece):
@@ -699,6 +704,12 @@ class black_queen(Piece):
         brook = black_rook()
         bbishop = black_bishop()
         black_queen_moves = brook.move(x,board) + bbishop.move(x,board)#[[],[]];;;
+        if self.pinned(x,board)[0]:
+            for i in black_queen_moves:
+                if self.pinned(x,board)[1] == i:
+                    black_queen_moves = []
+                    only_move = black_queen_moves.append(i)
+                    return only_move
         return black_queen_moves
         
 class black_king(Piece):
@@ -833,6 +844,7 @@ class black_king(Piece):
                     black_king_castle_queenside = new10
                     
         return black_king_moves, black_king_castle_kingside, black_king_castle_queenside
+    
 class white_pawn(Piece):
     def move(self, x, board):
         #Movement
@@ -902,6 +914,7 @@ class white_pawn(Piece):
             white_pawn_moves.append(new)
             print('what piece would you like to change to?')
             piece_selection = int(input("[1] - Queen\n[2] - bishop\n[3] - Knight\n: "))
+            from mapping import b_pawn, b_bishop, b_knight
             if piece_selection == 1:
                 board[x]['piece'] = None
                 board[x]['owner'] = None
@@ -925,7 +938,17 @@ class white_pawn(Piece):
                 board[new]['piece'] = black_knight()
                 board[new]['owner'] = 'black'
                 board[new]['picture'] = b_knight
-            
+        
+        print(self.pinned(x,board))
+        if self.pinned(x,board) == False:
+            pass
+        else:
+            for i in white_pawn_moves:
+                if self.pinned(x,board)[1] == i:
+                    white_pawn_moves = []
+                    only_move = white_pawn_moves.append(i)
+                    return only_move
+                
         return white_pawn_moves
 class white_knight(Piece):
     def move(self, x, board):
@@ -1019,6 +1042,16 @@ class white_knight(Piece):
                 white_knight_moves.append(new7)
             else:
                 a = False
+        
+        if self.pinned(x,board) == False:
+            pass
+        else:
+            for i in white_knight_moves:
+                if self.pinned(x,board)[1] == i:
+                    white_knight_moves = []
+                    only_move = white_knight_moves.append(i)
+                    return only_move
+                
         return white_knight_moves
 class white_bishop(Piece):
     def move(self, x, board):
@@ -1078,7 +1111,16 @@ class white_bishop(Piece):
                     white_bishop_moves.append(new4)
                 else:                    
                     se = False
-                    
+        
+        if self.pinned(x,board) == False:
+            pass            
+        else:
+            for i in white_bishop_moves:
+                if self.pinned(x,board)[1] == i:
+                    white_bishop_moves = []
+                    only_move = white_bishop_moves.append(i)
+                    return only_move     
+                       
         return white_bishop_moves
 class white_rook(Piece):
     def move(self,x, board):
@@ -1134,7 +1176,16 @@ class white_rook(Piece):
                 if (board[new4]['owner'] == 'black' or board[new4]['owner'] == None):#4
                     white_rook_moves.append(new4)                    
                     e = False
-                    
+        
+        if self.pinned(x,board) == False:
+            pass        
+        else:
+            for i in white_rook_moves:
+                if self.pinned(x,board)[1] == i:
+                    white_rook_moves = []
+                    only_move = white_rook_moves.append(i)
+                    return only_move
+                
         return white_rook_moves
     
 class white_queen(Piece):
@@ -1144,6 +1195,15 @@ class white_queen(Piece):
         wrook = white_rook()
         wbishop = white_bishop()
         white_queen_moves = wrook.move(x,board) + wbishop.move(x,board)
+        
+        if self.pinned(x,board) == False:
+            pass
+        else:
+            for i in white_queen_moves:
+                if self.pinned(x,board)[1] == i:
+                    white_queen_moves = []
+                    only_move = white_queen_moves.append(i)
+                    return only_move
         return white_queen_moves
         
 class white_king(Piece):
