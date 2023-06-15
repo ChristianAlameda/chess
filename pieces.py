@@ -905,7 +905,7 @@ class white_pawn(Piece):
         
         #north east capture
         if ne:
-            if (board[new2]['owner'] == 'white'):
+            if (board[new2]['owner'] == 'black'):
                 white_pawn_moves.append(new2)
             else:
                 ne = False

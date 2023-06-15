@@ -117,6 +117,7 @@ class Board:
         click1_not_clicked = True
         self.make_board()
         self.clear_white_and_black_moves()
+        self.clear_whitepress_and_blackpress()
         print("It's white's first press")
         while click1_not_clicked:
             for event in pygame.event.get():
@@ -226,7 +227,17 @@ class Board:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     for i in self.field:
                         if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            if (i in self.white_moves): 
+                            if self.field[i]["owner"] == 'white':
+                                print('you have switched to a white piece you wanted to press on')
+                                print('you will now be lead to a place where you have not clicked')
+                                print('onto your first piece yet, and will be given another choice selection')
+                                print('to choose from || happy pickings')
+                                self.make_board()
+                                pygame.display.update()#flip
+                                self.clear_white_and_black_moves()
+                                self.clear_whitepress_and_blackpress()
+                                self.white1()
+                            elif (i in self.white_moves): 
                                 #replace the old square with none and transfer class, picture, and owner to new square
                                 self.field[i]["picture"] = self.field[self.white_press]["picture"] 
                                 self.field[i]["piece"] = self.field[self.white_press]["piece"]
@@ -396,7 +407,17 @@ class Board:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     for i in self.field:
                         if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            if i in self.black_moves: 
+                            if self.field[i]["owner"] == 'black':
+                                print('you have switched to a black piece you wanted to press on')
+                                print('you will now be lead to a place where you have not clicked')
+                                print('onto your first piece yet, and will be given another choice selection')
+                                print('to choose from || happy pickings')
+                                self.make_board()
+                                pygame.display.update()#flip
+                                self.clear_white_and_black_moves()
+                                self.clear_whitepress_and_blackpress()
+                                self.black1()
+                            elif i in self.black_moves: 
                                 #replace the old square with none and transfer class, picture, and owner to new square
                                 self.field[i]["picture"] = self.field[self.black_press]["picture"] 
                                 self.field[i]["piece"] = self.field[self.black_press]["piece"]

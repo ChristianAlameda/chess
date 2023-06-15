@@ -1,6 +1,4 @@
-If a player picks a piece initially, then they cannot go to another piece of theirs to move
-
 If a piece can see a piece to take, then I want a red circle for that 
 
-If a piece is in the line of sight of a rook, bishop, or queen then that piece cannot move
+No en peasant for black pawn or white pawn
 
