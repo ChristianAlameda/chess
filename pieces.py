@@ -47,30 +47,360 @@ BLACK PIECES
 
 class Piece:
     def __init__(self):
+        """
         self.all = []
         a = ['A','B','C','D','E','F','G','H']
         b = ['8','7','6','5','4','3','2','1']
         for i in range(0,8):
             for j in range(0,8):
                 self.all.append(a[j]+b[i]) 
+        """
+        
     def move(self, x, board):
         # get off of the square they start on unless they are blocked
         pass
+    
+    def move1(self, x, board):
+        pass
+    
+    def move2(self, x, board):
+        pass
+
     def onBoard(self, new: str):
         # when pressed A8 C6
+        """
         if new in self.all:
             return True
         else: return False
+        """
+    
+    def pinned(self,x,board):#given square and board with it's pieces
+        # remove piece from game and check if an opposing piece can attack the king
+        
+        sking = super_king()
+        if board[x]['owner'] == 'white':
+            for key in board:
+                if isinstance(board[key]['piece'], white_king):
+                    king_line = sking.move(key,board)#[[n],[s],[w],[e],[],[],[]]
+                    #accounting for rook and queen moves | _
+                    for index, value in enumerate(king_line[0]):
+                        if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_rook):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[0][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[0][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+                                
+                    for index, value in enumerate(king_line[1]):
+                        if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_rook):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[1][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[1][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+                    
+                    for index, value in enumerate(king_line[2]):
+                        if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_rook):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[2][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[2][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+                                
+                    for index, value in enumerate(king_line[3]):
+                        if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_rook):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[3][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[3][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+                                
+                    for index, value in enumerate(king_line[4]):
+                        if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_bishop):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[4][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[4][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+
+                    for index, value in enumerate(king_line[5]):
+                        if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_bishop):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[5][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[5][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+
+                    for index, value in enumerate(king_line[6]):
+                        if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_bishop):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[6][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[6][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+                    
+                    for index, value in enumerate(king_line[7]):
+                        if isinstance(board[value]['piece'], black_queen) or isinstance(board[value]['piece'], black_bishop):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[7][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[7][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+        
+        
+        
+        
+        #FOR Black
+        if board[x]['owner'] == 'white':
+            for key in board:
+                if isinstance(board[key]['piece'], white_king):
+                    king_line = sking.move(key,board)#[[n],[s],[w],[e],[],[],[]]
+                    #accounting for rook and queen moves | _
+                    for index, value in enumerate(king_line[0]):
+                        if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_rook):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[0][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[0][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+                                
+                    for index, value in enumerate(king_line[1]):
+                        if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_rook):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[1][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[1][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+                    
+                    for index, value in enumerate(king_line[2]):
+                        if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_rook):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[2][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[2][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+                                
+                    for index, value in enumerate(king_line[3]):
+                        if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_rook):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[3][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[3][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+                                
+                    for index, value in enumerate(king_line[4]):
+                        if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_bishop):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[4][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[4][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+
+                    for index, value in enumerate(king_line[5]):
+                        if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_bishop):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[5][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[5][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+
+                    for index, value in enumerate(king_line[6]):
+                        if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_bishop):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[6][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[6][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+                    
+                    for index, value in enumerate(king_line[7]):
+                        if isinstance(board[value]['piece'], white_queen) or isinstance(board[value]['piece'], white_bishop):
+                            curr = 0
+                            temp = []
+                            for i in range(0,index):
+                                if board[king_line[7][i]]['piece'] != None:
+                                    curr = curr + 1
+                                    temp.append(king_line[7][i])
+                            if curr == 1:
+                                if x in temp:
+                                    return True
+
+                    
+                
+                                    
+                                    
+                                
+                                    
+                                
+                    
+                            
+        elif board[x]['owner'] == 'black':
+            for key in board:
+                if isinstance(board[key]['piece'], black_king):
+                    king_lines = sking.move(key,board)
+                    break
+                    
+                    
+        
     def is_legal(self, result):
         if result[0]>= 0 and result[0]<=7 and result[1]>= 0 and result[1]<=7:
             return True
         else: return False
+        
     def stop(self):
         print('cant move there silly')
+        
     def can_move(self):
         print('you may move there sire/madam')
-        
 
+class super_king(Piece):
+    def move(self,x,board):
+        north,south,west,east = [],[],[],[]
+        n,s,w,e = True,True,True,True
+        for i in range(1,7):
+            '''
+            Need to know 4 directions
+            1. North: x = x   || y = y+1
+            2. South: x = x   || y = y-1
+            3. West:  x = x+1 || y = y
+            4. East:  x = x-1 || y = y
+            '''
+            #NORTH
+            result1 = list(map(sum,zip(board[x]['position_xy'],[0,i])))  # n
+            result2= list(map(sum,zip(board[x]['position_xy'],[0,-i])))  # s
+            result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
+            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
+            if self.is_legal(result1):# I am rook
+                new1 = change[result1[0]] + change1[result1[1]]
+            else: n = False
+            
+            if self.is_legal(result2):
+                new2 = change[result2[0]] + change1[result2[1]]
+            else: s = False
+            
+            if self.is_legal(result3):
+                new3 = change[result3[0]] + change1[result3[1]]
+            else: w = False
+            
+            if self.is_legal(result4):
+                new4 = change[result4[0]] + change1[result4[1]]
+            else: e = False
+            
+            if n:
+                north.append(new1)
+            if s:
+                south.append(new2)
+            if w:
+                west.append(new3)
+            if e:
+                east.append(new4)
+            
+            
+        
+        nwest,neast,swest,seast = [], [], [], []
+        nw,ne,sw,se = True,True,True,True
+        for i in range(1,7):  
+            '''
+            we will have 4 lines we are interested in y = -x, x || 
+            considering where:
+            x increases and y increases
+            x increases and y decreases
+            x decreases and y increases
+            x decreases and y decreases 
+            '''
+            result1 = list(map(sum,zip(board[x]['position_xy'],[i,i])))
+            result2= list(map(sum,zip(board[x]['position_xy'],[i,-i])))
+            result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
+            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
+            if self.is_legal(result1):#I am bishop
+                new1 = change[result1[0]] + change1[result1[1]]
+            else: nw = False
+            
+            if self.is_legal(result2):
+                new2 = change[result2[0]] + change1[result2[1]]
+            else: ne = False
+            
+            if self.is_legal(result3):
+                new3 = change[result3[0]] + change1[result3[1]]
+            else: sw = False
+            
+            if self.is_legal(result4):
+                new4 = change[result4[0]] + change1[result4[1]]
+            else: se = False
+            #BLACK BISHOP MOVES
+            if nw:
+                nwest.append(new1)
+            
+            if ne:
+                neast.append(new2)
+            
+            if sw:
+                swest.append(new3)
+            
+            if se:
+                seast.append(new4)
+        
+        return [north,south,west,east,nwest,neast,swest,seast]
+            
 class black_pawn(Piece):
     def move(self, x, board):
         #Movement
@@ -203,7 +533,7 @@ class black_knight(Piece):
         result7 = list(map(sum,zip(board[x]['position_xy'],[-1,-2])))
         
         if self.is_legal(result7):
-            new7 = change[result7[0]] + change[result7[1]]
+            new7 = change[result7[0]] + change1[result7[1]]
         else: h = False
         
         #BLACK KNIGHT MOVES
@@ -261,7 +591,7 @@ class black_bishop(Piece):
             result2= list(map(sum,zip(board[x]['position_xy'],[i,-i])))
             result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
-            if self.is_legal(result1):
+            if self.is_legal(result1):#I am bishop
                 new1 = change[result1[0]] + change1[result1[1]]
             else: nw = False
             
@@ -320,7 +650,7 @@ class black_rook(Piece):
             result2= list(map(sum,zip(board[x]['position_xy'],[0,-i])))  # s
             result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
-            if self.is_legal(result1):
+            if self.is_legal(result1):# I am rook
                 new1 = change[result1[0]] + change1[result1[1]]
             else: n = False
             
@@ -376,16 +706,18 @@ class black_king(Piece):
         black_king_check_if_bad = []
         #adding all squares a white piece could potentially go
         for key in board:
-            if board[key]['owner'] == 'white':
-                black_king_check_if_bad.append(board[key]['piece'].move(key))# gives me a list of moves that that piece can move
-        #adding all squares black pieces are
-        for key in board:
-            if board[key]['owner'] == 'black':
-                black_king_check_if_bad.append(key['piece'].move(key))
-        #Collecting position of all pieces on the board
-        for key in board:
-            if board[key]['owner'] == 'white':
+            #check white movement
+            if isinstance(board[key]['piece'], white_king):
+                pass
+            elif board[key]['owner'] == 'white':
+                for i in board[key]['piece'].move(key,board):
+                    black_king_check_if_bad.append(i)
+                    #black_king_check_if_bad.append(board[key]['piece'].move(key,board))# gives me a list of moves that that piece can move
+            #check if black piece is there
+            elif board[key]['owner'] == 'black':
                 black_king_check_if_bad.append(key)
+                
+        
         #if king move == not in line of check and has no pieces next to it and == free to roam then it has 8 moves the king can make
         result1 = list(map(sum,zip(board[x]['position_xy'],[0,1])))  # n
         result2= list(map(sum,zip(board[x]['position_xy'],[0,-1])))  # s
@@ -393,10 +725,15 @@ class black_king(Piece):
         result4 = list(map(sum,zip(board[x]['position_xy'],[-1,0]))) # e
         result5 = list(map(sum,zip(board[x]['position_xy'],[1,1])))  # nw
         result6= list(map(sum,zip(board[x]['position_xy'],[1,-1])))  # sw
-        result7 = list(map(sum,zip(board[x]['position_xy'],[1,-1])))  # ne
+        result7 = list(map(sum,zip(board[x]['position_xy'],[-1,1])))  # ne
         result8 = list(map(sum,zip(board[x]['position_xy'],[-1,-1]))) # se
-        n,s,w,e,nw,sw,ne,se = True,True,True,True,True,True,True,True
+        result9 = list(map(sum,zip(board[x]['position_xy'],[2,0]))) # w2
+        result10 = list(map(sum,zip(board[x]['position_xy'],[-2,0]))) # e2
+        
+        n,s,w,e,nw,sw,ne,se,w2,e2 = True,True,True,True,True,True,True,True,True,True
         black_king_moves = []
+        black_king_castle_kingside = ''
+        black_king_castle_queenside = ''
         if self.is_legal(result1):
             new1 = change[result1[0]] + change1[result1[1]]
         else: n = False
@@ -429,54 +766,73 @@ class black_king(Piece):
             new8 = change[result8[0]] + change1[result8[1]]
         else: se = False
         
+        if self.is_legal(result9):
+            new9 = change[result9[0]] + change1[result9[1]]
+        else: w2 = False
+        
+        if self.is_legal(result10):
+            new10 = change[result10[0]] + change1[result10[1]]
+        else: e2 = False
+        
         #BLACK KING MOVES
         if n:
-            if board[new1] not in black_king_check_if_bad:#1
+            if new1 not in black_king_check_if_bad:#1
                 black_king_moves.append(new1)
             else:
                 n = False
         
         if s:
-            if board[new2] not in black_king_check_if_bad:#2
+            if new2 not in black_king_check_if_bad:#2
                 black_king_moves.append(new2)
             else:
                 s = False
         
         if w:
-            if board[new3] not in black_king_check_if_bad:#3
+            if new3 not in black_king_check_if_bad:#3
                 black_king_moves.append(new3)
             else:
                 w = False
         
         if e:
-            if board[new4] not in black_king_check_if_bad:#4
+            if new4 not in black_king_check_if_bad:#4
                 black_king_moves.append(new4)
             else:
                 e = False
         
         if nw:
-            if board[new5] not in black_king_check_if_bad:#5
+            if new5 not in black_king_check_if_bad:#5
                 black_king_moves.append(new5)
             else:
                 nw = False
         
         if sw:
-            if board[new6] not in black_king_check_if_bad:#6
+            if new6 not in black_king_check_if_bad:#6
                 black_king_moves.append(new6)
             else:
                 sw = False
         
         if ne:
-            if board[new7] not in black_king_check_if_bad:#7
+            if new7 not in black_king_check_if_bad:#7
                 black_king_moves.append(new7)
             else:
                 ne = False
         if se:
-            if board[new8] not in black_king_check_if_bad:#8
+            if new8 not in black_king_check_if_bad:#8
                 black_king_moves.append(new8)
             else:
                 se = False
-        return black_king_moves
+                
+        if w2:
+            if (board['E8']['move_counter'] == 0) and (board['H8']['move_counter'] == 0) and (board['F8']['owner'] == None) and (board['G8']['owner'] == None):
+                if 'E8' not in black_king_check_if_bad or 'F8' not in black_king_check_if_bad or 'G8' not in black_king_check_if_bad:
+                    black_king_castle_kingside = new9
+        
+        if e2:
+            if (board['E8']['move_counter'] == 0) and (board['H8']['move_counter'] == 0) and (board['C8']['owner'] == None) and (board['D8']['owner'] == None):
+                if 'E8' not in black_king_check_if_bad or 'C8' not in black_king_check_if_bad or 'D8' not in black_king_check_if_bad:
+                    black_king_castle_queenside = new10
+                    
+        return black_king_moves, black_king_castle_kingside, black_king_castle_queenside
 class white_pawn(Piece):
     def move(self, x, board):
         #Movement
@@ -741,7 +1097,7 @@ class white_rook(Piece):
             result2= list(map(sum,zip(board[x]['position_xy'],[0,-i])))  # s
             result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
-            if self.is_legal(result1):
+            if self.is_legal(result1):# I am rook
                 new1 = change[result1[0]] + change1[result1[1]]
             else: n = False
             
@@ -793,18 +1149,22 @@ class white_queen(Piece):
 class white_king(Piece):
     def move(self, x, board):
         white_king_check_if_bad = []
-        #adding all squares a black piece could potentially go
         for key in board:#A8
-            if board[key]['owner'] == 'black':
-                white_king_check_if_bad.append(board[key]['piece'].move(key))# gives me a list of moves that that piece can move
-        #adding all squares black pieces are
-        for key in board:
-            if board[key]['owner'] == 'white':
-                white_king_check_if_bad.append(board[key]['piece'].move(key))
-        #Collecting position of all pieces on the board
-        for key in board:
-            if board[key]['owner'] == 'black':
+            #caring about instances where I go through a square that is the 
+            #piece the white square is on or the square the black king is on
+            if isinstance(board[key]['piece'], white_king):
+                pass
+            
+            #adding moves black pieces could go
+            elif board[key]['owner'] == 'black':
+                for i in board[key]['piece'].move(key,board):
+                    white_king_check_if_bad.append(i)
+                #white_king_check_if_bad.append(board[key]['piece'].move(key,board))# gives me a list of moves that that piece can move
+                
+            #adding moves white pieces are 
+            elif board[key]['owner'] == 'white':
                 white_king_check_if_bad.append(key)
+        
         #if king move == not in line of check and has no pieces next to it and == free to roam then it has 8 moves the king can make
         result1 = list(map(sum,zip(board[x]['position_xy'],[0,1])))  # n
         result2= list(map(sum,zip(board[x]['position_xy'],[0,-1])))  # s
@@ -812,10 +1172,14 @@ class white_king(Piece):
         result4 = list(map(sum,zip(board[x]['position_xy'],[-1,0]))) # e
         result5 = list(map(sum,zip(board[x]['position_xy'],[1,1])))  # nw
         result6= list(map(sum,zip(board[x]['position_xy'],[1,-1])))  # sw
-        result7 = list(map(sum,zip(board[x]['position_xy'],[1,-1])))  # ne
+        result7 = list(map(sum,zip(board[x]['position_xy'],[-1,1])))  # ne
         result8 = list(map(sum,zip(board[x]['position_xy'],[-1,-1]))) # se
-        n,s,w,e,nw,sw,ne,se = True,True,True,True,True,True,True,True
+        result9 = list(map(sum,zip(board[x]['position_xy'],[2,0]))) # castle kingside
+        result10 = list(map(sum,zip(board[x]['position_xy'],[-2,0]))) # castle queenside
+        n,s,w,e,nw,sw,ne,se,e2,w2 = True,True,True,True,True,True,True,True,True,True
         white_king_moves = []
+        white_king_castle_kingside = ''
+        white_king_castle_queenside = ''
         
         if self.is_legal(result1):
             new1 = change[result1[0]] + change1[result1[1]]
@@ -849,53 +1213,74 @@ class white_king(Piece):
             new8 = change[result8[0]] + change1[result8[1]]
         else: se = False
         
+        if self.is_legal(result9):
+            new9 = change[result9[0]] + change1[result9[1]]
+        else: se = False
+        
+        if self.is_legal(result10):
+            new10 = change[result10[0]] + change1[result10[1]]
+        else: se = False
+        
+        #print(new1,new2,new3,new4,new5,new6,new7,new8,new9,new10)
+        
         #KING MOVES
         
         if n:
-            if board[new1] not in white_king_check_if_bad:#1
+            if new1 not in white_king_check_if_bad:#1
                 white_king_moves.append(new1)
             else:
                 n = False
         
         if s:    
-            if board[new2] not in white_king_check_if_bad:#2
+            if new2 not in white_king_check_if_bad:#2
                 white_king_moves.append(new2)
             else:
                 s = False
         
         if w:  
-            if board[new3] not in white_king_check_if_bad:#3
+            if new3 not in white_king_check_if_bad:#3
                 white_king_moves.append(new3)
             else:
                 w = False
         
         if e:
-            if board[new4] not in white_king_check_if_bad:#4
+            if new4 not in white_king_check_if_bad:#4
                 white_king_moves.append(new4)
             else:
                 e = False
                 
         if nw:
-            if board[new5] not in white_king_check_if_bad:#5
+            if new5 not in white_king_check_if_bad:#5
                 white_king_moves.append(new5)
             else:
                 nw = False
             
         if sw:
-            if board[new6] not in white_king_check_if_bad:#6
+            if new6 not in white_king_check_if_bad:#6
                 white_king_moves.append(new6)
             else:
                 sw = False
                 
         if ne:
-            if board[new7] not in white_king_check_if_bad:#7
+            if new7 not in white_king_check_if_bad:#7
                 white_king_moves.append(new7)
             else:
                 ne = False
                 
         if se:
-            if board[new8] not in white_king_check_if_bad:#8
+            if new8 not in white_king_check_if_bad:#8
                 white_king_moves.append(new8)
             else:
                 se = False
-        return white_king_moves
+        
+        if w2:
+            if (board['E1']['move_counter'] == 0) and (board['H1']['move_counter'] == 0) and (board['F1']['owner'] == None) and (board['G1']['owner'] == None):
+                if 'E1' not in white_king_check_if_bad or 'F1' not in white_king_check_if_bad or 'G1' not in white_king_check_if_bad:
+                    white_king_castle_kingside = new9 
+                    
+        if e2:
+            if (board['E1']['move_counter'] == 0) and (board['H1']['move_counter'] == 0) and (board['C1']['owner'] == None) and (board['D1']['owner'] == None):
+                if 'E1' not in white_king_check_if_bad or 'C1' not in white_king_check_if_bad or 'D1' not in white_king_check_if_bad:
+                    white_king_castle_queenside = new10
+        
+        return white_king_moves, white_king_castle_kingside, white_king_castle_queenside #[],'',''

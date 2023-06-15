@@ -1,1 +1,2 @@
-self.white_press = ''
+
+        if self.is_legal(result4):

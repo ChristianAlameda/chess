@@ -1,1 +1,16 @@
-If a piece has no moves then the user should be able to click on a piece that has moves
+If a piece has no moves, then the user should be able to click on a piece that has moves
+
+If a player picks a piece initially, then they cannot go to another piece of theirs to move
+
+If a piece can see a piece to take, then I want a red circle for that 
+
+If a piece is in the line of sight of a rook, bishop, or queen then that piece cannot move
+
+Calculate how many times a piece has been moved
+
+There is no castling for black or white
+    Neither the king nor the rook may have moved from their starting position at any time in the game prior to castling.
+    There must be no pieces in between the rook and the king of any color.
+    The king must not be in check.
+    None of the squares that the king passes through, including the starting and finishing square, may be under attack by any of the 
+    opponent’s pieces during the time of castling.
