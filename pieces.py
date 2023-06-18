@@ -565,60 +565,71 @@ class black_bishop(Piece):
         
     def move(self, x, board):
         black_bishop_moves = []
-        nw,ne,sw,se = True,True,True,True
-        for i in range(1,7):  
-            '''
-            we will have 4 lines we are interested in y = -x, x || 
-            considering where:
-            x increases and y increases
-            x increases and y decreases
-            x decreases and y increases
-            x decreases and y decreases 
-            '''
+        '''
+        we will have 4 lines we are interested in y = -x, x || 
+        considering where:
+        x increases and y increases
+        x increases and y decreases
+        x decreases and y increases
+        x decreases and y decreases 
+        '''
+        for i in range(1,7):  #sw
             result1 = list(map(sum,zip(board[x]['position_xy'],[i,i])))
-            result2= list(map(sum,zip(board[x]['position_xy'],[i,-i])))
-            result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
-            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
             if self.is_legal(result1):#I am bishop
                 new1 = change[result1[0]] + change1[result1[1]]
-            else: nw = False
+            else: break
+
+            if board[new1]['owner'] == 'white':
+                black_bishop_moves.append(new1)
+                break
+            elif board[new1]['owner'] == None:
+                black_bishop_moves.append(new1)
+            else:
+                break
             
+        for i in range(1,7):#nw
+            result2= list(map(sum,zip(board[x]['position_xy'],[i,-i])))
             if self.is_legal(result2):
                 new2 = change[result2[0]] + change1[result2[1]]
-            else: ne = False
+            else: break
+            
+            if board[new2]['owner'] == 'white':
+                black_bishop_moves.append(new2)
+                break
+            elif board[new2]['owner'] == None:
+                black_bishop_moves.append(new2)
+            else:
+                break
+            
+        for i in range(1,7):#se
+            result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
             
             if self.is_legal(result3):
                 new3 = change[result3[0]] + change1[result3[1]]
-            else: sw = False
+            else: break
             
+            if board[new3]['owner'] == 'white':
+                black_bishop_moves.append(new3)
+                break
+            elif board[new3]['owner'] == None:
+                black_bishop_moves.append(new3)
+            else:
+                break
+            
+        for i in range(1,7):#ne
+            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
             if self.is_legal(result4):
                 new4 = change[result4[0]] + change1[result4[1]]
-            else: se = False
+            else: break
             
-            #BLACK BISHOP MOVES
-            if nw:
-                if (board[new1]['owner'] == 'white' or board[new1]['owner'] == None):#1
-                    black_bishop_moves.append(new1)
-                else:
-                    nw = False
+            if board[new4]['owner'] == 'white':
+                black_bishop_moves.append(new4)
+                break
+            elif board[new4]['owner'] == None:
+                black_bishop_moves.append(new4)
+            else:
+                break
             
-            if ne:
-                if (board[new2]['owner'] == 'white' or board[new2]['owner'] == None):#2
-                    black_bishop_moves.append(new2)
-                else:
-                    ne = False
-            
-            if sw:
-                if (board[new3]['owner'] == 'white' or board[new3]['owner'] == None):#3
-                    black_bishop_moves.append(new3)
-                else:
-                    sw = False
-            
-            if se:
-                if (board[new4]['owner'] == 'white' or board[new4]['owner'] == None):#4
-                    black_bishop_moves.append(new4)
-                else:
-                    se = False 
         if self.pinned(x,board) == False:
             pass
         else:
@@ -633,60 +644,61 @@ class black_bishop(Piece):
 class black_rook(Piece):
     def move(self, x, board):
         black_rook_moves = []
-        n,s,w,e = True,True,True,True
-        for i in range(1,7):
-            '''
-            Need to know 4 directions
-            1. North: x = x   || y = y+1
-            2. South: x = x   || y = y-1
-            3. West:  x = x+1 || y = y
-            4. East:  x = x-1 || y = y
-            '''
-            #NORTH
-            result1 = list(map(sum,zip(board[x]['position_xy'],[0,i])))  # n
-            result2= list(map(sum,zip(board[x]['position_xy'],[0,-i])))  # s
-            result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
-            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
-            if self.is_legal(result1):# I am rook
+        for i in range(1,7):  
+            result1 = list(map(sum,zip(board[x]['position_xy'],[0,-i])))
+            if self.is_legal(result1):
                 new1 = change[result1[0]] + change1[result1[1]]
-            else: n = False
+            else: break
             
+            if board[new1]['owner'] == 'white':
+                black_rook_moves.append(new1)
+                break
+            elif board[new1]['owner'] == None:#1
+                black_rook_moves.append(new1)
+            else:
+                break
+            
+        for i in range(1,7):
+            result2= list(map(sum,zip(board[x]['position_xy'],[0,i])))
             if self.is_legal(result2):
                 new2 = change[result2[0]] + change1[result2[1]]
-            else: s = False
+            else: break
             
+            if board[new2]['owner'] == 'white':
+                black_rook_moves.append(new2)
+                break
+            elif board[new2]['owner'] == None:#1
+                black_rook_moves.append(new2)
+            else:                    
+                break
+            
+        for i in range(1,7):
+            result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))
             if self.is_legal(result3):
                 new3 = change[result3[0]] + change1[result3[1]]
-            else: w = False
-            
+            else: break
+
+            if board[new3]['owner'] == 'white':
+                black_rook_moves.append(new3)
+                break
+            elif board[new3]['owner'] == None:
+                black_rook_moves.append(new3)
+            else:                    
+                break
+        
+        for i in range(1,7):
+            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0])))
             if self.is_legal(result4):
                 new4 = change[result4[0]] + change1[result4[1]]
-            else: e = False
+            else: break
             
-            #BLACK ROOK MOVES
-            if n:
-                if (board[new1]['owner'] == 'white' or board[new1]['owner'] == None):#1
-                    black_rook_moves.append(new1)
-                else:                    
-                    n = False
-                    
-            if s:
-                if (board[new2]['owner'] == 'white' or board[new2]['owner'] == None):#2
-                    black_rook_moves.append(new2)
-                else:
-                    s = False
-            
-            if w:
-                if (board[new3]['owner'] == 'white' or board[new3]['owner'] == None):#3
-                    black_rook_moves.append(new3)
-                else:
-                    w = False
-            
-            if e:
-                if (board[new4]['owner'] == 'white' or board[new4]['owner'] == None):#4
-                    black_rook_moves.append(new4)
-                else:
-                    e = False
+            if board[new4]['owner'] == 'white':
+                black_rook_moves.append(new4)
+                break
+            elif board[new4]['owner'] == None:#1
+                black_rook_moves.append(new4)
+            else:                    
+                break
                     
         if self.pinned(x,board) == False:
             pass
@@ -704,6 +716,7 @@ class black_queen(Piece):
         brook = black_rook()
         bbishop = black_bishop()
         black_queen_moves = brook.move(x,board) + bbishop.move(x,board)#[[],[]];;;
+        
         if self.pinned(x,board) == False:
             pass
         elif self.pinned(x,board)[0]:
@@ -837,7 +850,7 @@ class black_king(Piece):
                 
         if w2:
             if (board['E8']['move_counter'] == 0) and (board['H8']['move_counter'] == 0) and (board['F8']['owner'] == None) and (board['G8']['owner'] == None):
-                if 'E8' not in black_king_check_if_bad or 'F8' not in black_king_check_if_bad or 'G8' not in black_king_check_if_bad:
+                if ('E8' not in black_king_check_if_bad) or ('F8' not in black_king_check_if_bad) or ('G8' not in black_king_check_if_bad):
                     black_king_castle_kingside = new9
         
         if e2:
@@ -951,6 +964,7 @@ class white_pawn(Piece):
                     return only_move
                 
         return white_pawn_moves
+    
 class white_knight(Piece):
     def move(self, x, board):
         white_knight_moves = []
@@ -1054,129 +1068,150 @@ class white_knight(Piece):
                     return only_move
                 
         return white_knight_moves
+    
 class white_bishop(Piece):
     def move(self, x, board):
         white_bishop_moves = []
-        nw,ne,sw,se = True,True,True,True
+        '''
+        we will have 4 lines we are interested in y = -x, x || 
+        considering where:
+        x increases and y increases
+        x increases and y decreases
+        x decreases and y increases
+        x decreases and y decreases 
+        '''
         for i in range(1,7):  
-            '''
-            we will have 4 lines we are interested in y = -x, x || 
-            considering where:
-            x increases and y increases
-            x increases and y decreases
-            x decreases and y increases
-            x decreases and y decreases 
-            '''
             result1 = list(map(sum,zip(board[x]['position_xy'],[i,i])))
-            result2= list(map(sum,zip(board[x]['position_xy'],[i,-i])))
-            result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
-            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
-            
             if self.is_legal(result1):
                 new1 = change[result1[0]] + change1[result1[1]]
-            else: nw = False
+            else: break
             
+            if board[new1]['owner'] == 'black':
+                white_bishop_moves.append(new1)
+                break
+            elif board[new1]['owner'] == None:#1
+                white_bishop_moves.append(new1)
+            else:
+                break
+            
+        for i in range(1,7):
+            result2= list(map(sum,zip(board[x]['position_xy'],[i,-i])))
             if self.is_legal(result2):
                 new2 = change[result2[0]] + change1[result2[1]]
-            else: ne = False
+            else: break
             
+            if board[new2]['owner'] == 'black':
+                white_bishop_moves.append(new2)
+                break
+            elif board[new2]['owner'] == None:#1
+                white_bishop_moves.append(new2)
+            else:                    
+                break
+            
+        for i in range(1,7):
+            result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
             if self.is_legal(result3):
                 new3 = change[result3[0]] + change1[result3[1]]
-            else: sw = False
+            else: break
             
+            if board[new3]['owner'] == 'black':
+                white_bishop_moves.append(new3)
+                break
+            elif board[new3]['owner'] == None:#1
+                white_bishop_moves.append(new3)
+            else:                    
+                break
+        
+        for i in range(1,7):
+            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
             if self.is_legal(result4):
                 new4 = change[result4[0]] + change1[result4[1]]
-            else: se = False
+            else: break
             
-            #CHECKING BISHOP MOVES
-            if nw:
-                if (board[new1]['owner'] == 'black' or board[new1]['owner'] == None):#1
-                    white_bishop_moves.append(new1)
-                else:
-                    nw = False
-            
-            if ne:
-                if (board[new2]['owner'] == 'black' or board[new2]['owner'] == None):#2
-                    white_bishop_moves.append(new2)
-                else:                    
-                    ne = False
-            
-            if sw:
-                if (board[new3]['owner'] == 'black' or board[new3]['owner'] == None):#3
-                    white_bishop_moves.append(new3)
-                else:                    
-                    sw = False
-            
-            if se:
-                if (board[new4]['owner'] == 'black' or board[new4]['owner'] == None):#4
-                    white_bishop_moves.append(new4)
-                else:                    
-                    se = False
-        
+            if board[new4]['owner'] == 'black':
+                white_bishop_moves.append(new4)
+                break
+            elif board[new4]['owner'] == None:#1
+                white_bishop_moves.append(new4)
+            else:                    
+                break
+
         if self.pinned(x,board) == False:
             pass            
         else:
             for i in white_bishop_moves:
                 if self.pinned(x,board)[1] == i:
                     white_bishop_moves = []
-                    only_move = white_bishop_moves.append(i)
-                    return only_move     
+                    white_bishop_moves.append(i)
+                    return white_bishop_moves     
                        
         return white_bishop_moves
+    
 class white_rook(Piece):
     def move(self,x, board):
         white_rook_moves = []
-        n,s,w,e = True,True,True,True
+        '''
+        Need to know 4 directions
+        1. North: x = x   || y = y-1
+        2. South: x = x   || y = y+1
+        3. West:  x = x+1 || y = y
+        4. East:  x = x-1 || y = y
+        '''
         for i in range(1,7):
-            '''
-            Need to know 4 directions
-            1. North: x = x   || y = y+1
-            2. South: x = x   || y = y-1
-            3. West:  x = x+1 || y = y
-            4. East:  x = x-1 || y = y
-            '''
-            #NORTH
-            result1 = list(map(sum,zip(board[x]['position_xy'],[0,i])))  # n
-            result2= list(map(sum,zip(board[x]['position_xy'],[0,-i])))  # s
-            result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
-            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
+            result1 = list(map(sum,zip(board[x]['position_xy'],[0,i])))  # s
             if self.is_legal(result1):# I am rook
                 new1 = change[result1[0]] + change1[result1[1]]
-            else: n = False
+            else: break
             
+            if board[new1]['owner'] == 'black':
+                white_rook_moves.append(new1)
+                break
+            elif board[new1]['owner'] == None:#1
+                white_rook_moves.append(new1)
+            else:                    
+                break
+            
+        for i in range(1,7):
+            result2= list(map(sum,zip(board[x]['position_xy'],[0,-i])))  # n
             if self.is_legal(result2):
                 new2 = change[result2[0]] + change1[result2[1]]
-            else: s = False
+            else: break
             
+            if board[new2]['owner'] == 'black':
+                white_rook_moves.append(new2)
+                break
+            elif board[new2]['owner'] == None:#1
+                white_rook_moves.append(new2)
+            else:                    
+                break
+                    
+        for i in range(1,7):
+            result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
             if self.is_legal(result3):
                 new3 = change[result3[0]] + change1[result3[1]]
-            else: w = False
-            
+            else: break
+
+            if board[new3]['owner'] == 'black':
+                white_rook_moves.append(new3)
+                break
+            elif board[new3]['owner'] == None:#1
+                white_rook_moves.append(new3)
+            else:                    
+                break
+                
+        for i in range(1,7):
+            result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
             if self.is_legal(result4):
                 new4 = change[result4[0]] + change1[result4[1]]
-            else: e = False   
-           
-            if n: 
-                if (board[new1]['owner'] == 'black' or board[new1]['owner'] == None):#1
-                    white_rook_moves.append(new1)
-                else:                    
-                    n = False
-            
-            if s:
-                if (board[new2]['owner'] == 'black' or board[new2]['owner'] == None):#2
-                    white_rook_moves.append(new2)
-                else:                    
-                    s = False
-            
-            if w:
-                if (board[new3]['owner'] == 'black' or board[new3]['owner'] == None):#3
-                    white_rook_moves.append(new3)                    
-                    w = False
-            
-            if e:    
-                if (board[new4]['owner'] == 'black' or board[new4]['owner'] == None):#4
-                    white_rook_moves.append(new4)                    
-                    e = False
+            else: break
+
+            if board[new4]['owner'] == 'black':
+                white_rook_moves.append(new4)
+                break
+            elif board[new4]['owner'] == None:#1
+                white_rook_moves.append(new4)
+            else:                    
+                break
         
         if self.pinned(x,board) == False:
             pass        
@@ -1184,8 +1219,8 @@ class white_rook(Piece):
             for i in white_rook_moves:
                 if self.pinned(x,board)[1] == i:
                     white_rook_moves = []
-                    only_move = white_rook_moves.append(i)
-                    return only_move
+                    white_rook_moves.append(i)
+                    return white_rook_moves
                 
         return white_rook_moves
     

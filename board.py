@@ -101,14 +101,10 @@ class Board:
             if decider == "W":
                 self.white1()
                 self.white2()
-                for i in self.field:
-                    print(i, self.field[i]['position_xy'], self.field[i]['piece'])
                 clicked = clicked + 1
             elif decider == "B":
                 self.black1()
                 self.black2()
-                for i in self.field:
-                    print(i, self.field[i]['position_xy'], self.field[i]['piece'])
                 clicked = clicked + 1
             else:
                 not_gameover = False
