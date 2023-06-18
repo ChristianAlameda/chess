@@ -704,7 +704,9 @@ class black_queen(Piece):
         brook = black_rook()
         bbishop = black_bishop()
         black_queen_moves = brook.move(x,board) + bbishop.move(x,board)#[[],[]];;;
-        if self.pinned(x,board)[0]:
+        if self.pinned(x,board) == False:
+            pass
+        elif self.pinned(x,board)[0]:
             for i in black_queen_moves:
                 if self.pinned(x,board)[1] == i:
                     black_queen_moves = []
@@ -939,7 +941,6 @@ class white_pawn(Piece):
                 board[new]['owner'] = 'black'
                 board[new]['picture'] = b_knight
         
-        print(self.pinned(x,board))
         if self.pinned(x,board) == False:
             pass
         else:
