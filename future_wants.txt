@@ -1,5 +1,3 @@
 No en peasant for black pawn or white pawn
 
 No promotion for pawns yet
-
-When king is in check other pieces can move
