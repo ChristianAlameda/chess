@@ -468,6 +468,9 @@ class black_pawn(Piece):
                     black_pawn_moves = []
                     only_move = black_pawn_moves.append(i)
                     return only_move
+                else:
+                    black_pawn_moves = []
+                    return black_pawn_moves
                 
         return black_pawn_moves 
 class black_knight(Piece):
@@ -555,6 +558,7 @@ class black_knight(Piece):
         if h:
             if (board[new7]['owner'] == 'white' or board[new7]['owner'] == None):#8
                 black_knight_moves.append(new7)
+                
         if self.pinned(x,board) == False:
             pass
         else:
@@ -563,8 +567,12 @@ class black_knight(Piece):
                     black_knight_moves = []
                     only_move = black_knight_moves.append(i)
                     return only_move
+                else:
+                    black_knight_moves = []
+                    return black_knight_moves
                 
         return black_knight_moves
+    
 class black_bishop(Piece):
     def show_self(self):
         #b_bishop
@@ -645,7 +653,9 @@ class black_bishop(Piece):
                     black_bishop_moves = []
                     only_move = black_bishop_moves.append(i)
                     return only_move
-                
+                else:
+                    black_bishop_moves = []
+                    return black_pawn_moves
         return black_bishop_moves
     
 class black_rook(Piece):
@@ -714,7 +724,11 @@ class black_rook(Piece):
                 if self.pinned(x,board)[1] == i:
                     black_rook_moves = []
                     only_move = black_rook_moves.append(i)
-                    return only_move  
+                    return only_move 
+                else:
+                    black_rook_moves = []
+                    return black_rook_moves
+                 
         return black_rook_moves
     
 class black_queen(Piece):
@@ -732,6 +746,10 @@ class black_queen(Piece):
                     black_queen_moves = []
                     only_move = black_queen_moves.append(i)
                     return only_move
+                else:
+                    black_queen_moves = []
+                    return black_queen_moves
+                
         return black_queen_moves
         
 class black_king(Piece):
@@ -969,6 +987,9 @@ class white_pawn(Piece):
                     white_pawn_moves = []
                     only_move = white_pawn_moves.append(i)
                     return only_move
+                else:
+                    white_pawn_moves = []
+                    return white_pawn_moves
                 
         return white_pawn_moves
     
@@ -1073,6 +1094,9 @@ class white_knight(Piece):
                     white_knight_moves = []
                     only_move = white_knight_moves.append(i)
                     return only_move
+                else:
+                    white_knight_moves = []
+                    return white_knight_moves
                 
         return white_knight_moves
     
@@ -1151,6 +1175,9 @@ class white_bishop(Piece):
                     white_bishop_moves = []
                     white_bishop_moves.append(i)
                     return white_bishop_moves     
+                else:
+                    white_bishop_moves = []
+                    return white_bishop_moves
                        
         return white_bishop_moves
     
@@ -1228,7 +1255,9 @@ class white_rook(Piece):
                     white_rook_moves = []
                     white_rook_moves.append(i)
                     return white_rook_moves
-                
+                else:
+                    white_rook_moves = []
+                    return white_rook_moves
         return white_rook_moves
     
 class white_queen(Piece):
@@ -1247,6 +1276,9 @@ class white_queen(Piece):
                     white_queen_moves = []
                     only_move = white_queen_moves.append(i)
                     return only_move
+                else:
+                    white_queen_moves = []
+                    return white_queen_moves
         return white_queen_moves
         
 class white_king(Piece):

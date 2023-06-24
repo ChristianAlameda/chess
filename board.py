@@ -146,13 +146,18 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
+                                    if self.field[j]['owner'] == 'black':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.white_moves.append(j)
                                     pygame.display.update(self.field[j]['position'])
+
                                 
                             elif isinstance(self.field[i]['piece'], white_knight):
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
+                                    if self.field[j]['owner'] == 'black':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.white_moves.append(j)
                                     pygame.display.update(self.field[j]['position'])
 
@@ -160,6 +165,8 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
+                                    if self.field[j]['owner'] == 'black':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.white_moves.append(j)
                                     pygame.display.update(self.field[j]['position'])
                                     
@@ -167,6 +174,8 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
+                                    if self.field[j]['owner'] == 'black':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.white_moves.append(j)
                                     pygame.display.update(self.field[j]['position'])
                             
@@ -174,6 +183,8 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
+                                    if self.field[j]['owner'] == 'black':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.white_moves.append(j)
                                     pygame.display.update(self.field[j]['position'])
                                     
@@ -181,6 +192,8 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field())[0])
                                 for j in self.field[i]['piece'].move(i,self.get_field())[0]:#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
+                                    if self.field[j]['owner'] == 'black':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.white_moves.append(j)
                                     pygame.display.update(self.field[j]['position']) # (), w, h
                                     
@@ -339,7 +352,8 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    
+                                    if self.field[j]['owner'] == 'white':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.black_moves.append(j)
                                     
                                     pygame.display.update(self.field[j]['position'])
@@ -348,7 +362,8 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    
+                                    if self.field[j]['owner'] == 'white':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.black_moves.append(j)
                                     
                                     pygame.display.update(self.field[j]['position'])
@@ -357,7 +372,8 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    
+                                    if self.field[j]['owner'] == 'white':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.black_moves.append(j)
                                     
                                     pygame.display.update(self.field[j]['position'])
@@ -366,7 +382,8 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    
+                                    if self.field[j]['owner'] == 'white':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.black_moves.append(j)
                                     
                                     pygame.display.update(self.field[j]['position'])
@@ -375,7 +392,8 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field()))
                                 for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    
+                                    if self.field[j]['owner'] == 'white':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.black_moves.append(j)
                                     
                                     pygame.display.update(self.field[j]['position'])
@@ -384,6 +402,8 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field())[0])
                                 for j in self.field[i]['piece'].move(i,self.get_field())[0]:#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
+                                    if self.field[j]['owner'] == 'white':
+                                        self.background.blit(red_50, self.field[j]['middle'])
                                     self.black_moves.append(j)
                                     pygame.display.update(self.field[j]['position']) # (), w, h
                                     
