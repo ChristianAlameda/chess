@@ -389,14 +389,17 @@ class black_pawn(Piece):
         if self.is_legal(result):
             new = change[result[0]] + change1[result[1]]
         else: s = False
+        
         result1 = list(map(sum,zip(board[x]['position_xy'],[1,1])))  #south x1 west x1
         if self.is_legal(result1):
             new1 = change[result1[0]] + change1[result1[1]]
         else: sw = False
+        
         result2 = list(map(sum,zip(board[x]['position_xy'],[-1,1]))) #south x1 east x1
         if self.is_legal(result2):
             new2 = change[result2[0]] + change1[result2[1]]
         else: se = False
+        
         result3 = list(map(sum,zip(board[x]['position_xy'],[0,2])))  #south x2
         potential = [[0,1] , [1,1] , [2,1] , [3,1] , [4,1] , [5,1] , [6,1] , [7,1]]
         if self.is_legal(result3) and (board[x]['position_xy'] in potential):
@@ -422,7 +425,11 @@ class black_pawn(Piece):
         if se:
             if (board[new2]['owner'] == 'white') and se:
                 black_pawn_moves.append(new2)
-            
+        
+        #caputuring en peasants
+        if sw or se:
+            pass
+        
         #promotion
         from mapping import b_pawn, b_bishop, b_knight
         if board[new]['position_xy'] == ([0,7] or [1,7] or [2,7] or [3,7] or [4,7] or [5,7] or [6,7] or [7,7]):

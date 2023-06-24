@@ -107,7 +107,18 @@ class Board:
                 self.black2()
                 clicked = clicked + 1
             else:
-                not_gameover = False
+                for i in self.field:
+                    x = 0
+                    if isinstance(self.field[i]['piece'],black_king):
+                        x+=1
+                    y = 0 
+                    if isinstance(self.field[i]['piece'],white_king):
+                        y+=1
+                    if x == 1 and y == 1:
+                        pass
+                    else: 
+                        not_gameover = False
+                        
     
     def white1(self):
         click1_not_clicked = True
@@ -224,7 +235,7 @@ class Board:
                     for i in self.field:
                         if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
                             if self.field[i]["owner"] == 'white':
-                                print('you have switched to a white piece you wanted to press on')
+                                print("\nyou have switched to a white piece you wanted to press on")
                                 print('you will now be lead to a place where you have not clicked')
                                 print('onto your first piece yet, and will be given another choice selection')
                                 print('to choose from || happy pickings')
@@ -373,7 +384,7 @@ class Board:
                                 print(self.field[i]['piece'].move(i,self.get_field())[0])
                                 for j in self.field[i]['piece'].move(i,self.get_field())[0]:#[a8,b5,...]
                                     self.background.blit(green_50, self.field[j]['middle'])
-                                    self.white_moves.append(j)
+                                    self.black_moves.append(j)
                                     pygame.display.update(self.field[j]['position']) # (), w, h
                                     
                                 if self.field[i]['piece'].move(i,self.get_field())[1] == '':

@@ -2,3 +2,6 @@ If a piece can see a piece to take, then I want a red circle for that
 
 No en peasant for black pawn or white pawn
 
+No promotion for pawns yet
+
+When king is in check other pieces can move
