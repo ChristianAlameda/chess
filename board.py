@@ -12,10 +12,12 @@ class Board:
         #self.make_board()
         #pygame.display.flip()
         #initializing window
-        x = 1000
-        y = 1000
+        x = 500 
+        y = 500 
         self.background = pygame.display.set_mode((x, y))
+        
         self.image = mapping.board
+        
         self.picture_of_board()
         self.white_moves = []
         self.white_press = ''
@@ -31,7 +33,10 @@ class Board:
     def create_board(self):
         color = (0,0,0)
         outlineThickness = 1
-        x1 = 81.4
+        x1 = 50 #81.4
+        
+        x_offset = 55
+        y_offset = 55
         self.picture_of_board()
         a = ['A','B','C','D','E','F','G','H']
         b = ['8','7','6','5','4','3','2','1']
@@ -39,15 +44,17 @@ class Board:
         #Creating 64 squares and classifying what they should be called as well as giving them a coordinate (x,y)
         #pygame.draw.rect(surface, color, (x, y, w, h), outlineThickness)
         #pygame.Rect(left, top, width, height) -> Rect
-        #pygame.draw.rect(background,color, pygame.Rect(225,175,x1,x1), outlineThickness, border_radius=1)# (225,175) | (650,650)
+        #pygame.draw.rect(background,color, pygame.Rect(77,77,x1,x1), outlineThickness, border_radius=1)# (77,77)
         blackOrWhite = 0
         for i in range(0,8):
             for j in range(0,8):
                 position_name = a[j]+b[i]
-                position = pygame.draw.rect(self.background,color, pygame.Rect(225+j*x1,175+i*x1,x1,x1), outlineThickness, border_radius=1)
+                position = pygame.draw.rect(self.background,color, pygame.Rect(x_offset+j*x1,y_offset+i*x1,x1,x1), outlineThickness, border_radius=1)
                 position_xy = [j,i] # 0,0 0,1 0,2 0,3 0,4 0,5
-                top_left_corner = (225+j*x1,175+i*x1)
-                middle = (225+j*x1 + x1/2 - 10,175+i*x1 + x1/2 - 10)
+                top_left_corner = (x_offset+j*x1,y_offset+i*x1)
+                
+                middle = (x_offset+j*x1 + x1/2 - 10,y_offset+i*x1 + x1/2 - 10)
+                
                 color_square = blackOrWhite
                 if blackOrWhite % 2 == 0:
                     color_square = 'W'
@@ -59,7 +66,7 @@ class Board:
                                                   "owner":None ,"piece":None,
                                                   "picture":None, 
                                                   "position_xy":position_xy, 
-                                                  "top_left_corner":top_left_corner, 
+                                                  "top_left_corner":top_left_corner, #top_left_corner
                                                   "middle":middle, 
                                                   "move_counter":0}
                                    })
@@ -67,7 +74,7 @@ class Board:
         return self.field, squares # self.field is a dictionary of dictionaries {{key:{value1,value2}}} # squares is a list of lists for coordinates [[0,0],[0,1],[0,2]]
 
     def picture_of_board(self):
-        self.background.blit(self.image, (150, 100))
+        self.background.blit(self.image, (0, 0))#(150,100)
     
     def make_board(self):
         #via block trnasfering: blit() with window
@@ -96,8 +103,20 @@ class Board:
                 return False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 return False
-            else: return True
+        return True
+
+    def check_win(self):
+        for i in self.field:
+            if isinstance(self.field[i]['piece'],black_king):
+                #end the game white has won
+                return False
                 
+            elif isinstance(self.field[i]['piece'],white_king):
+                #end the game black has won
+                return False
+            
+            else: return True
+            
     def start_game(self):
         self.create_board()
         self.initialize_game()
@@ -108,6 +127,7 @@ class Board:
         clicked = 0
         #start the game
         while not_gameover:
+            not_gameover = self.check_quit() and self.check_win()
             decider = self.black_or_white(clicked)
             if decider == "W":
                 self.white1()
@@ -117,18 +137,9 @@ class Board:
                 self.black1()
                 self.black2()
                 clicked = clicked + 1
-            else:
-                for i in self.field:
-                    x = 0
-                    if isinstance(self.field[i]['piece'],black_king):
-                        x+=1
-                    y = 0 
-                    if isinstance(self.field[i]['piece'],white_king):
-                        y+=1
-                    if x == 1 and y == 1:
-                        pass
-                    else: 
-                        not_gameover = False
+           
+            #check if player has pressed x to exit
+        pygame.quit()
                         
     def white1_helper(self,i):
         print(self.field[i]['piece'].move(i,self.get_field()))
@@ -140,6 +151,7 @@ class Board:
             pygame.display.update(self.field[j]['position'])
         
     def white1(self):
+        
         click1_not_clicked = True
         self.make_board()
         self.clear_white_and_black_moves()
@@ -200,7 +212,7 @@ class Board:
                                 self.white1()
                                 
                             click1_not_clicked = False
-    
+                    #here check if user pressed exit
     def boolean_checker(self):
         user_input = input("Are you sure you wanted to pick that piece?\nEnter 't','true','yes' - True\nAnything else for False: ").lower()
         boolean_yes = ['t', 'true', 'yes']
@@ -302,7 +314,7 @@ class Board:
                             else:
                                 print('Oops you touched a square without a green dot. Please try again')
                                 self.white2()
-                                
+                    #here check if user pressed exit
     def black1_helper(self,i):
         print(self.field[i]['piece'].move(i,self.get_field()))
         for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
@@ -370,7 +382,8 @@ class Board:
                                 self.clear_whitepress_and_blackpress()
                                 self.black1()
                             click1_not_clicked = False
-    
+                    #here check if user pressed exit
+
     def black_movement(self,i):
         self.field[i]["picture"] = self.field[self.black_press]["picture"] 
         self.field[i]["piece"] = self.field[self.black_press]["piece"]
