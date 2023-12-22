@@ -748,6 +748,7 @@ class black_king(Piece):
                 pass
             elif board[key]['owner'] == 'white':
                 for i in board[key]['piece'].move(key,board):
+                    
                     black_king_check_if_bad.append(i)
                     #black_king_check_if_bad.append(board[key]['piece'].move(key,board))# gives me a list of moves that that piece can move
             #check if black piece is there
@@ -862,14 +863,17 @@ class black_king(Piece):
         if w2:
             if (board['E8']['move_counter'] == 0) and (board['H8']['move_counter'] == 0) and (board['F8']['owner'] == None) and (board['G8']['owner'] == None):
                 if ('E8' not in black_king_check_if_bad) or ('F8' not in black_king_check_if_bad) or ('G8' not in black_king_check_if_bad):
+                    
                     black_king_castle_kingside = new9
         
         if e2:
             if (board['E8']['move_counter'] == 0) and (board['H8']['move_counter'] == 0) and (board['C8']['owner'] == None) and (board['D8']['owner'] == None):
                 if 'E8' not in black_king_check_if_bad or 'C8' not in black_king_check_if_bad or 'D8' not in black_king_check_if_bad:
-                    black_king_castle_queenside = new10
                     
-        return black_king_moves, black_king_castle_kingside, black_king_castle_queenside
+                    black_king_castle_queenside = new10
+        
+        #list, string, string
+        return black_king_moves, black_king_castle_kingside, black_king_castle_queenside 
 #################################################################################################################
 #################################################################################################################
 #################################################################################################################
@@ -1409,6 +1413,8 @@ class white_king(Piece):
             if (board['E1']['move_counter'] == 0) and (board['H1']['move_counter'] == 0) and (board['F1']['owner'] == None) and (board['G1']['owner'] == None):
                 if 'E1' not in white_king_check_if_bad or 'F1' not in white_king_check_if_bad or 'G1' not in white_king_check_if_bad:
                     white_king_castle_kingside = new9 
+                    
+                    
                     
         if e2:
             if (board['E1']['move_counter'] == 0) and (board['H1']['move_counter'] == 0) and (board['C1']['owner'] == None) and (board['D1']['owner'] == None):
