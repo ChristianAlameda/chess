@@ -141,7 +141,7 @@ class Piece:
                                     return True, value
                     return False
         
-        
+                
         
         #FOR Black
         if board[x]['owner'] == 'black':

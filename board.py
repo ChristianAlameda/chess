@@ -282,7 +282,6 @@ class Board:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     for i in self.field:
                         if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            print('i: ',len(i), 'self.kingside_castle: ', len(self.kingside_castle))
                             if self.field[i]["owner"] == 'white':
                                 print("\nyou have switched to a white piece you wanted to press on")
                                 print('you will now be lead to a place where you have not clicked')
