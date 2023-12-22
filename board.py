@@ -160,18 +160,20 @@ class Board:
             pygame.display.update(self.field[j]['position'])
         
         king_side = self.field[i]['piece'].move(i,self.get_field())[1]
-        self.background.blit(green_50, self.field[king_side]['middle'])
-        if self.field[king_side]['owner'] == 'black':
-            self.background.blit(red_50, self.field[king_side]['middle'])
-        # self.white_moves.append(king_side)
-        pygame.display.update(self.field[king_side]['position'])
+        if not king_side == "":
+            self.background.blit(green_50, self.field[king_side]['middle'])
+            if self.field[king_side]['owner'] == 'black':
+                self.background.blit(red_50, self.field[king_side]['middle'])
+            # self.white_moves.append(king_side)
+            pygame.display.update(self.field[king_side]['position'])
         
         queen_side = self.field[i]['piece'].move(i,self.get_field())[2]
-        self.background.blit(green_50, self.field[queen_side]['middle'])
-        if self.field[queen_side]['owner'] == 'black':
-            self.background.blit(red_50, self.field[queen_side]['middle'])
-        # self.white_moves.append(queen_side)
-        pygame.display.update(self.field[queen_side]['position'])
+        if not queen_side == "":
+            self.background.blit(green_50, self.field[queen_side]['middle'])
+            if self.field[queen_side]['owner'] == 'black':
+                self.background.blit(red_50, self.field[queen_side]['middle'])
+            # self.white_moves.append(queen_side)
+            pygame.display.update(self.field[queen_side]['position'])
         
     def white1(self):
         
@@ -291,7 +293,9 @@ class Board:
                                 self.clear_white_and_black_moves()
                                 self.clear_whitepress_and_blackpress()
                                 self.white1()
-                                
+                            
+                            
+                                 
                             elif i == self.kingside_castle:
                                 #for the king
                                 
@@ -368,18 +372,20 @@ class Board:
             pygame.display.update(self.field[j]['position'])
         
         king_side = self.field[i]['piece'].move(i,self.get_field())[1]
-        self.background.blit(green_50, self.field[king_side]['middle'])
-        if self.field[king_side]['owner'] == 'white':
-            self.background.blit(red_50, self.field[king_side]['middle'])
-        # self.white_moves.append(king_side)
-        pygame.display.update(self.field[king_side]['position'])
+        if not king_side == "":
+            self.background.blit(green_50, self.field[king_side]['middle'])
+            if self.field[king_side]['owner'] == 'white':
+                self.background.blit(red_50, self.field[king_side]['middle'])
+            # self.white_moves.append(king_side)
+            pygame.display.update(self.field[king_side]['position'])
         
         queen_side = self.field[i]['piece'].move(i,self.get_field())[2]
-        self.background.blit(green_50, self.field[queen_side]['middle'])
-        if self.field[queen_side]['owner'] == 'white':
-            self.background.blit(red_50, self.field[queen_side]['middle'])
-        # self.white_moves.append(queen_side)
-        pygame.display.update(self.field[queen_side]['position'])
+        if not queen_side == "":
+            self.background.blit(green_50, self.field[queen_side]['middle'])
+            if self.field[queen_side]['owner'] == 'white':
+                self.background.blit(red_50, self.field[queen_side]['middle'])
+            # self.white_moves.append(queen_side)
+            pygame.display.update(self.field[queen_side]['position'])
         
     def black1(self):
         click1_not_clicked = True
@@ -476,9 +482,9 @@ class Board:
                                 self.clear_white_and_black_moves()
                                 self.clear_whitepress_and_blackpress()
                                 self.black1()
-                                
+                             
                             
-                            
+                                   
                             elif i == self.kingside_castle:
                                 #for the king
                                 self.black_movement(i)
@@ -518,7 +524,7 @@ class Board:
                                 self.clear_white_and_black_moves()
                                 self.clear_whitepress_and_blackpress()
                                 click2_not_clicked = False
-                                
+                            
                             elif i in self.black_moves: 
                                 #replace the old square with none and transfer class, picture, and owner to new square
                                 self.black_movement(i)
@@ -529,6 +535,7 @@ class Board:
                                 self.clear_white_and_black_moves()
                                 self.clear_whitepress_and_blackpress()
                                 click2_not_clicked = False
+                            
                                 
                             else:
                                 print('Oops you touched a square without a green dot. Please try again')
@@ -538,12 +545,12 @@ class Board:
         #[BLACK]
         #Setting up pieces
         self.field['A8']['piece']   = black_rook()
-        # self.field['B8']['piece']   = black_knight()
-        # self.field['C8']['piece']   = black_bishop()
-        # self.field['D8']['piece']   = black_queen()
+        self.field['B8']['piece']   = black_knight()
+        self.field['C8']['piece']   = black_bishop()
+        self.field['D8']['piece']   = black_queen()
         self.field['E8']['piece']   = black_king()
-        # self.field['F8']['piece']   = black_bishop()
-        # self.field['G8']['piece']   = black_knight()
+        self.field['F8']['piece']   = black_bishop()
+        self.field['G8']['piece']   = black_knight()
         self.field['H8']['piece']   = black_rook()
         self.field['A7']['piece']   = black_pawn()
         self.field['B7']['piece']   = black_pawn()
@@ -555,12 +562,12 @@ class Board:
         self.field['H7']['piece']   = black_pawn()
         #setting pictures to correspond with the pieces squares
         self.field['A8']['picture'] = b_rook
-        # self.field['B8']['picture'] = b_knight
-        # self.field['C8']['picture'] = b_bishop
-        # self.field['D8']['picture'] = b_queen
+        self.field['B8']['picture'] = b_knight
+        self.field['C8']['picture'] = b_bishop
+        self.field['D8']['picture'] = b_queen
         self.field['E8']['picture'] = b_king
-        # self.field['F8']['picture'] = b_bishop
-        # self.field['G8']['picture'] = b_knight
+        self.field['F8']['picture'] = b_bishop
+        self.field['G8']['picture'] = b_knight
         self.field['H8']['picture'] = b_rook
         self.field['A7']['picture'] = b_pawn
         self.field['B7']['picture'] = b_pawn
@@ -572,12 +579,12 @@ class Board:
         self.field['H7']['picture'] = b_pawn
         #setting pieces up so they know which owner they have
         self.field['A8']['owner']   = 'black'
-        # self.field['B8']['owner']   = 'black'
-        # self.field['C8']['owner']   = 'black'
-        # self.field['D8']['owner']   = 'black'
+        self.field['B8']['owner']   = 'black'
+        self.field['C8']['owner']   = 'black'
+        self.field['D8']['owner']   = 'black'
         self.field['E8']['owner']   = 'black'
-        # self.field['F8']['owner']   = 'black'
-        # self.field['G8']['owner']   = 'black'
+        self.field['F8']['owner']   = 'black'
+        self.field['G8']['owner']   = 'black'
         self.field['H8']['owner']   = 'black'
         self.field['A7']['owner']   = 'black'
         self.field['B7']['owner']   = 'black'
@@ -590,12 +597,12 @@ class Board:
         #[WHITE]
         #Setting up pieces
         self.field['A1']['piece']   = white_rook()
-        # self.field['B1']['piece']   = white_knight()
-        # self.field['C1']['piece']   = white_bishop()
-        # self.field['D1']['piece']   = white_queen()
+        self.field['B1']['piece']   = white_knight()
+        self.field['C1']['piece']   = white_bishop()
+        self.field['D1']['piece']   = white_queen()
         self.field['E1']['piece']   = white_king()
-        # self.field['F1']['piece']   = white_bishop()
-        # self.field['G1']['piece']   = white_knight()
+        self.field['F1']['piece']   = white_bishop()
+        self.field['G1']['piece']   = white_knight()
         self.field['H1']['piece']   = white_rook()
         self.field['A2']['piece']   = white_pawn()
         self.field['B2']['piece']   = white_pawn()
@@ -607,12 +614,12 @@ class Board:
         self.field['H2']['piece']   = white_pawn()
         #setting pictures to correspond with the pieces squares
         self.field['A1']['picture'] = w_rook
-        # self.field['B1']['picture'] = w_knight
-        # self.field['C1']['picture'] = w_bishop
-        # self.field['D1']['picture'] = w_queen
+        self.field['B1']['picture'] = w_knight
+        self.field['C1']['picture'] = w_bishop
+        self.field['D1']['picture'] = w_queen
         self.field['E1']['picture'] = w_king
-        # self.field['F1']['picture'] = w_bishop
-        # self.field['G1']['picture'] = w_knight
+        self.field['F1']['picture'] = w_bishop
+        self.field['G1']['picture'] = w_knight
         self.field['H1']['picture'] = w_rook
         self.field['A2']['picture'] = w_pawn
         self.field['B2']['picture'] = w_pawn
@@ -624,12 +631,12 @@ class Board:
         self.field['H2']['picture'] = w_pawn
         #setting pieces up so they know which owner they have
         self.field['A1']['owner']   = 'white'
-        # self.field['B1']['owner']   = 'white'
-        # self.field['C1']['owner']   = 'white'
-        # self.field['D1']['owner']   = 'white'
+        self.field['B1']['owner']   = 'white'
+        self.field['C1']['owner']   = 'white'
+        self.field['D1']['owner']   = 'white'
         self.field['E1']['owner']   = 'white'
-        # self.field['F1']['owner']   = 'white'
-        # self.field['G1']['owner']   = 'white'
+        self.field['F1']['owner']   = 'white'
+        self.field['G1']['owner']   = 'white'
         self.field['H1']['owner']   = 'white'
         self.field['A2']['owner']   = 'white'
         self.field['B2']['owner']   = 'white'
