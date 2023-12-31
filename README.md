@@ -3,14 +3,18 @@ We are going to make a Chess game that two players could potentially play
 Things the Game should have
 ## 1. A board
     1. A picture of a board that I can calculate the pixels and then divide into 64 squares +
-    2. 0,0 W; 0,1 B; 0,2 W; 0,3 B;
-    3. 1,0 B; 1,1 W; 1,2 B; 1,3 W; 
-    4. 2,0 W; 2,1 B; 2,2 W; 2,3 B;
-    5. 3,0 B; 3,1 W; 3,2 B; 3,3 W; 
-    6. 4,0 W; 4,1 B; 4,2 W; 4,3 B;
-    7. 5,0 B; 5,1 W; 5,2 B; 5,3 W; 
-    8. 6,0 W; 6,1 B; 6,2 W; 6,3 B;
-    9. 7,0 B; 7,1 W; 7,2 B; 7,3 W; 
+    
+         _________________________________________
+      8 +  0,0; 0,1; 0,2; 0,3; 0,4; 0,5; 0,6; 0,7 |
+      7 +  1,0; 1,1; 1,2; 1,3; 1,4; 1,5; 1,6; 1,7 |
+      6 +  2,0; 2,1; 2,2; 2,3; 2,4; 2,5; 2,6; 2,7 |
+      5 +  3,0; 3,1; 3,2; 3,3; 3,4; 3,5; 3,6; 3,7 |
+      4 +  4,0; 4,1; 4,2; 4,3; 4,4; 4,5; 4,6; 4,7 |
+      3 +  5,0; 5,1; 5,2; 5,3; 5,4; 5,5; 5,6; 5,7 |
+      2 +  6,0; 6,1; 6,2; 6,3; 6,4; 6,5; 6,6; 6,7 |
+      1 +  7,0; 7,1; 7,2; 7,3; 7,4; 7,5; 7,6; 7,7 |
+        +  +++++++++++++++++++++++++++++++++++++++|
+            A    B    C    D    E    F    G    H 
 
 ## 2. Pieces
     1. Each piece should have a set of moves that they can do 

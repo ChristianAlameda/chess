@@ -1,3 +1,5 @@
 No en peasant for black pawn or white pawn
 
 No promotion for pawns yet
+
+Queen can't go to all her squares

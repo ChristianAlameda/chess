@@ -683,35 +683,6 @@ class white_pawn(Piece):
                 white_pawn_moves.append(new2)
             else:
                 ne = False
-            
-        if board[new]['position_xy'] == ([0,0] or [0,1] or [0,2] or [0,3] or [0,4] or [0,5] or [0,6] or [0,7]):
-            white_pawn_moves.append(new)
-            print('what piece would you like to change to?')
-            piece_selection = int(input("[1] - Queen\n[2] - bishop\n[3] - Knight\n: "))
-            from mapping import b_pawn, b_bishop, b_knight
-            if piece_selection == 1:
-                board[x]['piece'] = None
-                board[x]['owner'] = None
-                board[x]['picture'] = None
-                board[new]['piece'] = black_queen() # it == not new but one of the values above 00 01 02 etc... 
-                board[new]['owner'] = 'black'
-                board[new]['picture'] = b_pawn
-                
-            elif piece_selection == 2:
-                board[x]['piece'] = None
-                board[x]['owner'] = None
-                board[x]['picture'] = None
-                board[new]['piece'] = black_bishop()
-                board[new]['owner'] = 'black'
-                board[new]['picture'] = b_bishop
-                
-            elif piece_selection == 3:
-                board[x]['piece'] = None
-                board[x]['owner'] = None
-                board[x]['picture'] = None
-                board[new]['piece'] = black_knight()
-                board[new]['owner'] = 'black'
-                board[new]['picture'] = b_knight
         
         is_pinned, pinned_value = self.pinned(x, board)
         if is_pinned:
