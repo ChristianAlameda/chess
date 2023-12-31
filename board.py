@@ -624,7 +624,15 @@ class Board:
                             else:
                                 print('Oops you touched a square without a green dot. Please try again')
                                 self.black2()
-                                
+    
+    
+    def game_counter(self):
+        tmp = 0
+        for i in self.get_field():
+            tmp += self.field[i]['move_counter']
+        print(tmp)
+        return tmp
+        
     def initialize_game(self):
         #[BLACK]
         #Setting up pieces
