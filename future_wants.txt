@@ -1,2 +1,2 @@
-Queen can't go to all her squares
+Black/White Rook can eat other of it's pieces
 

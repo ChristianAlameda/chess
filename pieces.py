@@ -390,7 +390,7 @@ class black_bishop(Piece):
         x decreases and y increases
         x decreases and y decreases 
         '''
-        for i in range(1,7):  #sw
+        for i in range(1,8):  #sw
             result1 = list(map(sum,zip(board[x]['position_xy'],[i,i])))
             if self.is_legal(result1):#I am bishop
                 new1 = change[result1[0]] + change1[result1[1]]
@@ -404,7 +404,7 @@ class black_bishop(Piece):
             else:
                 break
             
-        for i in range(1,7):#nw
+        for i in range(1,8):#nw
             result2= list(map(sum,zip(board[x]['position_xy'],[i,-i])))
             if self.is_legal(result2):
                 new2 = change[result2[0]] + change1[result2[1]]
@@ -418,7 +418,7 @@ class black_bishop(Piece):
             else:
                 break
             
-        for i in range(1,7):#se
+        for i in range(1,8):#se
             result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
             
             if self.is_legal(result3):
@@ -433,7 +433,7 @@ class black_bishop(Piece):
             else:
                 break
             
-        for i in range(1,7):#ne
+        for i in range(1,8):#ne
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
             if self.is_legal(result4):
                 new4 = change[result4[0]] + change1[result4[1]]
@@ -456,7 +456,7 @@ class black_bishop(Piece):
 class black_rook(Piece):
     def move(self, x, board):
         black_rook_moves = []
-        for i in range(1,7):  
+        for i in range(1,8):  
             result1 = list(map(sum,zip(board[x]['position_xy'],[0,-i])))
             if self.is_legal(result1):
                 new1 = change[result1[0]] + change1[result1[1]]
@@ -465,12 +465,12 @@ class black_rook(Piece):
             if board[new1]['owner'] == 'white':
                 black_rook_moves.append(new1)
                 break
-            elif board[new1]['owner'] == None:#1
+            elif board[new1]['owner'] == None: # 1
                 black_rook_moves.append(new1)
             else:
                 break
             
-        for i in range(1,7):
+        for i in range(1,8):
             result2= list(map(sum,zip(board[x]['position_xy'],[0,i])))
             if self.is_legal(result2):
                 new2 = change[result2[0]] + change1[result2[1]]
@@ -484,7 +484,7 @@ class black_rook(Piece):
             else:                    
                 break
             
-        for i in range(1,7):
+        for i in range(1,8):
             result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))
             if self.is_legal(result3):
                 new3 = change[result3[0]] + change1[result3[1]]
@@ -498,7 +498,7 @@ class black_rook(Piece):
             else:                    
                 break
         
-        for i in range(1,7):
+        for i in range(1,8):
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0])))
             if self.is_legal(result4):
                 new4 = change[result4[0]] + change1[result4[1]]
@@ -955,7 +955,7 @@ class white_bishop(Piece):
         x decreases and y increases
         x decreases and y decreases 
         '''
-        for i in range(1,7):  
+        for i in range(1,8):  
             result1 = list(map(sum,zip(board[x]['position_xy'],[i,i])))
             if self.is_legal(result1):
                 new1 = change[result1[0]] + change1[result1[1]]
@@ -969,7 +969,7 @@ class white_bishop(Piece):
             else:
                 break
             
-        for i in range(1,7):
+        for i in range(1,8):
             result2= list(map(sum,zip(board[x]['position_xy'],[i,-i])))
             if self.is_legal(result2):
                 new2 = change[result2[0]] + change1[result2[1]]
@@ -983,7 +983,7 @@ class white_bishop(Piece):
             else:                    
                 break
             
-        for i in range(1,7):
+        for i in range(1,8):
             result3 = list(map(sum,zip(board[x]['position_xy'],[-i,i])))
             if self.is_legal(result3):
                 new3 = change[result3[0]] + change1[result3[1]]
@@ -997,7 +997,7 @@ class white_bishop(Piece):
             else:                    
                 break
         
-        for i in range(1,7):
+        for i in range(1,8):
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,-i])))
             if self.is_legal(result4):
                 new4 = change[result4[0]] + change1[result4[1]]
@@ -1027,7 +1027,8 @@ class white_rook(Piece):
         3. West:  x = x+1 || y = y
         4. East:  x = x-1 || y = y
         '''
-        for i in range(1,7):
+        
+        for i in range(1,8):
             result1 = list(map(sum,zip(board[x]['position_xy'],[0,i])))  # s
             if self.is_legal(result1):# I am rook
                 new1 = change[result1[0]] + change1[result1[1]]
@@ -1041,7 +1042,7 @@ class white_rook(Piece):
             else:                    
                 break
             
-        for i in range(1,7):
+        for i in range(1,8):
             result2= list(map(sum,zip(board[x]['position_xy'],[0,-i])))  # n
             if self.is_legal(result2):
                 new2 = change[result2[0]] + change1[result2[1]]
@@ -1055,7 +1056,7 @@ class white_rook(Piece):
             else:                    
                 break
                     
-        for i in range(1,7):
+        for i in range(1,8):
             result3 = list(map(sum,zip(board[x]['position_xy'],[i,0])))  # w
             if self.is_legal(result3):
                 new3 = change[result3[0]] + change1[result3[1]]
@@ -1069,7 +1070,7 @@ class white_rook(Piece):
             else:                    
                 break
                 
-        for i in range(1,7):
+        for i in range(1,8):
             result4 = list(map(sum,zip(board[x]['position_xy'],[-i,0]))) # e
             if self.is_legal(result4):
                 new4 = change[result4[0]] + change1[result4[1]]
