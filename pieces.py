@@ -183,15 +183,105 @@ class black_pawn(Piece):
             if (board[new2]['owner'] == 'white') and se:
                 black_pawn_moves.append(new2)
         
-        #caputuring en peasants
-        if sw or se:
-            pass
+        #en pessant
+        # inner pieces
+        inner = [[1,4] , [2,4] , [3,4] , [4,4] , [5,4] , [6,4]]
+        # outer pieces
+        outer_left = [0,4]
+        outer_right = [7,4]
+        
+        # looks to the left
+        result = list(map(sum,zip(board[x]['position_xy'],[-1,0]))) 
+        # Looks to the right
+        result1 = list(map(sum,zip(board[x]['position_xy'],[1,0])))
+        
+        second_rank_left  = ''
+        second_rank_right = ''
+        
+        #change to dictionary coordinates h8
+        if self.is_legal(result):
+            new = change[result[0]] + change1[result[1]]
+            
+            # grab the second rank that we are interested in (to the left)
+            second_rank_left = change[result[0]] + '2'
+            
+            # check 4th rank left
+            fourth_rank = change[result[0]] + '4'
+            
+        if self.is_legal(result1):
+            new1 = change[result1[0]] + change1[result1[1]]
+            
+            # grab the second rank that we are interested in (to the right)
+            second_rank_right = change[result1[0]] + '2'
+            
+            # check 4th rank right
+            fourth_rank = change[result1[0]] + '4'
+
+        # check if our selected pawn is in the correct rank
+        if board[x]['position_xy'] in inner:
+            
+            # check for a black pawn whose is only on move 1 on it's counter 
+            if (isinstance(board[new]['piece'], white_pawn)) and (board[second_rank_left]['move_counter'] == 1):
+                # we want to add the move to get behind the black pawn
+                check = list(map(sum,zip(board[x]['position_xy'],[-1,1])))
+                new2 = change[check[0]] + change1[check[1]]
                 
+                black_pawn_moves.append(new2) #north x1 east x1
+                
+                is_pinned, pinned_value = self.pinned(x, board)
+                if is_pinned:
+                    black_pawn_moves = [pinned_value]
+
+                return black_pawn_moves, fourth_rank
+                
+            if (isinstance(board[new1]['piece'], white_pawn)) and (board[second_rank_right]['move_counter'] == 1):
+                # we want to add the move to get behind the black pawn
+                check = list(map(sum,zip(board[x]['position_xy'],[1,1])))
+                new2 = change[check[0]] + change1[check[1]]
+                
+                black_pawn_moves.append(new2) #north x1 east x1
+                
+                is_pinned, pinned_value = self.pinned(x, board)
+                if is_pinned:
+                    black_pawn_moves = [pinned_value]
+
+                return black_pawn_moves, fourth_rank
+        
+        if board[x]['position_xy'] == outer_left:
+            # check for right
+            if (isinstance(board[new1]['piece'], white_pawn)) and (board[second_rank_right]['move_counter'] == 1):
+                # we want to add the move to get behind the black pawn
+                check = list(map(sum,zip(board[x]['position_xy'],[-1,1])))
+                new2 = change[check[0]] + change1[check[1]]
+                
+                black_pawn_moves.append(new2) #north x1 east x1
+                
+                is_pinned, pinned_value = self.pinned(x, board)
+                if is_pinned:
+                    black_pawn_moves = [pinned_value]
+
+                return black_pawn_moves, fourth_rank
+        
+        if board[x]['position_xy'] == outer_right:
+            # check for left
+            if (isinstance(board[new]['piece'], white_pawn)) and (board[second_rank_left]['move_counter'] == 1):
+                # we want to add the move to get behind the black pawn
+                check = list(map(sum,zip(board[x]['position_xy'],[-1,1])))
+                new2 = change[check[0]] + change1[check[1]]
+                
+                black_pawn_moves.append(new2) #north x1 east x1
+                
+                is_pinned, pinned_value = self.pinned(x, board)
+                if is_pinned:
+                    black_pawn_moves = [pinned_value]
+
+                return black_pawn_moves, fourth_rank
+        
         is_pinned, pinned_value = self.pinned(x, board)
         if is_pinned:
             black_pawn_moves = [pinned_value]
 
-        return black_pawn_moves
+        return black_pawn_moves, ''
     
 class black_knight(Piece):
     def move(self, x, board):
@@ -653,12 +743,107 @@ class white_pawn(Piece):
                 white_pawn_moves.append(new2)
             else:
                 ne = False
+                
+        #en pessant
+        # inner pieces
+        inner = [[1,3] , [2,3] , [3,3] , [4,3] , [5,3] , [6,3]]
+        # outer pieces
+        outer_left = [0,3]
+        outer_right = [7,3]
+        
+        # looks to the left
+        result = list(map(sum,zip(board[x]['position_xy'],[-1,0]))) 
+        # Looks to the right
+        result1 = list(map(sum,zip(board[x]['position_xy'],[1,0])))
+        
+        second_rank_left  = ''
+        second_rank_right = ''
+        
+        #change to dictionary coordinates h8
+        if self.is_legal(result):
+            new = change[result[0]] + change1[result[1]]
+            
+            # grab the second rank that we are interested in (to the left)
+            second_rank_left = change[result[0]] + '7'
+            
+            # check 5th rank left
+            fourth_rank = change[result[0]] + '5'
+            
+        if self.is_legal(result1):
+            new1 = change[result1[0]] + change1[result1[1]]
+            
+            # grab the second rank that we are interested in (to the right)
+            second_rank_right = change[result1[0]] + '7'
+            
+            # check 5th rank right
+            fourth_rank = change[result1[0]] + '5'
+
+        # check if our selected pawn is in the correct rank
+        if board[x]['position_xy'] in inner:
+            
+            # check for a black pawn whose is only on move 1 on it's counter 
+            if (isinstance(board[new]['piece'], black_pawn)) and (board[second_rank_left]['move_counter'] == 1):
+                # we want to add the move to get behind the black pawn
+                check = list(map(sum,zip(board[x]['position_xy'],[-1,-1])))
+                new2 = change[check[0]] + change1[check[1]]
+                
+                white_pawn_moves.append(new2) #north x1 east x1
+                
+                is_pinned, pinned_value = self.pinned(x, board)
+                if is_pinned:
+                    white_pawn_moves = [pinned_value]
+
+                return white_pawn_moves, fourth_rank
+                
+                
+            if (isinstance(board[new1]['piece'], black_pawn)) and (board[second_rank_right]['move_counter'] == 1):
+                # we want to add the move to get behind the black pawn
+                check = list(map(sum,zip(board[x]['position_xy'],[1,-1])))
+                new2 = change[check[0]] + change1[check[1]]
+                
+                white_pawn_moves.append(new2) #north x1 east x1
+                
+                is_pinned, pinned_value = self.pinned(x, board)
+                if is_pinned:
+                    white_pawn_moves = [pinned_value]
+
+                return white_pawn_moves, fourth_rank
+        
+        if board[x]['position_xy'] == outer_left:
+            # check for right
+            if (isinstance(board[new1]['piece'], black_pawn)) and (board[second_rank_right]['move_counter'] == 1):
+                # we want to add the move to get behind the black pawn
+                check = list(map(sum,zip(board[x]['position_xy'],[-1,-1])))
+                new2 = change[check[0]] + change1[check[1]]
+                
+                white_pawn_moves.append(new2) #north x1 east x1
+                
+                is_pinned, pinned_value = self.pinned(x, board)
+                if is_pinned:
+                    white_pawn_moves = [pinned_value]
+
+                return white_pawn_moves, fourth_rank
+        
+        if board[x]['position_xy'] == outer_right:
+            # check for left
+            if (isinstance(board[new]['piece'], black_pawn)) and (board[second_rank_left]['move_counter'] == 1):
+                # we want to add the move to get behind the black pawn
+                check = list(map(sum,zip(board[x]['position_xy'],[-1,-1])))
+                new2 = change[check[0]] + change1[check[1]]
+                
+                white_pawn_moves.append(new2) #north x1 east x1
+                
+                is_pinned, pinned_value = self.pinned(x, board)
+                if is_pinned:
+                    white_pawn_moves = [pinned_value]
+
+                return white_pawn_moves, fourth_rank
         
         is_pinned, pinned_value = self.pinned(x, board)
         if is_pinned:
             white_pawn_moves = [pinned_value]
 
-        return white_pawn_moves
+        return white_pawn_moves, ''
     
 class white_knight(Piece):
     def move(self, x, board):
@@ -993,7 +1178,6 @@ class white_king(Piece):
             new10 = change[result10[0]] + change1[result10[1]]
         else: se = False
         
-        #print(new1,new2,new3,new4,new5,new6,new7,new8,new9,new10)
         
         #KING MOVES
         

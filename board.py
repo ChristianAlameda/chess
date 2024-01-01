@@ -29,6 +29,8 @@ class Board:
         self.kingside_castle = ''
         self.queenside_castle = ''
         
+        self.enpessant = ''
+        
     def get_field(self):
         return self.field
 
@@ -143,7 +145,6 @@ class Board:
         pygame.quit()
                         
     def white1_helper(self,i):
-        print(self.field[i]['piece'].move(i,self.get_field()))
         for j in self.field[i]['piece'].move(i,self.get_field()): # [a8,b5,...]
             self.background.blit(green_50, self.field[j]['middle'])
             if self.field[j]['owner'] == 'black':
@@ -151,6 +152,16 @@ class Board:
             self.white_moves.append(j)
             pygame.display.update(self.field[j]['position'])
     
+    def white1_pawn_helper(self, i):
+        for j in self.field[i]['piece'].move(i,self.get_field())[0]: # [a8,b5,...]
+            self.background.blit(green_50, self.field[j]['middle'])
+            if self.field[j]['owner'] == 'black':
+                self.background.blit(red_50, self.field[j]['middle'])
+            self.white_moves.append(j)
+            pygame.display.update(self.field[j]['position'])
+        # account for ENPESSANT
+        self.enpessant = self.field[i]['piece'].move(i,self.get_field())[1] # h8
+        
     def white1_king_helper(self,i):
         for j in self.field[i]['piece'].move(i,self.get_field())[0]:#[a8,b5,...]
             self.background.blit(green_50, self.field[j]['middle'])
@@ -181,7 +192,16 @@ class Board:
         self.make_board()
         self.clear_white_and_black_moves()
         self.clear_whitepress_and_blackpress()
+        print("_______________________________")
         print("It's white's first press")
+        print('self.white_moves: ', self.white_moves)
+        print('self.white_press: ', self.white_press)
+        print('self.black_moves: ', self.black_moves)
+        print('self.black_press: ', self.black_press)
+        print('self.kingside_castle: ',self.kingside_castle)
+        print('self.queenside_castle: ',self.queenside_castle)
+        print('self.enpessant: ',self.enpessant)
+        print("_______________________________")
         while click1_not_clicked:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -196,13 +216,12 @@ class Board:
                             self.white1()
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'white':
                             
-                            print(type(i),i, '\n',type(self.field[i]['piece']), self.field[i]['piece'])#<pieces.white_pawn object at 0x0000020D82E8E620>
                             #via block trnasfering: blit() with window
                             self.picture_of_board()
                             self.white_press = i
-                            #if isinstance(self.field[i]['piece'], white_pawn)
+
                             if isinstance(self.field[i]['piece'], white_pawn):
-                                self.white1_helper(i)
+                                self.white1_pawn_helper(i)
                                 
                             elif isinstance(self.field[i]['piece'], white_knight):
                                 self.white1_helper(i)
@@ -256,6 +275,7 @@ class Board:
         self.black_moves = []
         self.kingside_castle = ''
         self.queenside_castle = ''
+        self.enpessant = ''
     
     def clear_whitepress_and_blackpress(self):
         self.white_press = ''
@@ -272,10 +292,16 @@ class Board:
     def white2(self):
         click2_not_clicked = True
         self.make_board()
+        print("_______________________________")
         print("It is white's second press")
-        print(self.white_moves)
-        print(self.kingside_castle)
-        print(self.queenside_castle)
+        print('self.white_moves: ', self.white_moves)
+        print('self.white_press: ', self.white_press)
+        print('self.black_moves: ', self.black_moves)
+        print('self.black_press: ', self.black_press)
+        print('self.kingside_castle: ',self.kingside_castle)
+        print('self.queenside_castle: ',self.queenside_castle)
+        print('self.enpessant: ',self.enpessant)
+        print("_______________________________")
         while click2_not_clicked:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -283,7 +309,6 @@ class Board:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     for i in self.field:
                         if self.field[i]["position"].collidepoint(pygame.mouse.get_pos()):
-                            print(self.field[i]['position_xy'])
                             
                             #check for bad square pressed on
                             if self.field[i]["owner"] == 'white':
@@ -338,14 +363,18 @@ class Board:
                                 self.clear_white_and_black_moves()
                                 self.clear_whitepress_and_blackpress()
                                 click2_not_clicked = False
-                            
-                            
+
                             #checks for normal moves
                             elif (i in self.white_moves): 
-                                #replace the old square with none and transfer class, picture, and owner to new square
                                 
                                 self.white_movement(i)
                                 # Check for any white pawn in the 8th rank
+                                if self.enpessant != '':
+                                    # grab self.enpessant and kill that piece on that square
+                                    self.field[self.enpessant]["picture"] = None
+                                    self.field[self.enpessant]["piece"]   = None
+                                    self.field[self.enpessant]["owner"]   = None
+
                                 last_rank = [
                                      [0,0],
                                      [1,0],
@@ -356,10 +385,9 @@ class Board:
                                      [6,0],
                                      [7,0]                                     
                                 ]
-                                
+                                #replace the old square with none and transfer class, picture, and owner to new square
                                 if (self.field[i]['position_xy'] in last_rank) and isinstance(self.field[i]['piece'], white_pawn):
-                                    print('what piece would you like to change to?')
-                                    piece_selection = int(input("[1] - Queen\n[2] - bishop\n[3] - Knight\n: "))
+                                    piece_selection = int(input("What piece would you like to change to?\n[1] - Queen\n[2] - bishop\n[3] - Knight\n: "))
                                     
                                     if piece_selection == 1:
                                         self.field[i]['piece']   = None 
@@ -389,6 +417,7 @@ class Board:
                                 self.field[self.white_press]['move_counter'] = self.field[self.white_press]['move_counter'] + 1
                                 self.make_board()
                                 pygame.display.update()#flip
+                                
                                 self.clear_white_and_black_moves()
                                 self.clear_whitepress_and_blackpress()
                                 click2_not_clicked = False
@@ -399,20 +428,29 @@ class Board:
                     #here check if user pressed exit
                     
     def black1_helper(self,i):
-        print(self.field[i]['piece'].move(i,self.get_field()))
         for j in self.field[i]['piece'].move(i,self.get_field()):#[a8,b5,...]
             self.background.blit(green_50, self.field[j]['middle'])
             if self.field[j]['owner'] == 'white':
                 self.background.blit(red_50, self.field[j]['middle'])
             self.black_moves.append(j)
             pygame.display.update(self.field[j]['position'])
+            
+    def black1_pawn_helper(self, i):
+        for j in self.field[i]['piece'].move(i,self.get_field())[0]: # [a8,b5,...]
+            self.background.blit(green_50, self.field[j]['middle'])
+            if self.field[j]['owner'] == 'white':
+                self.background.blit(red_50, self.field[j]['middle'])
+            self.black_moves.append(j)
+            pygame.display.update(self.field[j]['position'])
+        # account for ENPESSANT
+        self.enpessant = self.field[i]['piece'].move(i,self.get_field())[1] # h8
 
     def black1_king_helper(self,i):
         for j in self.field[i]['piece'].move(i,self.get_field())[0]:#[a8,b5,...]
             self.background.blit(green_50, self.field[j]['middle'])
             if self.field[j]['owner'] == 'white':
                 self.background.blit(red_50, self.field[j]['middle'])
-            self.white_moves.append(j)
+            self.black_moves.append(j)
             pygame.display.update(self.field[j]['position'])
         
         king_side = self.field[i]['piece'].move(i,self.get_field())[1]
@@ -420,7 +458,6 @@ class Board:
             self.background.blit(green_50, self.field[king_side]['middle'])
             if self.field[king_side]['owner'] == 'white':
                 self.background.blit(red_50, self.field[king_side]['middle'])
-            # self.white_moves.append(king_side)
             pygame.display.update(self.field[king_side]['position'])
         
         queen_side = self.field[i]['piece'].move(i,self.get_field())[2]
@@ -428,14 +465,23 @@ class Board:
             self.background.blit(green_50, self.field[queen_side]['middle'])
             if self.field[queen_side]['owner'] == 'white':
                 self.background.blit(red_50, self.field[queen_side]['middle'])
-            # self.white_moves.append(queen_side)
             pygame.display.update(self.field[queen_side]['position'])
         
     def black1(self):
         click1_not_clicked = True
         self.make_board()
         self.clear_white_and_black_moves()
+        
+        print("_______________________________")
         print("It is black's first press")
+        print('self.white_moves: ', self.white_moves)
+        print('self.white_press: ', self.white_press)
+        print('self.black_moves: ', self.black_moves)
+        print('self.black_press: ', self.black_press)
+        print('self.kingside_castle: ',self.kingside_castle)
+        print('self.queenside_castle: ',self.queenside_castle)
+        print('self.enpessant: ',self.enpessant)
+        print("_______________________________")
         while click1_not_clicked:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -450,13 +496,12 @@ class Board:
                             self.black1()
                         elif self.field[i]["position"].collidepoint(pygame.mouse.get_pos()) and self.field[i]["owner"] == 'black':
                             self.black_press = i
-                            print(self.field[i]['piece'])#<pieces.black_pawn object at 0x0000020D82E8E620>
-                            #via block trnasfering: blit() with window
+
                             self.picture_of_board()
 
                             #if isinstance(self.field[i]['piece'], black_pawn)
                             if isinstance(self.field[i]['piece'], black_pawn):
-                                self.black1_helper(i)
+                                self.black1_pawn_helper(i)
                                     
                             elif isinstance(self.field[i]['piece'], black_knight):
                                 self.black1_helper(i)
@@ -495,6 +540,7 @@ class Board:
                                 self.clear_white_and_black_moves()
                                 self.clear_whitepress_and_blackpress()
                                 self.black1()
+                            
                             click1_not_clicked = False
                     #here check if user pressed exit
 
@@ -508,7 +554,16 @@ class Board:
                                     
     def black2(self):
         click2_not_clicked = True
+        print("_______________________________")
         print("It's black's second press")
+        print('self.white_moves: ', self.white_moves)
+        print('self.white_press: ', self.white_press)
+        print('self.black_moves: ', self.black_moves)
+        print('self.black_press: ', self.black_press)
+        print('self.kingside_castle: ',self.kingside_castle)
+        print('self.queenside_castle: ',self.queenside_castle)
+        print('self.enpessant: ',self.enpessant)
+        print("_______________________________")
         while click2_not_clicked:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -574,6 +629,13 @@ class Board:
                                 self.black_movement(i)
                                 
                                 # Check for any white pawn in the 8th rank
+                                if self.enpessant != '':
+                                    # grab self.enpessant and kill that piece on that square
+                                    self.field[self.enpessant]["picture"] = None
+                                    self.field[self.enpessant]["piece"]   = None
+                                    self.field[self.enpessant]["owner"]   = None
+                                    
+                                # Check for any white pawn in the 8th rank
                                 last_rank = [
                                      [0,7],
                                      [1,7],
@@ -586,8 +648,7 @@ class Board:
                                 ]
                                 
                                 if (self.field[i]['position_xy'] in last_rank) and isinstance(self.field[i]['piece'], black_pawn):
-                                    print('what piece would you like to change to?')
-                                    piece_selection = int(input("[1] - Queen\n[2] - bishop\n[3] - Knight\n: "))
+                                    piece_selection = int(input("What piece would you like to change to?\n[1] - Queen\n[2] - bishop\n[3] - Knight\n: "))
                                     
                                     if piece_selection == 1:
                                         self.field[i]['piece']   = None 
@@ -620,17 +681,14 @@ class Board:
                                 self.clear_whitepress_and_blackpress()
                                 click2_not_clicked = False
                             
-                                
                             else:
                                 print('Oops you touched a square without a green dot. Please try again')
                                 self.black2()
-    
     
     def game_counter(self):
         tmp = 0
         for i in self.get_field():
             tmp += self.field[i]['move_counter']
-        print(tmp)
         return tmp
         
     def initialize_game(self):
@@ -650,7 +708,7 @@ class Board:
         # self.field['D7']['piece']   = black_pawn()
         # self.field['E7']['piece']   = black_pawn()
         # self.field['F7']['piece']   = black_pawn()
-        self.field['G2']['piece']   = black_pawn() # self.field['G7']['piece']   = black_pawn()
+        self.field['G5']['piece']   = black_pawn() # self.field['G7']['piece']   = black_pawn()
         # self.field['H7']['piece']   = black_pawn()
         #setting pictures to correspond with the pieces squares
         # self.field['A8']['picture'] = b_rook
@@ -667,7 +725,7 @@ class Board:
         # self.field['D7']['picture'] = b_pawn
         # self.field['E7']['picture'] = b_pawn
         # self.field['F7']['picture'] = b_pawn
-        self.field['G2']['picture'] = b_pawn
+        self.field['G5']['picture'] = b_pawn
         # self.field['H7']['picture'] = b_pawn
         #setting pieces up so they know which owner they have
         # self.field['A8']['owner']   = 'black'
@@ -684,7 +742,7 @@ class Board:
         # self.field['D7']['owner']   = 'black'
         # self.field['E7']['owner']   = 'black'
         # self.field['F7']['owner']   = 'black'
-        self.field['G2']['owner']   = 'black'
+        self.field['G5']['owner']   = 'black'
         # self.field['H7']['owner']   = 'black'
         #[WHITE]
         #Setting up pieces
@@ -702,8 +760,8 @@ class Board:
         # self.field['D2']['piece']   = white_pawn()
         # self.field['E2']['piece']   = white_pawn()
         # self.field['F2']['piece']   = white_pawn()
-        # self.field['G2']['piece']   = white_pawn()
-        self.field['H7']['piece']   = white_pawn()
+        self.field['G2']['piece']   = white_pawn()
+        self.field['H2']['piece']   = white_pawn()
         #setting pictures to correspond with the pieces squares
         # self.field['A1']['picture'] = w_rook
         # self.field['B1']['picture'] = w_knight
@@ -719,8 +777,8 @@ class Board:
         # self.field['D2']['picture'] = w_pawn
         # self.field['E2']['picture'] = w_pawn
         # self.field['F2']['picture'] = w_pawn
-        # self.field['G2']['picture'] = w_pawn
-        self.field['H7']['picture'] = w_pawn
+        self.field['G2']['picture'] = w_pawn
+        self.field['H2']['picture'] = w_pawn
         #setting pieces up so they know which owner they have
         # self.field['A1']['owner']   = 'white'
         # self.field['B1']['owner']   = 'white'
@@ -736,5 +794,5 @@ class Board:
         # self.field['D2']['owner']   = 'white'
         # self.field['E2']['owner']   = 'white'
         # self.field['F2']['owner']   = 'white'
-        # self.field['G2']['owner']   = 'white'
-        self.field['H7']['owner']   = 'white'
+        self.field['G2']['owner']   = 'white'
+        self.field['H2']['owner']   = 'white'
